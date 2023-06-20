@@ -27,6 +27,9 @@ class User extends Authenticatable
         'address',
         'licences',
         'country_id',
+        'country_name',
+        'timezone_name',
+        'timezone_minutes',
         'created_by',
         'ip_address',
     ];
