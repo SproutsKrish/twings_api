@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'module_id',
+        'page_id',
+        'name',
+        'url_name',
+        'guard_name'
+    ];
 }

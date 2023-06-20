@@ -5,11 +5,13 @@ use App\Http\Controllers\Api\{
     RegisterController,
     AdminDashboardController,
     UserDashboardController,
-    CountryController
+    CountryController,
+    RoleController,
+    PermissionController
 };
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Resources\UserResource;
 
 /*
@@ -48,3 +50,18 @@ Route::post('countries', [CountryController::class, 'store']);
 Route::get('countries/{id}', [CountryController::class, 'show']);
 Route::put('countries/{id}', [CountryController::class, 'update'])->name('countries.update');
 Route::delete('countries/{id}', [CountryController::class, 'destroy']);
+
+
+//Roles
+Route::get('roles', [RoleController::class, 'index']);
+Route::post('roles', [RoleController::class, 'store']);
+Route::get('roles/{id}', [RoleController::class, 'show']);
+Route::put('roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+Route::delete('roles/{id}', [RoleController::class, 'destroy']);
+
+//Permissions
+Route::get('permissions', [PermissionController::class, 'index']);
+Route::post('permissions', [PermissionController::class, 'store']);
+Route::get('permissions/{id}', [PermissionController::class, 'show']);
+Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('roles.update');
+Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
