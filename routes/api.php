@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
-Route::post('admin/details', [AdminDashboardController::class, 'details']);
+Route::post('admin/dashboard', [AdminDashboardController::class, 'details']);
 
 
 // Admin Dashboard route
