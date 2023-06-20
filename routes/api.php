@@ -31,18 +31,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
-Route::post('admin/dashboard', [AdminDashboardController::class, 'details']);
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
+    });
 
-// Admin Dashboard route
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
+    Route::middleware(['role:user'])->group(function () {
+        Route::get('user/dashboard', [UserDashboardController::class, 'index']);
+    });
 });
 
-// User Dashboard route
-Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
-    Route::get('user/dashboard', [UserDashboardController::class, 'index']);
-});
 
 //Country
 Route::get('countries', [CountryController::class, 'index']);
