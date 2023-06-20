@@ -4,7 +4,8 @@ use App\Http\Controllers\Api\{
     LoginController,
     RegisterController,
     AdminDashboardController,
-    UserDashboardController
+    UserDashboardController,
+    CountryController
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +41,10 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
     Route::get('user/dashboard', [UserDashboardController::class, 'index']);
 });
+
+//Country
+Route::get('countries', [CountryController::class, 'index']);
+Route::post('countries', [CountryController::class, 'store']);
+Route::get('countries/{id}', [CountryController::class, 'show']);
+Route::put('countries/{id}', [CountryController::class, 'update'])->name('countries.update');
+Route::delete('countries/{id}', [CountryController::class, 'destroy']);
