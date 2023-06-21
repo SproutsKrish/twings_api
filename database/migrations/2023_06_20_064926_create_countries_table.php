@@ -19,7 +19,13 @@ return new class extends Migration
             $table->string('country_code');
             $table->string('timezone_name');
             $table->integer('timezone_minutes');
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->string('ip_address')->nullable();
         });
     }
 

@@ -17,12 +17,12 @@ return new class extends Migration
             $table->integer('module_id')->nullable()->after('id');
             $table->integer('page_id')->nullable()->after('module_id');
             $table->string('url_name')->nullable()->after('name');
-            $table->tinyInteger('status')->nullable()->after('guard_name');
+            $table->tinyInteger('status')->nullable()->default(1)->after('guard_name');
             $table->dateTime('deleted_at')->nullable()->after('updated_at');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
-            $table->string('ip_address', 50)->nullable();
+            $table->string('ip_address')->nullable();
         });
     }
 
