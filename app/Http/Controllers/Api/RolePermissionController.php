@@ -33,4 +33,14 @@ class RolePermissionController extends Controller
             return Helper::sendError('Failed to insert role and permission.', [], 500);
         }
     }
+
+    public function show($id)
+    {
+        try {
+            $roleandpermission = RolePermission::findOrFail($id);
+            return Helper::sendSuccess($roleandpermission);
+        } catch (ModelNotFoundException $exception) {
+            return Helper::sendError('Role and Permission not found.', [], 404);
+        }
+    }
 }
