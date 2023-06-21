@@ -22,4 +22,15 @@ class RolePermissionController extends Controller
 
         return Helper::sendSuccess($roleandpermission);
     }
+
+    public function store(Request $request)
+    {
+        $roleandpermission = RolePermission::create($request->all());
+
+        if ($roleandpermission) {
+            return Helper::sendSuccess("Inserted Successfully");
+        } else {
+            return Helper::sendError('Failed to insert role and permission.', [], 500);
+        }
+    }
 }
