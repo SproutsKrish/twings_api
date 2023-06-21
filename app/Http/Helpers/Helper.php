@@ -8,7 +8,7 @@ class Helper
 {
     public static function sendError($message, $errors = [], $code = 401)
     {
-        $response = ['success' => false, 'message' => $message, 'code' => $code];
+        $response = ['success' => false, 'message' => $message, 'status_code' => $code];
         if (!empty($errors)) {
             $response['data']  = $errors;
         }
@@ -17,7 +17,7 @@ class Helper
 
     public static function sendSuccess($message, $code = 200)
     {
-        $response = ['success' => true, 'message' => $message, 'code' => $code];
+        $response = ['success' => true, 'message' => $message, 'status_code' => $code];
         throw new HttpResponseException(response()->json($response, $code));
     }
 }
