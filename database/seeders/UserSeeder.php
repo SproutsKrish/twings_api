@@ -18,15 +18,15 @@ class UserSeeder extends Seeder
     public function run()
     {
         //Creating Permissions
-        $user_list = Permission::create(['name' => 'users.list']);
-        $user_view = Permission::create(['name' => 'users.view']);
-        $user_create = Permission::create(['name' => 'users.create']);
-        $user_update = Permission::create(['name' => 'users.update']);
-        $user_delete = Permission::create(['name' => 'users.delete']);
+        $user_list = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.list']);
+        $user_view = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.view']);
+        $user_create = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.create']);
+        $user_update = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.update']);
+        $user_delete = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.delete']);
 
         //Creating Role
-        $admin_role = Role::create(['name' => 'admin']);
-        $user_role = Role::create(['name' => 'user']);
+        $admin_role = Role::create(['name' => 'Super Admin']);
+        $user_role = Role::create(['name' => 'Admin']);
 
         //Give PermissionToRole
         $admin_role->givePermissionTo([

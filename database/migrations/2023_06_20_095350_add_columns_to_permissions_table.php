@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->integer('module_id')->nullable()->after('id');
-            $table->integer('page_id')->nullable()->after('module_id');
+            $table->bigInteger('module_id')->nullable()->after('id');
+            $table->bigInteger('page_id')->nullable()->after('module_id');
             $table->string('url_name')->nullable()->after('name');
             $table->tinyInteger('status')->nullable()->default(1)->after('guard_name');
             $table->dateTime('deleted_at')->nullable()->after('updated_at');
