@@ -17,13 +17,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user_list = Permission::create(['name' => 'users.list']);
-        $user_view = Permission::create(['name' => 'users.view']);
-        $user_create = Permission::create(['name' => 'users.create']);
-        $user_update = Permission::create(['name' => 'users.update']);
-        $user_delete = Permission::create(['name' => 'users.delete']);
+        //Creating Permissions
+        $user_list = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.list']);
+        $user_view = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.view']);
+        $user_create = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.create']);
+        $user_update = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.update']);
+        $user_delete = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.delete']);
 
-        $admin_role = Role::create(['name' => 'admin']);
+        //Creating Role
+        $admin_role = Role::create(['name' => 'Super Admin']);
+        $user_role = Role::create(['name' => 'Admin']);
+
+        //Give PermissionToRole
         $admin_role->givePermissionTo([
             $user_list,
             $user_view,
@@ -32,13 +37,21 @@ class UserSeeder extends Seeder
             $user_delete
         ]);
 
+        $user_role->givePermissionTo([
+            $user_list
+        ]);
+
+        //Admin User
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password')
         ]);
 
+        //Admin User as Admin
         $admin->assignRole($admin_role);
+
+        //Give PermissionToAdminUser Based On Role
         $admin->givePermissionTo([
             $user_list,
             $user_view,
@@ -47,21 +60,16 @@ class UserSeeder extends Seeder
             $user_delete
         ]);
 
-
+        //User As User
         $user = User::create([
             'name' => 'User',
             'email' => 'user@user.com',
             'password' => bcrypt('password')
         ]);
 
-        $user_role = Role::create(['name' => 'user']);
-
         $user->assignRole($user_role);
-        $user->givePermissionTo([
-            $user_list
-        ]);
 
-        $user_role->givePermissionTo([
+        $user->givePermissionTo([
             $user_list
         ]);
     }

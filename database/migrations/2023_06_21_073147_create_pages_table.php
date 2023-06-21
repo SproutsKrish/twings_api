@@ -13,22 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->bigInteger('mobile_number')->nullable();
-            $table->bigInteger('alternate_mobile_number')->nullable();
-            $table->string('address', 255)->nullable();
-            $table->string('licences', 50)->nullable();
-            $table->integer('country_id')->nullable();
-            $table->string('country_name')->nullable();
-            $table->string('timezone_name')->nullable();
-            $table->integer('timezone_minutes')->nullable();
+            $table->bigInteger('module_id');
+            $table->string('page_name');
             $table->tinyInteger('status')->nullable()->default(1);
-            $table->rememberToken();
             $table->timestamps();
             $table->dateTime('deleted_at')->nullable();
             $table->integer('created_by')->nullable();
@@ -45,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pages');
     }
 };
