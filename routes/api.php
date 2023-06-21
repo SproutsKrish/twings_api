@@ -7,7 +7,8 @@ use App\Http\Controllers\Api\{
     UserDashboardController,
     CountryController,
     RoleController,
-    PermissionController
+    PermissionController,
+    RolePermissionController
 };
 
 use Illuminate\Http\Request;
@@ -52,7 +53,6 @@ Route::get('countries/{id}', [CountryController::class, 'show']);
 Route::put('countries/{id}', [CountryController::class, 'update'])->name('countries.update');
 Route::delete('countries/{id}', [CountryController::class, 'destroy']);
 
-
 //Roles
 Route::get('roles', [RoleController::class, 'index']);
 Route::post('roles', [RoleController::class, 'store']);
@@ -66,3 +66,7 @@ Route::post('permissions', [PermissionController::class, 'store']);
 Route::get('permissions/{id}', [PermissionController::class, 'show']);
 Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('roles.update');
 Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
+
+
+//RolePermission
+Route::get('roleandpermission', [RolePermissionController::class, 'index']);
