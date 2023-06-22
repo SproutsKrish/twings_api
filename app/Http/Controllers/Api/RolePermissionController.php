@@ -34,11 +34,40 @@ class RolePermissionController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($roleid, $permissionId)
     {
         try {
-            $roleandpermission = RolePermission::findOrFail($id);
-            return Helper::sendSuccess($roleandpermission);
+            $roleandpermission = RolePermission::where('role_id', $roleid)
+                ->where('permission_id', $permissionId)
+                ->first();
+
+            if ($roleandpermission) {
+                return Helper::sendSuccess($roleandpermission);
+            } else {
+                return Helper::sendError('Role and Permission not found.', [], 404);
+            }
+        } catch (ModelNotFoundException $exception) {
+            return Helper::sendError('Role and Permission not found.', [], 404);
+        }
+    }
+
+    public function update(Request $request, $roleid, $permissionId)
+    {
+        try {
+            $roleandpermission = RolePermission::where('role_id', $roleid)
+                ->where('permission_id', $permissionId)
+                ->first();
+
+            $roleandpermission->fill($request->only([
+                'permission_id',
+                'role_id',
+            ]));
+
+            if ($roleandpermission->save()) {
+                return Helper::sendSuccess("Data Updated Successfully !");
+            } else {
+                return Helper::sendError('Failed to update country.', [], 500);
+            }
         } catch (ModelNotFoundException $exception) {
             return Helper::sendError('Role and Permission not found.', [], 404);
         }
