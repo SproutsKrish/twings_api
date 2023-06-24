@@ -71,6 +71,6 @@ Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
 //RolePermission
 Route::get('roleandpermissions', [RolePermissionController::class, 'index']);
 Route::post('roleandpermissions', [RolePermissionController::class, 'store']);
-Route::get('roleandpermissions/{roleid}&{permissionId}', [RolePermissionController::class, 'show']);
-Route::put('roleandpermissions/{roleid}&{permissionId}', [RolePermissionController::class, 'update'])->name('roleandpermissions.update');
-Route::delete('roleandpermissions/{roleid}&{permissionId}', [RolePermissionController::class, 'destroy']);
+Route::get('roleandpermissions/{roleId}/{permissionId}', [RolePermissionController::class, 'show']);
+Route::put('roleandpermissions/{roleId}/{permissionId}', [RolePermissionController::class, 'update'])->name('roleandpermissions.update');
+Route::delete('roleandpermissions/{roleId}/{permissionId}', [RolePermissionController::class, 'destroy']);

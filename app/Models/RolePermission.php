@@ -15,4 +15,19 @@ class RolePermission extends Model
         'permission_id',
         'role_id',
     ];
+
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    public function getKeyType()
+    {
+        return 'array';
+    }
+
+    public function getKeyName()
+    {
+        return ['role_id', 'permission_id'];
+    }
 }
