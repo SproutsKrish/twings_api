@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\RolePermission;
 
+use Illuminate\Support\Str;
+
 class RolePermissionController extends Controller
 {
     public function index()
@@ -38,67 +40,47 @@ class RolePermissionController extends Controller
         }
     }
 
-
-    public function show($roleId, $permissionId)
+    public function show($id)
     {
         try {
-            $roleandpermission = RolePermission::where('role_id', $roleId)
-                ->where('permission_id', $permissionId)
-                ->first();
+            $roleandpermission = RolePermission::findOrFail($id);
+            return Helper::sendSuccess($roleandpermission);
+        } catch (ModelNotFoundException $exception) {
+            return Helper::sendError('Role and Permission not found.', [], 404);
+        }
+    }
 
-            if ($roleandpermission) {
-                return Helper::sendSuccess($roleandpermission);
+    public function update(Request $request, $id)
+    {
+        try {
+            $roleandpermission = RolePermission::findOrFail($id);
+
+            $roleandpermission->fill($request->only([
+                'role_id',
+                'permission_id'
+            ]));
+
+            if ($roleandpermission->save()) {
+                return Helper::sendSuccess("Data Updated Successfully !");
             } else {
-                return Helper::sendError('Role and Permission not found.', [], 404);
+                return Helper::sendError('Failed to update role and permission.', [], 500);
             }
         } catch (ModelNotFoundException $exception) {
             return Helper::sendError('Role and Permission not found.', [], 404);
         }
     }
 
-    public function update(Request $request, $roleId, $permissionId)
+    public function destroy($id)
     {
-        try {
-            $rolePermission = RolePermission::where('role_id', $roleId)
-                ->where('permission_id', $permissionId)
-                ->first();
+        $roleandpermission = RolePermission::find($id);
 
-            if (!$rolePermission) {
-                return Helper::sendError('Role permission not found.', [], 404);
-            }
-
-            // Update the specific columns
-            $rolePermission->permission_id = $request->input('permission_id', $rolePermission->permission_id);
-            $rolePermission->role_id = $request->input('role_id', $rolePermission->role_id);
-
-            if ($rolePermission->save()) {
-                return Helper::sendSuccess('Data updated successfully!');
-            } else {
-                return Helper::sendError('Failed to update role permission.', [], 500);
-            }
-        } catch (ModelNotFoundException $exception) {
+        if (!$roleandpermission) {
             return Helper::sendError('Role and Permission not found.', [], 404);
         }
-    }
-
-    public function destroy($roleId, $permissionId)
-    {
-        try {
-            $rolePermission = RolePermission::where('role_id', $roleId)
-                ->where('permission_id', $permissionId)
-                ->first();
-
-            if (!$rolePermission) {
-                return Helper::sendError('Role permission not found.', [], 404);
-            }
-
-            if ($rolePermission->delete()) {
-                return Helper::sendSuccess('Data deleted successfully!');
-            } else {
-                return Helper::sendError('Failed to delete role permission.', [], 500);
-            }
-        } catch (ModelNotFoundException $exception) {
-            return Helper::sendError('Role and Permission not found.', [], 404);
+        if ($roleandpermission->delete()) {
+            return Helper::sendSuccess('Role and Permission deleted successfully.');
+        } else {
+            return Helper::sendError('Failed to delete role and permission.', [], 500);
         }
     }
 }

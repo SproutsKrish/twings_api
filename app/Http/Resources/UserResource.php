@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Models\User;
+
 class UserResource extends JsonResource
 {
     /**
@@ -33,5 +35,47 @@ class UserResource extends JsonResource
             'roles.permissions' => $this->getPermissionsViaRoles()->pluck(['name']) ?? [],
             'permissions' => $this->permissions->pluck('name') ?? [],
         ];
+    }
+
+    public function loginRequest()
+    {
+        return [
+            'user_id' => $this->id,
+            'role_id' => $this->roles->pluck('id')->first(),
+            'token' => $this->createToken("Token")->plainTextToken,
+            'roles' => $this->roles->pluck('name'),
+            'roles.permissions' => $this->getPermissionsViaRoles()->pluck(['name']) ?? [],
+            'permissions' => $this->permissions->pluck('name') ?? [],
+        ];
+    }
+
+    public function getUsersInfoByID($id)
+    {
+        // Retrieve the users' information based on the token name
+        $users = User::where('id', $id)->get();
+
+        // Transform the users' information into the desired format
+        $userArray = [];
+        foreach ($users as $user) {
+            $userArray[] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at,
+                'password' => $user->password,
+                'mobile_number' => $user->mobile_number,
+                'alternate_mobile_number' => $user->alternate_mobile_number,
+                'address' => $user->address,
+                'licences' => $user->licences,
+                'country_id' => $user->country_id,
+                'country_name' => $user->country_name,
+                'timezone_name' => $user->timezone_name,
+                'timezone_minutes' => $user->timezone_minutes,
+                'status' => $user->status,
+                'remember_token' => $user->remember_token
+            ];
+        }
+
+        return $userArray;
     }
 }

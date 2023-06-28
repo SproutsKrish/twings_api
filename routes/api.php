@@ -11,9 +11,35 @@ use App\Http\Controllers\Api\{
     RolePermissionController
 };
 
+use App\Http\Controllers\Stock\{
+    SimController,
+    DeviceController,
+    CameraController,
+    SupplierController,
+    DeviceTypeController,
+    DeviceCategoryController,
+    DeviceModelController,
+    CameraTypeController,
+    CameraCategoryController,
+    CameraIssueController,
+    CameraModelController,
+    NetworkProviderController,
+    VehicleController,
+    VehicleTypeController
+};
+
+
+use App\Http\Controllers\user\{
+    ClientController,
+    DealerController,
+    SubdealerController
+};
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\UserResource;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +60,8 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('user', [RegisterController::class, 'register']);
 
+//User Details
+Route::get('login/{id}', [LoginController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
@@ -45,32 +73,71 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-
 //Country
-Route::get('countries', [CountryController::class, 'index']);
-Route::post('countries', [CountryController::class, 'store']);
-Route::get('countries/{id}', [CountryController::class, 'show']);
-Route::put('countries/{id}', [CountryController::class, 'update'])->name('countries.update');
-Route::delete('countries/{id}', [CountryController::class, 'destroy']);
+Route::resource('country', CountryController::class);
 
-//Roles
-Route::get('roles', [RoleController::class, 'index']);
-Route::post('roles', [RoleController::class, 'store']);
-Route::get('roles/{id}', [RoleController::class, 'show']);
-Route::put('roles/{id}', [RoleController::class, 'update'])->name('roles.update');
-Route::delete('roles/{id}', [RoleController::class, 'destroy']);
+//Role
+Route::resource('role', RoleController::class);
 
-//Permissions
-Route::get('permissions', [PermissionController::class, 'index']);
-Route::post('permissions', [PermissionController::class, 'store']);
-Route::get('permissions/{id}', [PermissionController::class, 'show']);
-Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
-Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
-
+//Permission
+Route::resource('role', PermissionController::class);
 
 //RolePermission
-Route::get('roleandpermissions', [RolePermissionController::class, 'index']);
-Route::post('roleandpermissions', [RolePermissionController::class, 'store']);
-Route::get('roleandpermissions/{roleId}/{permissionId}', [RolePermissionController::class, 'show']);
-Route::put('roleandpermissions/{roleId}/{permissionId}', [RolePermissionController::class, 'update'])->name('roleandpermissions.update');
-Route::delete('roleandpermissions/{roleId}/{permissionId}', [RolePermissionController::class, 'destroy']);
+Route::resource('roleandpermission', RolePermissionController::class);
+
+//Network Provider
+Route::resource('network', NetworkProviderController::class);
+
+//Supplier
+Route::resource('supplier', SupplierController::class);
+
+//Device Type
+Route::resource('device_type', DeviceTypeController::class);
+
+//Device Category
+Route::resource('device_category', DeviceCategoryController::class);
+
+//Device Model
+Route::resource('device_model', DeviceModelController::class);
+
+//Camera Type
+Route::resource('camera_type', CameraTypeController::class);
+
+//Camera Category
+Route::resource('camera_category', CameraCategoryController::class);
+
+//Camera Model
+Route::resource('camera_model', CameraModelController::class);
+
+//Sim
+Route::resource('sim', SimController::class);
+Route::put('simsaveassign/{id}', [SimController::class, 'saveassign'])->name('sim.update');
+Route::put('simdeleteassign/{id}', [SimController::class, 'deleteassign'])->name('sim.update');
+
+//Device
+Route::resource('device', DeviceController::class);
+Route::put('devicesaveassign/{id}', [DeviceController::class, 'saveassign'])->name('device.update');
+Route::put('devicedeleteassign/{id}', [DeviceController::class, 'deleteassign'])->name('device.update');
+
+//Camera
+Route::resource('camera', CameraController::class);
+Route::put('camerasaveassign/{id}', [CameraController::class, 'saveassign'])->name('camera.update');
+Route::put('cameradeleteassign/{id}', [CameraController::class, 'deleteassign'])->name('camera.update');
+
+//Client
+Route::resource('client', ClientController::class);
+
+//Dealer
+Route::resource('dealer', DealerController::class);
+
+//SubDealer
+Route::resource('subdealer', SubdealerController::class);
+
+//Vehicle
+Route::resource('vehicle', VehicleController::class);
+
+//Vehicle Type
+Route::resource('vehicle_type', VehicleTypeController::class);
+
+//Camera Issue
+Route::resource('camera_issue', CameraIssueController::class);
