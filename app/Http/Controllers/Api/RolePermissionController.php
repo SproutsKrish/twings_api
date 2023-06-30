@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 
 class RolePermissionController extends Controller
 {
+
     public function index()
     {
         $roleandpermission = RolePermission::all();
@@ -48,6 +49,8 @@ class RolePermissionController extends Controller
         } catch (ModelNotFoundException $exception) {
             return Helper::sendError('Role and Permission not found.', [], 404);
         }
+
+        return [$id];
     }
 
     public function update(Request $request, $id)

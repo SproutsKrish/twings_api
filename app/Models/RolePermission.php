@@ -30,6 +30,6 @@ class RolePermission extends Model
 
     public function getKeyName()
     {
-        return ['role_id', 'permission_id'];
+        return 'id';
     }
 }
