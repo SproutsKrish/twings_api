@@ -25,16 +25,23 @@ class UserSeeder extends Seeder
         $user_delete = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.delete']);
 
         //Creating Role
-        $admin_role = Role::create(['name' => 'Super Admin']);
-        $user_role = Role::create(['name' => 'Admin']);
+        $super_admin_role = Role::create(['name' => 'Super Admin']);
+        $admin_role = Role::create(['name' => 'Admin']);
+        $user_role = Role::create(['name' => 'User']);
 
         //Give PermissionToRole
-        $admin_role->givePermissionTo([
+        $super_admin_role->givePermissionTo([
             $user_list,
             $user_view,
             $user_create,
             $user_update,
             $user_delete
+        ]);
+
+        $admin_role->givePermissionTo([
+            $user_list,
+            $user_view,
+            $user_create
         ]);
 
         $user_role->givePermissionTo([
@@ -42,22 +49,37 @@ class UserSeeder extends Seeder
         ]);
 
         //Admin User
+        $superadmin = User::create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@admin.com',
+            'password' => bcrypt('password')
+        ]);
+
+        //Super Admin as Super Admin
+        $superadmin->assignRole($super_admin_role);
+
+        //Give PermissionToAdminUser Based On Role
+        $superadmin->givePermissionTo([
+            $user_list,
+            $user_view,
+            $user_create,
+            $user_update,
+            $user_delete
+        ]);
+
+        //Admin As Admin
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password')
         ]);
 
-        //Admin User as Admin
         $admin->assignRole($admin_role);
 
-        //Give PermissionToAdminUser Based On Role
         $admin->givePermissionTo([
             $user_list,
             $user_view,
-            $user_create,
-            $user_update,
-            $user_delete
+            $user_create
         ]);
 
         //User As User

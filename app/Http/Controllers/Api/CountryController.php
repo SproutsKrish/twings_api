@@ -55,6 +55,7 @@ class CountryController extends Controller
                 'country_code',
                 'timezone_name',
                 'timezone_minutes',
+                'updated_by',
             ]));
 
             if ($country->save()) {

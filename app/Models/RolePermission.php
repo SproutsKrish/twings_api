@@ -10,4 +10,26 @@ class RolePermission extends Model
     use HasFactory;
 
     protected $table = 'role_has_permissions';
+
+    protected $fillable = [
+        'permission_id',
+        'role_id',
+        'created_by',
+        'updated_by',
+    ];
+
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    public function getKeyType()
+    {
+        return 'array';
+    }
+
+    public function getKeyName()
+    {
+        return ['role_id', 'permission_id'];
+    }
 }

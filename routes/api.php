@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\{
     LoginController,
-    RegisterController,
+    UserController,
     AdminDashboardController,
     UserDashboardController,
     CountryController,
@@ -11,9 +11,37 @@ use App\Http\Controllers\Api\{
     RolePermissionController
 };
 
+use App\Http\Controllers\Stock\{
+    SimController,
+    DeviceController,
+    CameraController,
+    SupplierController,
+    DeviceTypeController,
+    DeviceCategoryController,
+    DeviceModelController,
+    CameraTypeController,
+    CameraCategoryController,
+    CameraIssueController,
+    CameraModelController,
+    DeviceIssueController,
+    NetworkProviderController,
+    VehicleController,
+    VehicleTypeController
+};
+
+
+use App\Http\Controllers\user\{
+    ClientController,
+    DealerController,
+    SubdealerController
+};
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\UserResource;
+
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,47 +54,92 @@ use App\Http\Resources\UserResource;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return new UserResource($request->user());
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return new UserResource($request->user());
+// });
 
 Route::post('login', [LoginController::class, 'login']);
-Route::post('register', [RegisterController::class, 'register']);
-Route::post('user', [RegisterController::class, 'register']);
+Route::post('register', [UserController::class, 'register']);
+// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::middleware(['role:admin'])->group(function () {
+    Route::middleware(['role:Admin'])->group(function () {
         Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
+        //Country
+        Route::resource('country', CountryController::class);
+        //Role
+        Route::resource('role', RoleController::class);
+        //Permission
+        Route::resource('permission', PermissionController::class);
+        //RolePermission
+        Route::resource('role_permission', RolePermissionController::class);
     });
 
-    Route::middleware(['role:user'])->group(function () {
+    Route::middleware(['role:User'])->group(function () {
         Route::get('user/dashboard', [UserDashboardController::class, 'index']);
+    });
+
+    Route::middleware(['role:Admin'])->group(function () {
+
+        //Network Provider
+        Route::resource('network', NetworkProviderController::class);
+
+        //Supplier
+        Route::resource('supplier', SupplierController::class);
+
+        //Device Type
+        Route::resource('device_type', DeviceTypeController::class);
+
+        //Device Category
+        Route::resource('device_category', DeviceCategoryController::class);
+
+        //Device Model
+        Route::resource('device_model', DeviceModelController::class);
+
+        //Camera Type
+        Route::resource('camera_type', CameraTypeController::class);
+
+        //Camera Category
+        Route::resource('camera_category', CameraCategoryController::class);
+
+        //Camera Model
+        Route::resource('camera_model', CameraModelController::class);
+
+        //Sim
+        Route::resource('sim', SimController::class);
+        Route::put('simsaveassign/{id}', [SimController::class, 'saveassign'])->name('sim.update');
+        Route::put('simdeleteassign/{id}', [SimController::class, 'deleteassign'])->name('sim.update');
+
+        //Device
+        Route::resource('device', DeviceController::class);
+        Route::put('devicesaveassign/{id}', [DeviceController::class, 'saveassign'])->name('device.update');
+        Route::put('devicedeleteassign/{id}', [DeviceController::class, 'deleteassign'])->name('device.update');
+
+        //Camera
+        Route::resource('camera', CameraController::class);
+        Route::put('camerasaveassign/{id}', [CameraController::class, 'saveassign'])->name('camera.update');
+        Route::put('cameradeleteassign/{id}', [CameraController::class, 'deleteassign'])->name('camera.update');
+
+        //Camera Issue
+        Route::resource('camera_issue', CameraIssueController::class);
+
+        //Device Issue
+        Route::resource('device_issue', DeviceIssueController::class);
     });
 });
 
+//Client
+Route::resource('client', ClientController::class);
 
-//Country
-Route::get('countries', [CountryController::class, 'index']);
-Route::post('countries', [CountryController::class, 'store']);
-Route::get('countries/{id}', [CountryController::class, 'show']);
-Route::put('countries/{id}', [CountryController::class, 'update'])->name('countries.update');
-Route::delete('countries/{id}', [CountryController::class, 'destroy']);
+//Dealer
+Route::resource('dealer', DealerController::class);
 
-//Roles
-Route::get('roles', [RoleController::class, 'index']);
-Route::post('roles', [RoleController::class, 'store']);
-Route::get('roles/{id}', [RoleController::class, 'show']);
-Route::put('roles/{id}', [RoleController::class, 'update'])->name('roles.update');
-Route::delete('roles/{id}', [RoleController::class, 'destroy']);
+//SubDealer
+Route::resource('subdealer', SubdealerController::class);
 
-//Permissions
-Route::get('permissions', [PermissionController::class, 'index']);
-Route::post('permissions', [PermissionController::class, 'store']);
-Route::get('permissions/{id}', [PermissionController::class, 'show']);
-Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('roles.update');
-Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
+//Vehicle
+Route::resource('vehicle', VehicleController::class);
 
-
-//RolePermission
-Route::get('roleandpermission', [RolePermissionController::class, 'index']);
+//Vehicle Type
+Route::resource('vehicle_type', VehicleTypeController::class);

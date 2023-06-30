@@ -9,8 +9,10 @@ use App\Http\Resources\UserResource;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 
-class RegisterController extends Controller
+class UserController extends Controller
 {
     public function register(RegisterRequest $request)
     {
@@ -38,5 +40,25 @@ class RegisterController extends Controller
         }
 
         return Helper::sendSuccess("Inserted Successfully");
+    }
+
+    public function index(Request $request)
+    {
+        $users = User::all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $users,
+        ]);
+    }
+
+
+    public function getUser(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+
+        // Perform additional logic if needed
+
+        return response()->json($user);
     }
 }
