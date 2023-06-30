@@ -14,6 +14,8 @@ class RolePermission extends Model
     protected $fillable = [
         'permission_id',
         'role_id',
+        'created_by',
+        'updated_by',
     ];
 
     public function getIncrementing()

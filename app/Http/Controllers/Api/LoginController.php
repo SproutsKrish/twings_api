@@ -7,39 +7,35 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Auth;
-use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        //login user
+        // login user
         if (!Auth::attempt($request->only('email', 'password'))) {
             Helper::sendError('Email Or Password is wrong !!!');
         }
 
-        //send response
+        // send response
         return Helper::sendSuccess((new UserResource(auth()->user()))->loginRequest());
     }
 
-    public function show($id)
-    {
-        // return Helper::sendSuccess((new UserResource(auth()->user()))->getUsersInfoByID($id));
+    // public function logout(Request $request)
+    // {
 
-        // Find the personal access token
-        $accessToken = PersonalAccessToken::where('token', $id)->first();
+    //     if ($request->user()) {
+    //         $request->user()->tokens()->delete(); // Revoke all personal access tokens
+    //     }
 
-        if ($accessToken) {
-            // Retrieve the associated user
-            $user = User::find($accessToken->tokenable_id);
+    //     Auth::guard('api')->logout(); // Log out from the web guard
 
-            if ($user) {
-                // User found
-                return $user;
-            }
-        }
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
 
-        return response()->json(['error' => 'User not found'], 404);
-    }
+    //     return response()->json(['message' => 'Successfully logged out']);
+    // }
 }

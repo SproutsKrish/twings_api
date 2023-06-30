@@ -39,12 +39,12 @@ return new class extends Migration
             $table->string('client_address')->nullable();
             $table->string('client_city')->nullable();
             $table->string('client_state')->nullable();
-            $table->string('client_country')->nullable();
             $table->integer('client_pincode')->nullable();
-            $table->string('short_name')->nullable();
+            $table->integer('country_id')->nullable();
+            $table->string('country_name')->nullable();
             $table->string('timezone_name')->nullable();
-            $table->string('timezone_offset')->nullable();
-            $table->string('timezone_minutes')->nullable();
+            $table->integer('timezone_minutes')->nullable();
+            $table->string('short_name')->nullable();
             $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();
             $table->dateTime('deleted_at')->nullable();

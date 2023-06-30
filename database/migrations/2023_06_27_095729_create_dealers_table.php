@@ -26,8 +26,11 @@ return new class extends Migration
             $table->string('dealer_subdomain')->nullable();
             $table->string('dealer_city')->nullable();
             $table->string('dealer_state')->nullable();
-            $table->string('dealer_country')->nullable();
             $table->integer('dealer_pincode')->nullable();
+            $table->integer('country_id')->nullable();
+            $table->string('country_name')->nullable();
+            $table->string('timezone_name')->nullable();
+            $table->integer('timezone_minutes')->nullable();
             $table->longText('server_key')->nullable();
             $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();

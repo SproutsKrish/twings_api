@@ -57,7 +57,8 @@ class RolePermissionController extends Controller
 
             $roleandpermission->fill($request->only([
                 'role_id',
-                'permission_id'
+                'permission_id',
+                'updated_by',
             ]));
 
             if ($roleandpermission->save()) {

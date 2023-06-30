@@ -14,6 +14,8 @@ class Permission extends Model
         'page_id',
         'name',
         'url_name',
-        'guard_name'
+        'guard_name',
+        'created_by',
+        'updated_by',
     ];
 }

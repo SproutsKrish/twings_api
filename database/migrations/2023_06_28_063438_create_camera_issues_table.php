@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('camera_issue', function (Blueprint $table) {
+        Schema::create('camera_issues', function (Blueprint $table) {
             $table->id();
             $table->integer('vehicle_type_id');
             $table->string('vehicle_make')->nullable();
@@ -54,6 +54,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('camera_issue');
+        Schema::dropIfExists('camera_issues');
     }
 };

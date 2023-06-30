@@ -12,6 +12,6 @@ class NetworkProvider extends Model
     protected $fillable = [
         'network_provider_name',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 }

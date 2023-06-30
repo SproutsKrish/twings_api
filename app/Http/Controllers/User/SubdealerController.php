@@ -62,8 +62,11 @@ class SubdealerController extends Controller
                 'subdealer_subdomain',
                 'subdealer_city',
                 'subdealer_state',
-                'subdealer_country',
                 'subdealer_pincode',
+                'country_id',
+                'country_name',
+                'timezone_name',
+                'timezone_minutes',
                 'status',
                 'updated_by',
                 'ip_address'

@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CameraIssue extends Model
+class DeviceIssue extends Model
 {
     use HasFactory;
-
-    protected $table = 'camera_issues';
 
     protected $fillable = [
         'vehicle_type_id',
@@ -21,22 +19,31 @@ class CameraIssue extends Model
         'engine_number',
         'registration_number',
         'registration_date',
-        'rto_no',
-        'issue_date',
-        'camera_id',
-        'camera_serial_no',
+        'device_imei',
+        'device_category',
+        'device_model',
+        'device_type',
+        'ccid',
+        'uid',
+        'primary_mob_no',
+        'secondary_mob_no',
+        'state',
+        'rto_number',
+        'certificate_id',
+        'certificate_no',
+        'installed_date',
+        'recalibration_date',
+        'invoice_date',
+        'invoice_number',
+        'panic_button',
+        'aadhaar_no',
         'image1',
         'image2',
         'image3',
         'qrimg',
-        'camera_category',
-        'certificate_id',
-        'certificate_no',
-        'subdealer_id',
         'dealer_id',
-        'client_id',
+        'subdealer_id',
         'created_by',
-        'updated_by',
-        'ip_address'
+        'updated_by'
     ];
 }

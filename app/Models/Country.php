@@ -14,6 +14,8 @@ class Country extends Model
         'country_code',
         'timezone_name',
         'timezone_minutes',
+        'created_by',
+        'updated_by',
     ];
 
     // Additional code can be added here
