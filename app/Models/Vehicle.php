@@ -10,23 +10,22 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vehicle_name',
-        'vehicle_group',
         'vehicle_type_id',
+        'vehicle_name',
         'vehicle_make',
         'vehicle_model',
         'vehicle_year',
+        'device_id',
         'device_imei',
+        'sim_id',
         'sim_mob_no',
         'insurance_company',
         'insurance_number',
         'insurance_start_date',
         'insurance_expiry_date',
-        'tax_date',
         'registration_number',
         'chassis_number',
         'engine_number',
-        'model_number',
         'ownership_type',
         'fc_date',
         'installation_date',
@@ -35,12 +34,11 @@ class Vehicle extends Model
         'dealer_id',
         'subdealer_id',
         'client_id',
-        'user_id',
+        'status',
+        'deleted_at',
         'created_by',
         'updated_by',
         'deleted_by',
         'ip_address',
     ];
-
-    protected $dates = ['deleted_at'];
 }

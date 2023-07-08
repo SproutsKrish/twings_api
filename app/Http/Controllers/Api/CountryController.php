@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Helpers\Helper;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Country;
 
@@ -26,12 +27,23 @@ class CountryController extends Controller
 
     public function store(Request $request)
     {
-        $country = Country::create($request->all());
+        $validator = Validator::make($request->all(), [
+            'country_name' => 'required',
+            'country_code' => 'required',
+            'timezone_name' => 'required',
+            'timezone_minutes' => 'required|numeric',
+        ]);
 
-        if ($country) {
-            return Helper::sendSuccess("Inserted Successfully");
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return Helper::sendError('Validation failed.', $errors, 400);
+        }
+
+        $country = new Country($request->all());
+        if ($country->save()) {
+            return Helper::sendSuccess("Country inserted Successfully !");
         } else {
-            return Helper::sendError('Failed to insert country.', [], 500);
+            return Helper::sendError('Failed to update country.', [], 500);
         }
     }
 
@@ -50,6 +62,13 @@ class CountryController extends Controller
         try {
             $country = Country::findOrFail($id);
 
+            $validator = Validator::make($request->all(), [
+                'country_name' => 'required',
+                'country_code' => 'required',
+                'timezone_name' => 'required',
+                'timezone_minutes' => 'required|numeric',
+            ]);
+
             $country->fill($request->only([
                 'country_name',
                 'country_code',
@@ -58,8 +77,14 @@ class CountryController extends Controller
                 'updated_by',
             ]));
 
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                return Helper::sendError('Validation failed.', $errors, 400);
+            }
+
+            $country = new Country($request->all());
             if ($country->save()) {
-                return Helper::sendSuccess("Data Updated Successfully !");
+                return Helper::sendSuccess("Country updated Successfully !");
             } else {
                 return Helper::sendError('Failed to update country.', [], 500);
             }

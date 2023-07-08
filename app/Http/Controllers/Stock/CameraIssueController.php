@@ -51,28 +51,26 @@ class CameraIssueController extends Controller
             $camera_issue = CameraIssue::findOrFail($id);
 
             $camera_issue->fill($request->only([
-                'vehicle_type_id',
-                'vehicle_make',
-                'vehicle_model',
-                'vehicle_year',
-                'vehicle_name',
-                'chassis_number',
-                'engine_number',
-                'registration_number',
-                'registration_date',
-                'rto_no',
-                'issue_date',
+                'vehicle_id',
+                'camera_category',
+                'certificate_id',
+                'certificate_no',
                 'camera_id',
-                'camera_serial_no',
+                'serial_no',
+                'installed_date',
+                'rto_no',
+                'state',
+                'aadhaar_no',
                 'image1',
                 'image2',
                 'image3',
                 'qrimg',
-                'subdealer_id',
                 'dealer_id',
+                'subdealer_id',
                 'client_id',
+                'status',
                 'updated_by',
-                'ip_address'
+                'ip_address',
             ]));
 
             if ($camera_issue->save()) {

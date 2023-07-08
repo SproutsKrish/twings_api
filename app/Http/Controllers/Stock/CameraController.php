@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Helpers\Helper;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Camera;
 
@@ -25,12 +26,21 @@ class CameraController extends Controller
 
     public function store(Request $request)
     {
-        $camera = Camera::create($request->all());
+        $validator = Validator::make($request->all(), [
+            'serial_no' => 'required|unique:cameras,serial_no',
+            'id_no' => 'required|unique:cameras,id_no'
+        ]);
 
-        if ($camera) {
-            return Helper::sendSuccess("Inserted Successfully");
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return Helper::sendError('Validation failed.', $errors, 400);
+        }
+
+        $camera = new Camera($request->all());
+        if ($camera->save()) {
+            return Helper::sendSuccess("Camera inserted Successfully !");
         } else {
-            return Helper::sendError('Failed to insert camera.', [], 500);
+            return Helper::sendError('Failed to update camera.', [], 500);
         }
     }
 
@@ -49,6 +59,11 @@ class CameraController extends Controller
         try {
             $camera = Camera::findOrFail($id);
 
+            $validator = Validator::make($request->all(), [
+                'serial_no' => 'required|unique:cameras,serial_no',
+                'id_no' => 'required|unique:cameras,id_no'
+            ]);
+
             $camera->fill($request->only([
                 "supplier_id",
                 "camera_type_id",
@@ -63,8 +78,14 @@ class CameraController extends Controller
                 "updated_by"
             ]));
 
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                return Helper::sendError('Validation failed.', $errors, 400);
+            }
+
+            $camera = new Camera($request->all());
             if ($camera->save()) {
-                return Helper::sendSuccess("Data Updated Successfully !");
+                return Helper::sendSuccess("Camera updated Successfully !");
             } else {
                 return Helper::sendError('Failed to update camera.', [], 500);
             }
