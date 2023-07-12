@@ -60,9 +60,12 @@ use Illuminate\Support\Facades\Gate;
 // });
 
 Route::post('login', [LoginController::class, 'login']);
-Route::post('register', [UserController::class, 'register']);
-// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+// Route::post('logout', [LoginController::class, 'logout']);
 
+Route::post('/logout', 'App\Http\Controllers\Api\LoginController@logout')->name('logout');
+
+
+Route::post('register', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::middleware(['role:Admin'])->group(function () {

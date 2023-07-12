@@ -24,18 +24,15 @@ class LoginController extends Controller
         return Helper::sendSuccess((new UserResource(auth()->user()))->loginRequest());
     }
 
-    // public function logout(Request $request)
-    // {
+    public function logout(Request $request)
+    {
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
 
-    //     if ($request->user()) {
-    //         $request->user()->tokens()->delete(); // Revoke all personal access tokens
-    //     }
+        return Helper::sendSuccess('Successfully logged out');
 
-    //     Auth::guard('api')->logout(); // Log out from the web guard
 
-    //     $request->session()->invalidate();
-    //     $request->session()->regenerateToken();
-
-    //     return response()->json(['message' => 'Successfully logged out']);
-    // }
+        // dd("OK");
+    }
 }
