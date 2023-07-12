@@ -36,6 +36,7 @@ use App\Http\Controllers\user\{
     SubdealerController
 };
 
+use App\Http\Controllers\ImportController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -143,3 +144,10 @@ Route::resource('vehicle', VehicleController::class);
 
 //Vehicle Type
 Route::resource('vehicle_type', VehicleTypeController::class);
+
+
+Route::post('/sim_import', 'App\Http\Controllers\ImportController@sim_import')->name('sim_import');
+
+Route::post('/device_import', 'App\Http\Controllers\ImportController@device_import')->name('device_import');
+
+Route::post('/camera_import', 'App\Http\Controllers\ImportController@camera_import')->name('camera_import');
