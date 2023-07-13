@@ -8,9 +8,12 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
-use Auth;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserController extends Controller
 {
@@ -53,12 +56,35 @@ class UserController extends Controller
     }
 
 
-    public function getUser(Request $request)
+    // public function getUser(Request $request)
+    // {
+    //     $user = Auth::guard('api')->user();
+
+    //     // Perform additional logic if needed
+
+    //     return response()->json($user);
+    // }
+
+    public function getUserInfo(Request $request)
     {
-        $user = Auth::guard('api')->user();
 
-        // Perform additional logic if needed
+        try {
+            $user = auth()->user();
+            if (!$user) {
+                throw new AuthenticationException('Invalid token');
+            }
 
-        return response()->json($user);
+            // User is authenticated and token is valid
+            return Helper::sendSuccess($user);
+        } catch (AuthenticationException $exception) {
+            // Invalid token or user not found
+            return Helper::sendError('Unauthorized', [], 401);
+        } catch (UnauthorizedHttpException $exception) {
+            // Invalid token format or other authentication error
+            return Helper::sendError('Invalid token', [], 401);
+        } catch (ModelNotFoundException $exception) {
+            // User not found
+            return Helper::sendError('No Data Found.', [], 404);
+        }
     }
 }

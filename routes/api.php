@@ -63,6 +63,7 @@ Route::post('login', [LoginController::class, 'login']);
 // Route::post('logout', [LoginController::class, 'logout']);
 
 Route::post('/logout', 'App\Http\Controllers\Api\LoginController@logout')->name('logout');
+Route::get('/user', 'App\Http\Controllers\Api\UserController@getUserInfo')->middleware('auth:api');
 
 
 Route::post('register', [UserController::class, 'register']);
