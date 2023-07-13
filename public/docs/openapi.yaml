@@ -1,0 +1,2260 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/docs:
+    get:
+      summary: 'Display Swagger API page.'
+      operationId: displaySwaggerAPIPage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI</title>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://localhost/docs/asset/swagger-ui.css?v=f517f33f81297c6257ef7ee27cbc731d\">\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"/>\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    </style>\n</head>\n\n<body>\n<div id=\"swagger-ui\"></div>\n\n<script src=\"http://localhost/docs/asset/swagger-ui-bundle.js?v=be2d9d4b84214df24b075f96afcc15e3\"></script>\n<script src=\"http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=290ffdd83831e0cefeb3e69e88cecde7\"></script>\n<script>\n    window.onload = function() {\n        // Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http://localhost/docs/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http://localhost/api/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n</script>\n</body>\n</html>\n"
+      tags:
+        - Endpoints
+      security: []
+  /api/oauth2-callback:
+    get:
+      summary: 'Display Oauth2 callback pages.'
+      operationId: displayOauth2CallbackPages
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!doctype html>\n<html lang=\"en-US\">\n<head>\n    <title>Swagger UI: OAuth2 Redirect</title>\n</head>\n<body>\n<script>\n    'use strict';\n    function run () {\n        var oauth2 = window.opener.swaggerUIRedirectOauth2;\n        var sentState = oauth2.state;\n        var redirectUrl = oauth2.redirectUrl;\n        var isValid, qp, arr;\n\n        if (/code|token|error/.test(window.location.hash)) {\n            qp = window.location.hash.substring(1).replace('?', '&');\n        } else {\n            qp = location.search.substring(1);\n        }\n\n        arr = qp.split(\"&\");\n        arr.forEach(function (v,i,_arr) { _arr[i] = '\"' + v.replace('=', '\":\"') + '\"';});\n        qp = qp ? JSON.parse('{' + arr.join() + '}',\n                function (key, value) {\n                    return key === \"\" ? value : decodeURIComponent(value);\n                }\n        ) : {};\n\n        isValid = qp.state === sentState;\n\n        if ((\n          oauth2.auth.schema.get(\"flow\") === \"accessCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorizationCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorization_code\"\n        ) && !oauth2.auth.code) {\n            if (!isValid) {\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"warning\",\n                    message: \"Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server.\"\n                });\n            }\n\n            if (qp.code) {\n                delete oauth2.state;\n                oauth2.auth.code = qp.code;\n                oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});\n            } else {\n                let oauthErrorMsg;\n                if (qp.error) {\n                    oauthErrorMsg = \"[\"+qp.error+\"]: \" +\n                        (qp.error_description ? qp.error_description+ \". \" : \"no accessCode received from the server. \") +\n                        (qp.error_uri ? \"More info: \"+qp.error_uri : \"\");\n                }\n\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"error\",\n                    message: oauthErrorMsg || \"[Authorization failed]: no accessCode received from the server.\"\n                });\n            }\n        } else {\n            oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});\n        }\n        window.close();\n    }\n\n    if (document.readyState !== 'loading') {\n        run();\n    } else {\n        document.addEventListener('DOMContentLoaded', function () {\n            run();\n        });\n    }\n</script>\n</body>\n</html>\n"
+      tags:
+        - Endpoints
+      security: []
+  /api/login:
+    post:
+      summary: ''
+      operationId: postApiLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: lauretta43@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: officia
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: ''
+      operationId: postApiLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/register:
+    post:
+      summary: ''
+      operationId: postApiRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: molestiae
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: milton.armstrong@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: ipsam
+                mobile_number:
+                  type: string
+                  description: ''
+                  example: reiciendis
+              required:
+                - name
+                - email
+                - password
+                - mobile_number
+      security: []
+  /api/admin/dashboard:
+    get:
+      summary: ''
+      operationId: getApiAdminDashboard
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/country:
+    get:
+      summary: ''
+      operationId: getApiCountry
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiCountry
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country_name:
+                  type: string
+                  description: ''
+                  example: consectetur
+                country_code:
+                  type: string
+                  description: ''
+                  example: explicabo
+                timezone_name:
+                  type: string
+                  description: ''
+                  example: quo
+                timezone_minutes:
+                  type: number
+                  description: ''
+                  example: 199629654.68064
+              required:
+                - country_name
+                - country_code
+                - timezone_name
+                - timezone_minutes
+      security: []
+  '/api/country/{id}':
+    get:
+      summary: ''
+      operationId: getApiCountryId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiCountryId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCountryId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the country.'
+        example: neque
+        required: true
+        schema:
+          type: string
+  /api/role:
+    get:
+      summary: ''
+      operationId: getApiRole
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiRole
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/role/{id}':
+    get:
+      summary: ''
+      operationId: getApiRoleId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiRoleId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiRoleId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the role.'
+        example: temporibus
+        required: true
+        schema:
+          type: string
+  /api/permission:
+    get:
+      summary: ''
+      operationId: getApiPermission
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiPermission
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/permission/{id}':
+    get:
+      summary: ''
+      operationId: getApiPermissionId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiPermissionId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiPermissionId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the permission.'
+        example: neque
+        required: true
+        schema:
+          type: string
+  /api/role_permission:
+    get:
+      summary: ''
+      operationId: getApiRole_permission
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiRole_permission
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/role_permission/{id}':
+    get:
+      summary: ''
+      operationId: getApiRole_permissionId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiRole_permissionId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiRole_permissionId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the role permission.'
+        example: omnis
+        required: true
+        schema:
+          type: string
+  /api/user/dashboard:
+    get:
+      summary: ''
+      operationId: getApiUserDashboard
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/network:
+    get:
+      summary: ''
+      operationId: getApiNetwork
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiNetwork
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/network/{id}':
+    get:
+      summary: ''
+      operationId: getApiNetworkId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiNetworkId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiNetworkId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the network.'
+        example: et
+        required: true
+        schema:
+          type: string
+  /api/supplier:
+    get:
+      summary: ''
+      operationId: getApiSupplier
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiSupplier
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/supplier/{id}':
+    get:
+      summary: ''
+      operationId: getApiSupplierId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiSupplierId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiSupplierId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the supplier.'
+        example: minus
+        required: true
+        schema:
+          type: string
+  /api/device_type:
+    get:
+      summary: ''
+      operationId: getApiDevice_type
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDevice_type
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/device_type/{id}':
+    get:
+      summary: ''
+      operationId: getApiDevice_typeId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDevice_typeId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDevice_typeId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the device type.'
+        example: quaerat
+        required: true
+        schema:
+          type: string
+  /api/device_category:
+    get:
+      summary: ''
+      operationId: getApiDevice_category
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDevice_category
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/device_category/{id}':
+    get:
+      summary: ''
+      operationId: getApiDevice_categoryId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDevice_categoryId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDevice_categoryId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the device category.'
+        example: provident
+        required: true
+        schema:
+          type: string
+  /api/device_model:
+    get:
+      summary: ''
+      operationId: getApiDevice_model
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDevice_model
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/device_model/{id}':
+    get:
+      summary: ''
+      operationId: getApiDevice_modelId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDevice_modelId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDevice_modelId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the device model.'
+        example: aut
+        required: true
+        schema:
+          type: string
+  /api/camera_type:
+    get:
+      summary: ''
+      operationId: getApiCamera_type
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiCamera_type
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/camera_type/{id}':
+    get:
+      summary: ''
+      operationId: getApiCamera_typeId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiCamera_typeId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCamera_typeId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the camera type.'
+        example: illo
+        required: true
+        schema:
+          type: string
+  /api/camera_category:
+    get:
+      summary: ''
+      operationId: getApiCamera_category
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiCamera_category
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/camera_category/{id}':
+    get:
+      summary: ''
+      operationId: getApiCamera_categoryId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiCamera_categoryId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCamera_categoryId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the camera category.'
+        example: et
+        required: true
+        schema:
+          type: string
+  /api/camera_model:
+    get:
+      summary: ''
+      operationId: getApiCamera_model
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiCamera_model
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/camera_model/{id}':
+    get:
+      summary: ''
+      operationId: getApiCamera_modelId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiCamera_modelId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCamera_modelId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the camera model.'
+        example: explicabo
+        required: true
+        schema:
+          type: string
+  /api/sim:
+    get:
+      summary: ''
+      operationId: getApiSim
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiSim
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sim_imei_no:
+                  type: string
+                  description: ''
+                  example: id
+                sim_mob_no:
+                  type: string
+                  description: ''
+                  example: quis
+              required:
+                - sim_imei_no
+                - sim_mob_no
+      security: []
+  '/api/sim/{id}':
+    get:
+      summary: ''
+      operationId: getApiSimId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiSimId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiSimId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the sim.'
+        example: in
+        required: true
+        schema:
+          type: string
+  '/api/simsaveassign/{id}':
+    put:
+      summary: ''
+      operationId: putApiSimsaveassignId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the simsaveassign.'
+        example: praesentium
+        required: true
+        schema:
+          type: string
+  '/api/simdeleteassign/{id}':
+    put:
+      summary: ''
+      operationId: putApiSimdeleteassignId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the simdeleteassign.'
+        example: iste
+        required: true
+        schema:
+          type: string
+  /api/device:
+    get:
+      summary: ''
+      operationId: getApiDevice
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDevice
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                device_imei_no:
+                  type: string
+                  description: ''
+                  example: incidunt
+                ccid:
+                  type: string
+                  description: ''
+                  example: quia
+                uid:
+                  type: string
+                  description: ''
+                  example: ipsam
+              required:
+                - device_imei_no
+                - ccid
+                - uid
+      security: []
+  '/api/device/{id}':
+    get:
+      summary: ''
+      operationId: getApiDeviceId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDeviceId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDeviceId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the device.'
+        example: laborum
+        required: true
+        schema:
+          type: string
+  '/api/devicesaveassign/{id}':
+    put:
+      summary: ''
+      operationId: putApiDevicesaveassignId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the devicesaveassign.'
+        example: maxime
+        required: true
+        schema:
+          type: string
+  '/api/devicedeleteassign/{id}':
+    put:
+      summary: ''
+      operationId: putApiDevicedeleteassignId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the devicedeleteassign.'
+        example: nihil
+        required: true
+        schema:
+          type: string
+  /api/camera:
+    get:
+      summary: ''
+      operationId: getApiCamera
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiCamera
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serial_no:
+                  type: string
+                  description: ''
+                  example: aliquam
+                id_no:
+                  type: string
+                  description: ''
+                  example: qui
+              required:
+                - serial_no
+                - id_no
+      security: []
+  '/api/camera/{id}':
+    get:
+      summary: ''
+      operationId: getApiCameraId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiCameraId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCameraId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the camera.'
+        example: qui
+        required: true
+        schema:
+          type: string
+  '/api/camerasaveassign/{id}':
+    put:
+      summary: ''
+      operationId: putApiCamerasaveassignId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the camerasaveassign.'
+        example: harum
+        required: true
+        schema:
+          type: string
+  '/api/cameradeleteassign/{id}':
+    put:
+      summary: ''
+      operationId: putApiCameradeleteassignId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the cameradeleteassign.'
+        example: et
+        required: true
+        schema:
+          type: string
+  /api/camera_issue:
+    get:
+      summary: ''
+      operationId: getApiCamera_issue
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiCamera_issue
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/camera_issue/{id}':
+    get:
+      summary: ''
+      operationId: getApiCamera_issueId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiCamera_issueId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiCamera_issueId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the camera issue.'
+        example: consequatur
+        required: true
+        schema:
+          type: string
+  /api/device_issue:
+    get:
+      summary: ''
+      operationId: getApiDevice_issue
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDevice_issue
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/device_issue/{id}':
+    get:
+      summary: ''
+      operationId: getApiDevice_issueId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDevice_issueId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDevice_issueId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the device issue.'
+        example: aut
+        required: true
+        schema:
+          type: string
+  /api/client:
+    get:
+      summary: ''
+      operationId: getApiClient
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'No clients found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No clients found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiClient
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/client/{id}':
+    get:
+      summary: ''
+      operationId: getApiClientId
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Client not found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Client not found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiClientId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiClientId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the client.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/dealer:
+    get:
+      summary: ''
+      operationId: getApiDealer
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'No dealers found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No dealers found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiDealer
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/dealer/{id}':
+    get:
+      summary: ''
+      operationId: getApiDealerId
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Dealer not found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Dealer not found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiDealerId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiDealerId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the dealer.'
+        example: 11
+        required: true
+        schema:
+          type: integer
+  /api/subdealer:
+    get:
+      summary: ''
+      operationId: getApiSubdealer
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'No subdealers found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No subdealers found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiSubdealer
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/subdealer/{id}':
+    get:
+      summary: ''
+      operationId: getApiSubdealerId
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Subdealer not found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Subdealer not found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiSubdealerId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiSubdealerId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the subdealer.'
+        example: 4
+        required: true
+        schema:
+          type: integer
+  /api/vehicle:
+    get:
+      summary: ''
+      operationId: getApiVehicle
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'No vehicles found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No vehicles found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiVehicle
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/vehicle/{id}':
+    get:
+      summary: ''
+      operationId: getApiVehicleId
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Vehicle not found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Vehicle not found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiVehicleId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiVehicleId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the vehicle.'
+        example: 16
+        required: true
+        schema:
+          type: integer
+  /api/vehicle_type:
+    get:
+      summary: ''
+      operationId: getApiVehicle_type
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'No device types found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'No device types found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiVehicle_type
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/vehicle_type/{id}':
+    get:
+      summary: ''
+      operationId: getApiVehicle_typeId
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Vehicle Type not found.'
+                  status_code: 404
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Vehicle Type not found.'
+                  status_code:
+                    type: integer
+                    example: 404
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiVehicle_typeId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiVehicle_typeId
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the vehicle type.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/sim_import:
+    post:
+      summary: ''
+      operationId: postApiSim_import
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/device_import:
+    post:
+      summary: ''
+      operationId: postApiDevice_import
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/camera_import:
+    post:
+      summary: ''
+      operationId: postApiCamera_import
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
