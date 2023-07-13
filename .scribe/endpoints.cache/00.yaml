@@ -5,236 +5,6 @@ description: ''
 endpoints:
   -
     httpMethods:
-      - GET
-    uri: api/docs
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display Swagger API page.'
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <title>L5 Swagger UI</title>
-              <link rel="stylesheet" type="text/css" href="http://localhost/docs/asset/swagger-ui.css?v=f517f33f81297c6257ef7ee27cbc731d">
-              <link rel="icon" type="image/png" href="http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
-              <link rel="icon" type="image/png" href="http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
-              <style>
-              html
-              {
-                  box-sizing: border-box;
-                  overflow: -moz-scrollbars-vertical;
-                  overflow-y: scroll;
-              }
-              *,
-              *:before,
-              *:after
-              {
-                  box-sizing: inherit;
-              }
-
-              body {
-                margin:0;
-                background: #fafafa;
-              }
-              </style>
-          </head>
-
-          <body>
-          <div id="swagger-ui"></div>
-
-          <script src="http://localhost/docs/asset/swagger-ui-bundle.js?v=be2d9d4b84214df24b075f96afcc15e3"></script>
-          <script src="http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=290ffdd83831e0cefeb3e69e88cecde7"></script>
-          <script>
-              window.onload = function() {
-                  // Build a system
-                  const ui = SwaggerUIBundle({
-                      dom_id: '#swagger-ui',
-                      url: "http://localhost/docs/api-docs.json",
-                      operationsSorter: null,
-                      configUrl: null,
-                      validatorUrl: null,
-                      oauth2RedirectUrl: "http://localhost/api/oauth2-callback",
-
-                      requestInterceptor: function(request) {
-                          request.headers['X-CSRF-TOKEN'] = '';
-                          return request;
-                      },
-
-                      presets: [
-                          SwaggerUIBundle.presets.apis,
-                          SwaggerUIStandalonePreset
-                      ],
-
-                      plugins: [
-                          SwaggerUIBundle.plugins.DownloadUrl
-                      ],
-
-                      layout: "StandaloneLayout",
-                      docExpansion : "none",
-                      deepLinking: true,
-                      filter: true,
-                      persistAuthorization: "false",
-
-                  })
-
-                  window.ui = ui
-
-                      }
-          </script>
-          </body>
-          </html>
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/oauth2-callback
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display Oauth2 callback pages.'
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |
-          <!doctype html>
-          <html lang="en-US">
-          <head>
-              <title>Swagger UI: OAuth2 Redirect</title>
-          </head>
-          <body>
-          <script>
-              'use strict';
-              function run () {
-                  var oauth2 = window.opener.swaggerUIRedirectOauth2;
-                  var sentState = oauth2.state;
-                  var redirectUrl = oauth2.redirectUrl;
-                  var isValid, qp, arr;
-
-                  if (/code|token|error/.test(window.location.hash)) {
-                      qp = window.location.hash.substring(1).replace('?', '&');
-                  } else {
-                      qp = location.search.substring(1);
-                  }
-
-                  arr = qp.split("&");
-                  arr.forEach(function (v,i,_arr) { _arr[i] = '"' + v.replace('=', '":"') + '"';});
-                  qp = qp ? JSON.parse('{' + arr.join() + '}',
-                          function (key, value) {
-                              return key === "" ? value : decodeURIComponent(value);
-                          }
-                  ) : {};
-
-                  isValid = qp.state === sentState;
-
-                  if ((
-                    oauth2.auth.schema.get("flow") === "accessCode" ||
-                    oauth2.auth.schema.get("flow") === "authorizationCode" ||
-                    oauth2.auth.schema.get("flow") === "authorization_code"
-                  ) && !oauth2.auth.code) {
-                      if (!isValid) {
-                          oauth2.errCb({
-                              authId: oauth2.auth.name,
-                              source: "auth",
-                              level: "warning",
-                              message: "Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server."
-                          });
-                      }
-
-                      if (qp.code) {
-                          delete oauth2.state;
-                          oauth2.auth.code = qp.code;
-                          oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});
-                      } else {
-                          let oauthErrorMsg;
-                          if (qp.error) {
-                              oauthErrorMsg = "["+qp.error+"]: " +
-                                  (qp.error_description ? qp.error_description+ ". " : "no accessCode received from the server. ") +
-                                  (qp.error_uri ? "More info: "+qp.error_uri : "");
-                          }
-
-                          oauth2.errCb({
-                              authId: oauth2.auth.name,
-                              source: "auth",
-                              level: "error",
-                              message: oauthErrorMsg || "[Authorization failed]: no accessCode received from the server."
-                          });
-                      }
-                  } else {
-                      oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});
-                  }
-                  window.close();
-              }
-
-              if (document.readyState !== 'loading') {
-                  run();
-              } else {
-                  document.addEventListener('DOMContentLoaded', function () {
-                      run();
-                  });
-              }
-          </script>
-          </body>
-          </html>
-        headers:
-          content-type: 'text/html; charset=UTF-8'
-          cache-control: 'no-cache, private'
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - POST
     uri: api/login
     metadata:
@@ -258,19 +28,19 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: lauretta43@example.com
+        example: cary82@example.org
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: officia
+        example: excepturi
         type: string
         custom: []
     cleanBodyParameters:
-      email: lauretta43@example.com
-      password: officia
+      email: cary82@example.org
+      password: excepturi
     fileParameters: []
     responses: []
     responseFields: []
@@ -373,35 +143,35 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: molestiae
+        example: aspernatur
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: milton.armstrong@example.net
+        example: nayeli.walsh@example.org
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: ipsam
+        example: qui
         type: string
         custom: []
       mobile_number:
         name: mobile_number
         description: ''
         required: true
-        example: reiciendis
+        example: enim
         type: string
         custom: []
     cleanBodyParameters:
-      name: molestiae
-      email: milton.armstrong@example.net
-      password: ipsam
-      mobile_number: reiciendis
+      name: aspernatur
+      email: nayeli.walsh@example.org
+      password: qui
+      mobile_number: enim
     fileParameters: []
     responses: []
     responseFields: []
@@ -513,35 +283,35 @@ endpoints:
         name: country_name
         description: ''
         required: true
-        example: consectetur
+        example: similique
         type: string
         custom: []
       country_code:
         name: country_code
         description: ''
         required: true
-        example: explicabo
+        example: et
         type: string
         custom: []
       timezone_name:
         name: timezone_name
         description: ''
         required: true
-        example: quo
+        example: modi
         type: string
         custom: []
       timezone_minutes:
         name: timezone_minutes
         description: ''
         required: true
-        example: 199629654.68064
+        example: 31.21744
         type: number
         custom: []
     cleanBodyParameters:
-      country_name: consectetur
-      country_code: explicabo
-      timezone_name: quo
-      timezone_minutes: 199629654.68064
+      country_name: similique
+      country_code: et
+      timezone_name: modi
+      timezone_minutes: 31.21744
     fileParameters: []
     responses: []
     responseFields: []
@@ -571,11 +341,11 @@ endpoints:
         name: id
         description: 'The ID of the country.'
         required: true
-        example: neque
+        example: cupiditate
         type: string
         custom: []
     cleanUrlParameters:
-      id: neque
+      id: cupiditate
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -618,6 +388,237 @@ endpoints:
       id:
         name: id
         description: 'The ID of the country.'
+        required: true
+        example: sequi
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: sequi
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/country/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the country.'
+        required: true
+        example: nam
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: nam
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/role
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/role
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/role/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the role.'
+        required: true
+        example: deserunt
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: deserunt
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/role/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the role.'
+        required: true
+        example: ab
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: ab
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/role/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the role.'
         required: true
         example: ipsam
         type: string
@@ -638,237 +639,6 @@ endpoints:
     custom: []
   -
     httpMethods:
-      - DELETE
-    uri: 'api/country/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the country.'
-        required: true
-        example: recusandae
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: recusandae
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/role
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/role
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: 'api/role/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the role.'
-        required: true
-        example: temporibus
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: temporibus
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/role/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the role.'
-        required: true
-        example: in
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: in
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/role/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the role.'
-        required: true
-        example: omnis
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: omnis
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
       - GET
     uri: api/permission
     metadata:
@@ -957,11 +727,11 @@ endpoints:
         name: id
         description: 'The ID of the permission.'
         required: true
-        example: neque
+        example: consequatur
         type: string
         custom: []
     cleanUrlParameters:
-      id: neque
+      id: consequatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1005,11 +775,11 @@ endpoints:
         name: id
         description: 'The ID of the permission.'
         required: true
-        example: quis
+        example: officiis
         type: string
         custom: []
     cleanUrlParameters:
-      id: quis
+      id: officiis
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1043,11 +813,11 @@ endpoints:
         name: id
         description: 'The ID of the permission.'
         required: true
-        example: voluptatem
+        example: quas
         type: string
         custom: []
     cleanUrlParameters:
-      id: voluptatem
+      id: quas
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1150,11 +920,11 @@ endpoints:
         name: id
         description: 'The ID of the role permission.'
         required: true
-        example: omnis
+        example: et
         type: string
         custom: []
     cleanUrlParameters:
-      id: omnis
+      id: et
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1198,11 +968,11 @@ endpoints:
         name: id
         description: 'The ID of the role permission.'
         required: true
-        example: nostrum
+        example: ex
         type: string
         custom: []
     cleanUrlParameters:
-      id: nostrum
+      id: ex
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1236,11 +1006,11 @@ endpoints:
         name: id
         description: 'The ID of the role permission.'
         required: true
-        example: eligendi
+        example: officiis
         type: string
         custom: []
     cleanUrlParameters:
-      id: eligendi
+      id: officiis
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1382,11 +1152,11 @@ endpoints:
         name: id
         description: 'The ID of the network.'
         required: true
-        example: et
+        example: ipsa
         type: string
         custom: []
     cleanUrlParameters:
-      id: et
+      id: ipsa
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1430,11 +1200,11 @@ endpoints:
         name: id
         description: 'The ID of the network.'
         required: true
-        example: dolorem
+        example: consequuntur
         type: string
         custom: []
     cleanUrlParameters:
-      id: dolorem
+      id: consequuntur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1468,11 +1238,11 @@ endpoints:
         name: id
         description: 'The ID of the network.'
         required: true
-        example: dolorum
+        example: dolore
         type: string
         custom: []
     cleanUrlParameters:
-      id: dolorum
+      id: dolore
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1575,11 +1345,11 @@ endpoints:
         name: id
         description: 'The ID of the supplier.'
         required: true
-        example: minus
+        example: natus
         type: string
         custom: []
     cleanUrlParameters:
-      id: minus
+      id: natus
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1623,11 +1393,11 @@ endpoints:
         name: id
         description: 'The ID of the supplier.'
         required: true
-        example: est
+        example: facilis
         type: string
         custom: []
     cleanUrlParameters:
-      id: est
+      id: facilis
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1661,11 +1431,11 @@ endpoints:
         name: id
         description: 'The ID of the supplier.'
         required: true
-        example: dolorem
+        example: eius
         type: string
         custom: []
     cleanUrlParameters:
-      id: dolorem
+      id: eius
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1768,11 +1538,11 @@ endpoints:
         name: id
         description: 'The ID of the device type.'
         required: true
-        example: quaerat
+        example: impedit
         type: string
         custom: []
     cleanUrlParameters:
-      id: quaerat
+      id: impedit
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1816,11 +1586,11 @@ endpoints:
         name: id
         description: 'The ID of the device type.'
         required: true
-        example: omnis
+        example: unde
         type: string
         custom: []
     cleanUrlParameters:
-      id: omnis
+      id: unde
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1854,11 +1624,11 @@ endpoints:
         name: id
         description: 'The ID of the device type.'
         required: true
-        example: et
+        example: voluptatem
         type: string
         custom: []
     cleanUrlParameters:
-      id: et
+      id: voluptatem
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1961,11 +1731,11 @@ endpoints:
         name: id
         description: 'The ID of the device category.'
         required: true
-        example: provident
+        example: impedit
         type: string
         custom: []
     cleanUrlParameters:
-      id: provident
+      id: impedit
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2009,11 +1779,11 @@ endpoints:
         name: id
         description: 'The ID of the device category.'
         required: true
-        example: non
+        example: maiores
         type: string
         custom: []
     cleanUrlParameters:
-      id: non
+      id: maiores
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2047,11 +1817,11 @@ endpoints:
         name: id
         description: 'The ID of the device category.'
         required: true
-        example: in
+        example: pariatur
         type: string
         custom: []
     cleanUrlParameters:
-      id: in
+      id: pariatur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2154,11 +1924,11 @@ endpoints:
         name: id
         description: 'The ID of the device model.'
         required: true
-        example: aut
+        example: hic
         type: string
         custom: []
     cleanUrlParameters:
-      id: aut
+      id: hic
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2201,199 +1971,6 @@ endpoints:
       id:
         name: id
         description: 'The ID of the device model.'
-        required: true
-        example: omnis
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: omnis
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/device_model/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the device model.'
-        required: true
-        example: enim
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: enim
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/camera_type
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/camera_type
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: 'api/camera_type/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the camera type.'
-        required: true
-        example: illo
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: illo
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/camera_type/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the camera type.'
         required: true
         example: nobis
         type: string
@@ -2415,6 +1992,113 @@ endpoints:
   -
     httpMethods:
       - DELETE
+    uri: 'api/device_model/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the device model.'
+        required: true
+        example: maxime
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: maxime
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/camera_type
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/camera_type
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
     uri: 'api/camera_type/{id}'
     metadata:
       groupName: Endpoints
@@ -2433,11 +2117,97 @@ endpoints:
         name: id
         description: 'The ID of the camera type.'
         required: true
-        example: nulla
+        example: maiores
         type: string
         custom: []
     cleanUrlParameters:
-      id: nulla
+      id: maiores
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/camera_type/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the camera type.'
+        required: true
+        example: quia
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: quia
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/camera_type/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the camera type.'
+        required: true
+        example: ut
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: ut
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2522,6 +2292,54 @@ endpoints:
   -
     httpMethods:
       - GET
+    uri: 'api/camera_category/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the camera category.'
+        required: true
+        example: officiis
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: officiis
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
     uri: 'api/camera_category/{id}'
     metadata:
       groupName: Endpoints
@@ -2550,54 +2368,6 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/camera_category/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the camera category.'
-        required: true
-        example: repellat
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: repellat
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
     responses: []
     responseFields: []
     auth: []
@@ -2626,11 +2396,11 @@ endpoints:
         name: id
         description: 'The ID of the camera category.'
         required: true
-        example: repellendus
+        example: est
         type: string
         custom: []
     cleanUrlParameters:
-      id: repellendus
+      id: est
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2733,11 +2503,11 @@ endpoints:
         name: id
         description: 'The ID of the camera model.'
         required: true
-        example: explicabo
+        example: perspiciatis
         type: string
         custom: []
     cleanUrlParameters:
-      id: explicabo
+      id: perspiciatis
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2781,11 +2551,11 @@ endpoints:
         name: id
         description: 'The ID of the camera model.'
         required: true
-        example: praesentium
+        example: et
         type: string
         custom: []
     cleanUrlParameters:
-      id: praesentium
+      id: et
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2819,11 +2589,11 @@ endpoints:
         name: id
         description: 'The ID of the camera model.'
         required: true
-        example: unde
+        example: quaerat
         type: string
         custom: []
     cleanUrlParameters:
-      id: unde
+      id: quaerat
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2900,19 +2670,19 @@ endpoints:
         name: sim_imei_no
         description: ''
         required: true
-        example: id
+        example: incidunt
         type: string
         custom: []
       sim_mob_no:
         name: sim_mob_no
         description: ''
         required: true
-        example: quis
+        example: eos
         type: string
         custom: []
     cleanBodyParameters:
-      sim_imei_no: id
-      sim_mob_no: quis
+      sim_imei_no: incidunt
+      sim_mob_no: eos
     fileParameters: []
     responses: []
     responseFields: []
@@ -2942,11 +2712,11 @@ endpoints:
         name: id
         description: 'The ID of the sim.'
         required: true
-        example: in
+        example: est
         type: string
         custom: []
     cleanUrlParameters:
-      id: in
+      id: est
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2990,11 +2760,11 @@ endpoints:
         name: id
         description: 'The ID of the sim.'
         required: true
-        example: quia
+        example: explicabo
         type: string
         custom: []
     cleanUrlParameters:
-      id: quia
+      id: explicabo
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3028,11 +2798,11 @@ endpoints:
         name: id
         description: 'The ID of the sim.'
         required: true
-        example: et
+        example: velit
         type: string
         custom: []
     cleanUrlParameters:
-      id: et
+      id: velit
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3066,11 +2836,11 @@ endpoints:
         name: id
         description: 'The ID of the simsaveassign.'
         required: true
-        example: praesentium
+        example: et
         type: string
         custom: []
     cleanUrlParameters:
-      id: praesentium
+      id: et
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3104,11 +2874,11 @@ endpoints:
         name: id
         description: 'The ID of the simdeleteassign.'
         required: true
-        example: iste
+        example: ut
         type: string
         custom: []
     cleanUrlParameters:
-      id: iste
+      id: ut
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3185,27 +2955,27 @@ endpoints:
         name: device_imei_no
         description: ''
         required: true
-        example: incidunt
+        example: et
         type: string
         custom: []
       ccid:
         name: ccid
         description: ''
         required: true
-        example: quia
+        example: optio
         type: string
         custom: []
       uid:
         name: uid
         description: ''
         required: true
-        example: ipsam
+        example: fugit
         type: string
         custom: []
     cleanBodyParameters:
-      device_imei_no: incidunt
-      ccid: quia
-      uid: ipsam
+      device_imei_no: et
+      ccid: optio
+      uid: fugit
     fileParameters: []
     responses: []
     responseFields: []
@@ -3235,11 +3005,11 @@ endpoints:
         name: id
         description: 'The ID of the device.'
         required: true
-        example: laborum
+        example: aut
         type: string
         custom: []
     cleanUrlParameters:
-      id: laborum
+      id: aut
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3283,11 +3053,11 @@ endpoints:
         name: id
         description: 'The ID of the device.'
         required: true
-        example: quam
+        example: veniam
         type: string
         custom: []
     cleanUrlParameters:
-      id: quam
+      id: veniam
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3321,11 +3091,11 @@ endpoints:
         name: id
         description: 'The ID of the device.'
         required: true
-        example: in
+        example: aliquam
         type: string
         custom: []
     cleanUrlParameters:
-      id: in
+      id: aliquam
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3359,11 +3129,11 @@ endpoints:
         name: id
         description: 'The ID of the devicesaveassign.'
         required: true
-        example: maxime
+        example: quo
         type: string
         custom: []
     cleanUrlParameters:
-      id: maxime
+      id: quo
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3397,11 +3167,11 @@ endpoints:
         name: id
         description: 'The ID of the devicedeleteassign.'
         required: true
-        example: nihil
+        example: corporis
         type: string
         custom: []
     cleanUrlParameters:
-      id: nihil
+      id: corporis
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3478,19 +3248,19 @@ endpoints:
         name: serial_no
         description: ''
         required: true
-        example: aliquam
+        example: iusto
         type: string
         custom: []
       id_no:
         name: id_no
         description: ''
         required: true
-        example: qui
+        example: aut
         type: string
         custom: []
     cleanBodyParameters:
-      serial_no: aliquam
-      id_no: qui
+      serial_no: iusto
+      id_no: aut
     fileParameters: []
     responses: []
     responseFields: []
@@ -3520,11 +3290,11 @@ endpoints:
         name: id
         description: 'The ID of the camera.'
         required: true
-        example: qui
+        example: et
         type: string
         custom: []
     cleanUrlParameters:
-      id: qui
+      id: et
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3568,11 +3338,11 @@ endpoints:
         name: id
         description: 'The ID of the camera.'
         required: true
-        example: atque
+        example: sunt
         type: string
         custom: []
     cleanUrlParameters:
-      id: atque
+      id: sunt
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3606,11 +3376,11 @@ endpoints:
         name: id
         description: 'The ID of the camera.'
         required: true
-        example: enim
+        example: libero
         type: string
         custom: []
     cleanUrlParameters:
-      id: enim
+      id: libero
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3644,11 +3414,11 @@ endpoints:
         name: id
         description: 'The ID of the camerasaveassign.'
         required: true
-        example: harum
+        example: dolorem
         type: string
         custom: []
     cleanUrlParameters:
-      id: harum
+      id: dolorem
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3682,11 +3452,11 @@ endpoints:
         name: id
         description: 'The ID of the cameradeleteassign.'
         required: true
-        example: et
+        example: quibusdam
         type: string
         custom: []
     cleanUrlParameters:
-      id: et
+      id: quibusdam
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3789,11 +3559,11 @@ endpoints:
         name: id
         description: 'The ID of the camera issue.'
         required: true
-        example: consequatur
+        example: tenetur
         type: string
         custom: []
     cleanUrlParameters:
-      id: consequatur
+      id: tenetur
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3837,11 +3607,11 @@ endpoints:
         name: id
         description: 'The ID of the camera issue.'
         required: true
-        example: fugiat
+        example: magni
         type: string
         custom: []
     cleanUrlParameters:
-      id: fugiat
+      id: magni
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3875,11 +3645,11 @@ endpoints:
         name: id
         description: 'The ID of the camera issue.'
         required: true
-        example: dolorem
+        example: perspiciatis
         type: string
         custom: []
     cleanUrlParameters:
-      id: dolorem
+      id: perspiciatis
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3982,11 +3752,11 @@ endpoints:
         name: id
         description: 'The ID of the device issue.'
         required: true
-        example: aut
+        example: voluptatem
         type: string
         custom: []
     cleanUrlParameters:
-      id: aut
+      id: voluptatem
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4030,11 +3800,11 @@ endpoints:
         name: id
         description: 'The ID of the device issue.'
         required: true
-        example: assumenda
+        example: sed
         type: string
         custom: []
     cleanUrlParameters:
-      id: assumenda
+      id: sed
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4068,11 +3838,11 @@ endpoints:
         name: id
         description: 'The ID of the device issue.'
         required: true
-        example: accusamus
+        example: a
         type: string
         custom: []
     cleanUrlParameters:
-      id: accusamus
+      id: a
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4116,7 +3886,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '59'
+          x-ratelimit-remaining: '49'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4177,11 +3947,11 @@ endpoints:
         name: id
         description: 'The ID of the client.'
         required: true
-        example: 1
+        example: 11
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 11
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4195,7 +3965,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '58'
+          x-ratelimit-remaining: '48'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4227,11 +3997,11 @@ endpoints:
         name: id
         description: 'The ID of the client.'
         required: true
-        example: 2
+        example: 10
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 2
+      id: 10
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4265,11 +4035,11 @@ endpoints:
         name: id
         description: 'The ID of the client.'
         required: true
-        example: 2
+        example: 19
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 2
+      id: 19
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4313,7 +4083,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '57'
+          x-ratelimit-remaining: '47'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4374,11 +4144,11 @@ endpoints:
         name: id
         description: 'The ID of the dealer.'
         required: true
-        example: 11
+        example: 5
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 11
+      id: 5
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4392,7 +4162,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '56'
+          x-ratelimit-remaining: '46'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4424,11 +4194,11 @@ endpoints:
         name: id
         description: 'The ID of the dealer.'
         required: true
-        example: 10
+        example: 8
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 10
+      id: 8
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4462,11 +4232,11 @@ endpoints:
         name: id
         description: 'The ID of the dealer.'
         required: true
-        example: 10
+        example: 18
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 10
+      id: 18
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4510,7 +4280,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '55'
+          x-ratelimit-remaining: '45'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4571,11 +4341,11 @@ endpoints:
         name: id
         description: 'The ID of the subdealer.'
         required: true
-        example: 4
+        example: 6
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 4
+      id: 6
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4589,7 +4359,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '54'
+          x-ratelimit-remaining: '44'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4621,11 +4391,11 @@ endpoints:
         name: id
         description: 'The ID of the subdealer.'
         required: true
-        example: 10
+        example: 14
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 10
+      id: 14
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4659,11 +4429,11 @@ endpoints:
         name: id
         description: 'The ID of the subdealer.'
         required: true
-        example: 17
+        example: 6
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 17
+      id: 6
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4707,7 +4477,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '53'
+          x-ratelimit-remaining: '43'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4768,11 +4538,11 @@ endpoints:
         name: id
         description: 'The ID of the vehicle.'
         required: true
-        example: 16
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 16
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4786,7 +4556,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '52'
+          x-ratelimit-remaining: '42'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4818,11 +4588,11 @@ endpoints:
         name: id
         description: 'The ID of the vehicle.'
         required: true
-        example: 17
+        example: 19
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 17
+      id: 19
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4856,11 +4626,11 @@ endpoints:
         name: id
         description: 'The ID of the vehicle.'
         required: true
-        example: 20
+        example: 12
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 20
+      id: 12
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4904,7 +4674,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '51'
+          x-ratelimit-remaining: '41'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -4965,11 +4735,11 @@ endpoints:
         name: id
         description: 'The ID of the vehicle type.'
         required: true
-        example: 1
+        example: 19
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 19
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4983,7 +4753,7 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '50'
+          x-ratelimit-remaining: '40'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -5015,11 +4785,11 @@ endpoints:
         name: id
         description: 'The ID of the vehicle type.'
         required: true
-        example: 10
+        example: 15
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 10
+      id: 15
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

@@ -5,42 +5,8 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
+    url: 'http://localhost:8000'
 paths:
-  /api/docs:
-    get:
-      summary: 'Display Swagger API page.'
-      operationId: displaySwaggerAPIPage
-      description: ''
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI</title>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://localhost/docs/asset/swagger-ui.css?v=f517f33f81297c6257ef7ee27cbc731d\">\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"/>\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    </style>\n</head>\n\n<body>\n<div id=\"swagger-ui\"></div>\n\n<script src=\"http://localhost/docs/asset/swagger-ui-bundle.js?v=be2d9d4b84214df24b075f96afcc15e3\"></script>\n<script src=\"http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=290ffdd83831e0cefeb3e69e88cecde7\"></script>\n<script>\n    window.onload = function() {\n        // Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http://localhost/docs/api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http://localhost/api/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n</script>\n</body>\n</html>\n"
-      tags:
-        - Endpoints
-      security: []
-  /api/oauth2-callback:
-    get:
-      summary: 'Display Oauth2 callback pages.'
-      operationId: displayOauth2CallbackPages
-      description: ''
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "<!doctype html>\n<html lang=\"en-US\">\n<head>\n    <title>Swagger UI: OAuth2 Redirect</title>\n</head>\n<body>\n<script>\n    'use strict';\n    function run () {\n        var oauth2 = window.opener.swaggerUIRedirectOauth2;\n        var sentState = oauth2.state;\n        var redirectUrl = oauth2.redirectUrl;\n        var isValid, qp, arr;\n\n        if (/code|token|error/.test(window.location.hash)) {\n            qp = window.location.hash.substring(1).replace('?', '&');\n        } else {\n            qp = location.search.substring(1);\n        }\n\n        arr = qp.split(\"&\");\n        arr.forEach(function (v,i,_arr) { _arr[i] = '\"' + v.replace('=', '\":\"') + '\"';});\n        qp = qp ? JSON.parse('{' + arr.join() + '}',\n                function (key, value) {\n                    return key === \"\" ? value : decodeURIComponent(value);\n                }\n        ) : {};\n\n        isValid = qp.state === sentState;\n\n        if ((\n          oauth2.auth.schema.get(\"flow\") === \"accessCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorizationCode\" ||\n          oauth2.auth.schema.get(\"flow\") === \"authorization_code\"\n        ) && !oauth2.auth.code) {\n            if (!isValid) {\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"warning\",\n                    message: \"Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server.\"\n                });\n            }\n\n            if (qp.code) {\n                delete oauth2.state;\n                oauth2.auth.code = qp.code;\n                oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});\n            } else {\n                let oauthErrorMsg;\n                if (qp.error) {\n                    oauthErrorMsg = \"[\"+qp.error+\"]: \" +\n                        (qp.error_description ? qp.error_description+ \". \" : \"no accessCode received from the server. \") +\n                        (qp.error_uri ? \"More info: \"+qp.error_uri : \"\");\n                }\n\n                oauth2.errCb({\n                    authId: oauth2.auth.name,\n                    source: \"auth\",\n                    level: \"error\",\n                    message: oauthErrorMsg || \"[Authorization failed]: no accessCode received from the server.\"\n                });\n            }\n        } else {\n            oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});\n        }\n        window.close();\n    }\n\n    if (document.readyState !== 'loading') {\n        run();\n    } else {\n        document.addEventListener('DOMContentLoaded', function () {\n            run();\n        });\n    }\n</script>\n</body>\n</html>\n"
-      tags:
-        - Endpoints
-      security: []
   /api/login:
     post:
       summary: ''
@@ -60,11 +26,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: lauretta43@example.com
+                  example: cary82@example.org
                 password:
                   type: string
                   description: ''
-                  example: officia
+                  example: excepturi
               required:
                 - email
                 - password
@@ -120,19 +86,19 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: molestiae
+                  example: aspernatur
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: milton.armstrong@example.net
+                  example: nayeli.walsh@example.org
                 password:
                   type: string
                   description: ''
-                  example: ipsam
+                  example: qui
                 mobile_number:
                   type: string
                   description: ''
-                  example: reiciendis
+                  example: enim
               required:
                 - name
                 - email
@@ -201,19 +167,19 @@ paths:
                 country_name:
                   type: string
                   description: ''
-                  example: consectetur
+                  example: similique
                 country_code:
                   type: string
                   description: ''
-                  example: explicabo
+                  example: et
                 timezone_name:
                   type: string
                   description: ''
-                  example: quo
+                  example: modi
                 timezone_minutes:
                   type: number
                   description: ''
-                  example: 199629654.68064
+                  example: 31.21744
               required:
                 - country_name
                 - country_code
@@ -265,7 +231,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the country.'
-        example: neque
+        example: cupiditate
         required: true
         schema:
           type: string
@@ -345,7 +311,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the role.'
-        example: temporibus
+        example: deserunt
         required: true
         schema:
           type: string
@@ -425,7 +391,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the permission.'
-        example: neque
+        example: consequatur
         required: true
         schema:
           type: string
@@ -505,7 +471,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the role permission.'
-        example: omnis
+        example: et
         required: true
         schema:
           type: string
@@ -607,7 +573,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the network.'
-        example: et
+        example: ipsa
         required: true
         schema:
           type: string
@@ -687,7 +653,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the supplier.'
-        example: minus
+        example: natus
         required: true
         schema:
           type: string
@@ -767,7 +733,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device type.'
-        example: quaerat
+        example: impedit
         required: true
         schema:
           type: string
@@ -847,7 +813,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device category.'
-        example: provident
+        example: impedit
         required: true
         schema:
           type: string
@@ -927,7 +893,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device model.'
-        example: aut
+        example: hic
         required: true
         schema:
           type: string
@@ -1007,7 +973,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera type.'
-        example: illo
+        example: maiores
         required: true
         schema:
           type: string
@@ -1087,7 +1053,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera category.'
-        example: et
+        example: officiis
         required: true
         schema:
           type: string
@@ -1167,7 +1133,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera model.'
-        example: explicabo
+        example: perspiciatis
         required: true
         schema:
           type: string
@@ -1211,11 +1177,11 @@ paths:
                 sim_imei_no:
                   type: string
                   description: ''
-                  example: id
+                  example: incidunt
                 sim_mob_no:
                   type: string
                   description: ''
-                  example: quis
+                  example: eos
               required:
                 - sim_imei_no
                 - sim_mob_no
@@ -1265,7 +1231,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the sim.'
-        example: in
+        example: est
         required: true
         schema:
           type: string
@@ -1284,7 +1250,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the simsaveassign.'
-        example: praesentium
+        example: et
         required: true
         schema:
           type: string
@@ -1303,7 +1269,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the simdeleteassign.'
-        example: iste
+        example: ut
         required: true
         schema:
           type: string
@@ -1347,15 +1313,15 @@ paths:
                 device_imei_no:
                   type: string
                   description: ''
-                  example: incidunt
+                  example: et
                 ccid:
                   type: string
                   description: ''
-                  example: quia
+                  example: optio
                 uid:
                   type: string
                   description: ''
-                  example: ipsam
+                  example: fugit
               required:
                 - device_imei_no
                 - ccid
@@ -1406,7 +1372,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device.'
-        example: laborum
+        example: aut
         required: true
         schema:
           type: string
@@ -1425,7 +1391,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the devicesaveassign.'
-        example: maxime
+        example: quo
         required: true
         schema:
           type: string
@@ -1444,7 +1410,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the devicedeleteassign.'
-        example: nihil
+        example: corporis
         required: true
         schema:
           type: string
@@ -1488,11 +1454,11 @@ paths:
                 serial_no:
                   type: string
                   description: ''
-                  example: aliquam
+                  example: iusto
                 id_no:
                   type: string
                   description: ''
-                  example: qui
+                  example: aut
               required:
                 - serial_no
                 - id_no
@@ -1542,7 +1508,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera.'
-        example: qui
+        example: et
         required: true
         schema:
           type: string
@@ -1561,7 +1527,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camerasaveassign.'
-        example: harum
+        example: dolorem
         required: true
         schema:
           type: string
@@ -1580,7 +1546,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the cameradeleteassign.'
-        example: et
+        example: quibusdam
         required: true
         schema:
           type: string
@@ -1660,7 +1626,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera issue.'
-        example: consequatur
+        example: tenetur
         required: true
         schema:
           type: string
@@ -1740,7 +1706,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device issue.'
-        example: aut
+        example: voluptatem
         required: true
         schema:
           type: string
@@ -1836,7 +1802,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the client.'
-        example: 1
+        example: 11
         required: true
         schema:
           type: integer
@@ -1932,7 +1898,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the dealer.'
-        example: 11
+        example: 5
         required: true
         schema:
           type: integer
@@ -2028,7 +1994,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the subdealer.'
-        example: 4
+        example: 6
         required: true
         schema:
           type: integer
@@ -2124,7 +2090,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the vehicle.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
@@ -2220,7 +2186,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the vehicle type.'
-        example: 1
+        example: 19
         required: true
         schema:
           type: integer

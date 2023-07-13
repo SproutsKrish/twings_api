@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost";
+        var tryItOutBaseUrl = "http://localhost:8000/";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -71,13 +71,7 @@
                     <a href="#endpoints">Endpoints</a>
                 </li>
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-docs">
-                                <a href="#endpoints-GETapi-docs">Display Swagger API page.</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-oauth2-callback">
-                                <a href="#endpoints-GETapi-oauth2-callback">Display Oauth2 callback pages.</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-login">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-POSTapi-login">
                                 <a href="#endpoints-POSTapi-login">POST api/login</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-logout">
@@ -472,7 +466,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>http://localhost:8000/</code>
 </aside>
 <p>This documentation aims to provide all the information you need to work with our API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
@@ -485,403 +479,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
     
 
-                                <h2 id="endpoints-GETapi-docs">Display Swagger API page.</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETapi-docs">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/docs" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/docs"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-docs">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;L5 Swagger UI&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://localhost/docs/asset/swagger-ui.css?v=f517f33f81297c6257ef7ee27cbc731d&quot;&gt;
-    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6&quot; sizes=&quot;32x32&quot;/&gt;
-    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384&quot; sizes=&quot;16x16&quot;/&gt;
-    &lt;style&gt;
-    html
-    {
-        box-sizing: border-box;
-        overflow: -moz-scrollbars-vertical;
-        overflow-y: scroll;
-    }
-    *,
-    *:before,
-    *:after
-    {
-        box-sizing: inherit;
-    }
-
-    body {
-      margin:0;
-      background: #fafafa;
-    }
-    &lt;/style&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-&lt;div id=&quot;swagger-ui&quot;&gt;&lt;/div&gt;
-
-&lt;script src=&quot;http://localhost/docs/asset/swagger-ui-bundle.js?v=be2d9d4b84214df24b075f96afcc15e3&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=290ffdd83831e0cefeb3e69e88cecde7&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    window.onload = function() {
-        // Build a system
-        const ui = SwaggerUIBundle({
-            dom_id: '#swagger-ui',
-            url: &quot;http://localhost/docs/api-docs.json&quot;,
-            operationsSorter: null,
-            configUrl: null,
-            validatorUrl: null,
-            oauth2RedirectUrl: &quot;http://localhost/api/oauth2-callback&quot;,
-
-            requestInterceptor: function(request) {
-                request.headers['X-CSRF-TOKEN'] = '';
-                return request;
-            },
-
-            presets: [
-                SwaggerUIBundle.presets.apis,
-                SwaggerUIStandalonePreset
-            ],
-
-            plugins: [
-                SwaggerUIBundle.plugins.DownloadUrl
-            ],
-
-            layout: &quot;StandaloneLayout&quot;,
-            docExpansion : &quot;none&quot;,
-            deepLinking: true,
-            filter: true,
-            persistAuthorization: &quot;false&quot;,
-
-        })
-
-        window.ui = ui
-
-            }
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-docs" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-docs"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-docs"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-docs" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-docs">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-docs" data-method="GET"
-      data-path="api/docs"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-docs', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-docs"
-                    onclick="tryItOut('GETapi-docs');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-docs"
-                    onclick="cancelTryOut('GETapi-docs');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-docs"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/docs</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-docs"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-docs"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        </form>
-
-                    <h2 id="endpoints-GETapi-oauth2-callback">Display Oauth2 callback pages.</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETapi-oauth2-callback">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/oauth2-callback" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/oauth2-callback"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-oauth2-callback">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">content-type: text/html; charset=UTF-8
-cache-control: no-cache, private
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">&lt;!doctype html&gt;
-&lt;html lang=&quot;en-US&quot;&gt;
-&lt;head&gt;
-    &lt;title&gt;Swagger UI: OAuth2 Redirect&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;script&gt;
-    'use strict';
-    function run () {
-        var oauth2 = window.opener.swaggerUIRedirectOauth2;
-        var sentState = oauth2.state;
-        var redirectUrl = oauth2.redirectUrl;
-        var isValid, qp, arr;
-
-        if (/code|token|error/.test(window.location.hash)) {
-            qp = window.location.hash.substring(1).replace('?', '&amp;');
-        } else {
-            qp = location.search.substring(1);
-        }
-
-        arr = qp.split(&quot;&amp;&quot;);
-        arr.forEach(function (v,i,_arr) { _arr[i] = '&quot;' + v.replace('=', '&quot;:&quot;') + '&quot;';});
-        qp = qp ? JSON.parse('{' + arr.join() + '}',
-                function (key, value) {
-                    return key === &quot;&quot; ? value : decodeURIComponent(value);
-                }
-        ) : {};
-
-        isValid = qp.state === sentState;
-
-        if ((
-          oauth2.auth.schema.get(&quot;flow&quot;) === &quot;accessCode&quot; ||
-          oauth2.auth.schema.get(&quot;flow&quot;) === &quot;authorizationCode&quot; ||
-          oauth2.auth.schema.get(&quot;flow&quot;) === &quot;authorization_code&quot;
-        ) &amp;&amp; !oauth2.auth.code) {
-            if (!isValid) {
-                oauth2.errCb({
-                    authId: oauth2.auth.name,
-                    source: &quot;auth&quot;,
-                    level: &quot;warning&quot;,
-                    message: &quot;Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server.&quot;
-                });
-            }
-
-            if (qp.code) {
-                delete oauth2.state;
-                oauth2.auth.code = qp.code;
-                oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});
-            } else {
-                let oauthErrorMsg;
-                if (qp.error) {
-                    oauthErrorMsg = &quot;[&quot;+qp.error+&quot;]: &quot; +
-                        (qp.error_description ? qp.error_description+ &quot;. &quot; : &quot;no accessCode received from the server. &quot;) +
-                        (qp.error_uri ? &quot;More info: &quot;+qp.error_uri : &quot;&quot;);
-                }
-
-                oauth2.errCb({
-                    authId: oauth2.auth.name,
-                    source: &quot;auth&quot;,
-                    level: &quot;error&quot;,
-                    message: oauthErrorMsg || &quot;[Authorization failed]: no accessCode received from the server.&quot;
-                });
-            }
-        } else {
-            oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});
-        }
-        window.close();
-    }
-
-    if (document.readyState !== 'loading') {
-        run();
-    } else {
-        document.addEventListener('DOMContentLoaded', function () {
-            run();
-        });
-    }
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-oauth2-callback" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-oauth2-callback"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-oauth2-callback"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-oauth2-callback" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-oauth2-callback">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-oauth2-callback" data-method="GET"
-      data-path="api/oauth2-callback"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-oauth2-callback', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-oauth2-callback"
-                    onclick="tryItOut('GETapi-oauth2-callback');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-oauth2-callback"
-                    onclick="cancelTryOut('GETapi-oauth2-callback');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-oauth2-callback"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/oauth2-callback</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-oauth2-callback"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-oauth2-callback"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        </form>
-
-                    <h2 id="endpoints-POSTapi-login">POST api/login</h2>
+                                <h2 id="endpoints-POSTapi-login">POST api/login</h2>
 
 <p>
 </p>
@@ -894,19 +492,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/login" \
+    "http://localhost:8000/api/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"lauretta43@example.com\",
-    \"password\": \"officia\"
+    \"email\": \"cary82@example.org\",
+    \"password\": \"excepturi\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/login"
+    "http://localhost:8000/api/login"
 );
 
 const headers = {
@@ -915,8 +513,8 @@ const headers = {
 };
 
 let body = {
-    "email": "lauretta43@example.com",
-    "password": "officia"
+    "email": "cary82@example.org",
+    "password": "excepturi"
 };
 
 fetch(url, {
@@ -1005,10 +603,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="lauretta43@example.com"
+               value="cary82@example.org"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>lauretta43@example.com</code></p>
+<p>Must be a valid email address. Example: <code>cary82@example.org</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -1016,10 +614,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="officia"
+               value="excepturi"
                data-component="body">
     <br>
-<p>Example: <code>officia</code></p>
+<p>Example: <code>excepturi</code></p>
         </div>
         </form>
 
@@ -1036,14 +634,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/logout" \
+    "http://localhost:8000/api/logout" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/logout"
+    "http://localhost:8000/api/logout"
 );
 
 const headers = {
@@ -1144,14 +742,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/user" \
+    --get "http://localhost:8000/api/user" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/user"
+    "http://localhost:8000/api/user"
 );
 
 const headers = {
@@ -1268,21 +866,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/register" \
+    "http://localhost:8000/api/register" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"molestiae\",
-    \"email\": \"milton.armstrong@example.net\",
-    \"password\": \"ipsam\",
-    \"mobile_number\": \"reiciendis\"
+    \"name\": \"aspernatur\",
+    \"email\": \"nayeli.walsh@example.org\",
+    \"password\": \"qui\",
+    \"mobile_number\": \"enim\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/register"
+    "http://localhost:8000/api/register"
 );
 
 const headers = {
@@ -1291,10 +889,10 @@ const headers = {
 };
 
 let body = {
-    "name": "molestiae",
-    "email": "milton.armstrong@example.net",
-    "password": "ipsam",
-    "mobile_number": "reiciendis"
+    "name": "aspernatur",
+    "email": "nayeli.walsh@example.org",
+    "password": "qui",
+    "mobile_number": "enim"
 };
 
 fetch(url, {
@@ -1383,10 +981,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-register"
-               value="molestiae"
+               value="aspernatur"
                data-component="body">
     <br>
-<p>Example: <code>molestiae</code></p>
+<p>Example: <code>aspernatur</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -1394,10 +992,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-register"
-               value="milton.armstrong@example.net"
+               value="nayeli.walsh@example.org"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>milton.armstrong@example.net</code></p>
+<p>Must be a valid email address. Example: <code>nayeli.walsh@example.org</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -1405,10 +1003,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-register"
-               value="ipsam"
+               value="qui"
                data-component="body">
     <br>
-<p>Example: <code>ipsam</code></p>
+<p>Example: <code>qui</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>mobile_number</code></b>&nbsp;&nbsp;
@@ -1416,10 +1014,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mobile_number"                data-endpoint="POSTapi-register"
-               value="reiciendis"
+               value="enim"
                data-component="body">
     <br>
-<p>Example: <code>reiciendis</code></p>
+<p>Example: <code>enim</code></p>
         </div>
         </form>
 
@@ -1436,14 +1034,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/admin/dashboard" \
+    --get "http://localhost:8000/api/admin/dashboard" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/admin/dashboard"
+    "http://localhost:8000/api/admin/dashboard"
 );
 
 const headers = {
@@ -1560,14 +1158,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/country" \
+    --get "http://localhost:8000/api/country" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/country"
+    "http://localhost:8000/api/country"
 );
 
 const headers = {
@@ -1684,21 +1282,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/country" \
+    "http://localhost:8000/api/country" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"country_name\": \"consectetur\",
-    \"country_code\": \"explicabo\",
-    \"timezone_name\": \"quo\",
-    \"timezone_minutes\": 199629654.680644
+    \"country_name\": \"similique\",
+    \"country_code\": \"et\",
+    \"timezone_name\": \"modi\",
+    \"timezone_minutes\": 31.21744
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/country"
+    "http://localhost:8000/api/country"
 );
 
 const headers = {
@@ -1707,10 +1305,10 @@ const headers = {
 };
 
 let body = {
-    "country_name": "consectetur",
-    "country_code": "explicabo",
-    "timezone_name": "quo",
-    "timezone_minutes": 199629654.680644
+    "country_name": "similique",
+    "country_code": "et",
+    "timezone_name": "modi",
+    "timezone_minutes": 31.21744
 };
 
 fetch(url, {
@@ -1799,10 +1397,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="country_name"                data-endpoint="POSTapi-country"
-               value="consectetur"
+               value="similique"
                data-component="body">
     <br>
-<p>Example: <code>consectetur</code></p>
+<p>Example: <code>similique</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>country_code</code></b>&nbsp;&nbsp;
@@ -1810,10 +1408,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="country_code"                data-endpoint="POSTapi-country"
-               value="explicabo"
+               value="et"
                data-component="body">
     <br>
-<p>Example: <code>explicabo</code></p>
+<p>Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>timezone_name</code></b>&nbsp;&nbsp;
@@ -1821,10 +1419,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="timezone_name"                data-endpoint="POSTapi-country"
-               value="quo"
+               value="modi"
                data-component="body">
     <br>
-<p>Example: <code>quo</code></p>
+<p>Example: <code>modi</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>timezone_minutes</code></b>&nbsp;&nbsp;
@@ -1832,10 +1430,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="timezone_minutes"                data-endpoint="POSTapi-country"
-               value="199629654.68064"
+               value="31.21744"
                data-component="body">
     <br>
-<p>Example: <code>199629654.68064</code></p>
+<p>Example: <code>31.21744</code></p>
         </div>
         </form>
 
@@ -1852,14 +1450,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/country/neque" \
+    --get "http://localhost:8000/api/country/cupiditate" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/country/neque"
+    "http://localhost:8000/api/country/cupiditate"
 );
 
 const headers = {
@@ -1968,10 +1566,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-country--id-"
-               value="neque"
+               value="cupiditate"
                data-component="url">
     <br>
-<p>The ID of the country. Example: <code>neque</code></p>
+<p>The ID of the country. Example: <code>cupiditate</code></p>
             </div>
                     </form>
 
@@ -1988,14 +1586,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/country/ipsam" \
+    "http://localhost:8000/api/country/sequi" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/country/ipsam"
+    "http://localhost:8000/api/country/sequi"
 );
 
 const headers = {
@@ -2092,10 +1690,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-country--id-"
-               value="ipsam"
+               value="sequi"
                data-component="url">
     <br>
-<p>The ID of the country. Example: <code>ipsam</code></p>
+<p>The ID of the country. Example: <code>sequi</code></p>
             </div>
                     </form>
 
@@ -2112,14 +1710,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/country/recusandae" \
+    "http://localhost:8000/api/country/nam" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/country/recusandae"
+    "http://localhost:8000/api/country/nam"
 );
 
 const headers = {
@@ -2212,10 +1810,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-country--id-"
-               value="recusandae"
+               value="nam"
                data-component="url">
     <br>
-<p>The ID of the country. Example: <code>recusandae</code></p>
+<p>The ID of the country. Example: <code>nam</code></p>
             </div>
                     </form>
 
@@ -2232,14 +1830,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/role" \
+    --get "http://localhost:8000/api/role" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role"
+    "http://localhost:8000/api/role"
 );
 
 const headers = {
@@ -2356,14 +1954,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/role" \
+    "http://localhost:8000/api/role" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role"
+    "http://localhost:8000/api/role"
 );
 
 const headers = {
@@ -2464,14 +2062,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/role/temporibus" \
+    --get "http://localhost:8000/api/role/deserunt" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role/temporibus"
+    "http://localhost:8000/api/role/deserunt"
 );
 
 const headers = {
@@ -2580,10 +2178,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-role--id-"
-               value="temporibus"
+               value="deserunt"
                data-component="url">
     <br>
-<p>The ID of the role. Example: <code>temporibus</code></p>
+<p>The ID of the role. Example: <code>deserunt</code></p>
             </div>
                     </form>
 
@@ -2600,14 +2198,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/role/in" \
+    "http://localhost:8000/api/role/ab" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role/in"
+    "http://localhost:8000/api/role/ab"
 );
 
 const headers = {
@@ -2704,10 +2302,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-role--id-"
-               value="in"
+               value="ab"
                data-component="url">
     <br>
-<p>The ID of the role. Example: <code>in</code></p>
+<p>The ID of the role. Example: <code>ab</code></p>
             </div>
                     </form>
 
@@ -2724,14 +2322,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/role/omnis" \
+    "http://localhost:8000/api/role/ipsam" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role/omnis"
+    "http://localhost:8000/api/role/ipsam"
 );
 
 const headers = {
@@ -2824,10 +2422,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-role--id-"
-               value="omnis"
+               value="ipsam"
                data-component="url">
     <br>
-<p>The ID of the role. Example: <code>omnis</code></p>
+<p>The ID of the role. Example: <code>ipsam</code></p>
             </div>
                     </form>
 
@@ -2844,14 +2442,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permission" \
+    --get "http://localhost:8000/api/permission" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permission"
+    "http://localhost:8000/api/permission"
 );
 
 const headers = {
@@ -2968,14 +2566,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/permission" \
+    "http://localhost:8000/api/permission" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permission"
+    "http://localhost:8000/api/permission"
 );
 
 const headers = {
@@ -3076,14 +2674,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/permission/neque" \
+    --get "http://localhost:8000/api/permission/consequatur" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permission/neque"
+    "http://localhost:8000/api/permission/consequatur"
 );
 
 const headers = {
@@ -3192,10 +2790,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-permission--id-"
-               value="neque"
+               value="consequatur"
                data-component="url">
     <br>
-<p>The ID of the permission. Example: <code>neque</code></p>
+<p>The ID of the permission. Example: <code>consequatur</code></p>
             </div>
                     </form>
 
@@ -3212,14 +2810,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/permission/quis" \
+    "http://localhost:8000/api/permission/officiis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permission/quis"
+    "http://localhost:8000/api/permission/officiis"
 );
 
 const headers = {
@@ -3316,10 +2914,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-permission--id-"
-               value="quis"
+               value="officiis"
                data-component="url">
     <br>
-<p>The ID of the permission. Example: <code>quis</code></p>
+<p>The ID of the permission. Example: <code>officiis</code></p>
             </div>
                     </form>
 
@@ -3336,14 +2934,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/permission/voluptatem" \
+    "http://localhost:8000/api/permission/quas" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/permission/voluptatem"
+    "http://localhost:8000/api/permission/quas"
 );
 
 const headers = {
@@ -3436,10 +3034,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-permission--id-"
-               value="voluptatem"
+               value="quas"
                data-component="url">
     <br>
-<p>The ID of the permission. Example: <code>voluptatem</code></p>
+<p>The ID of the permission. Example: <code>quas</code></p>
             </div>
                     </form>
 
@@ -3456,14 +3054,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/role_permission" \
+    --get "http://localhost:8000/api/role_permission" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role_permission"
+    "http://localhost:8000/api/role_permission"
 );
 
 const headers = {
@@ -3580,14 +3178,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/role_permission" \
+    "http://localhost:8000/api/role_permission" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role_permission"
+    "http://localhost:8000/api/role_permission"
 );
 
 const headers = {
@@ -3688,14 +3286,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/role_permission/omnis" \
+    --get "http://localhost:8000/api/role_permission/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role_permission/omnis"
+    "http://localhost:8000/api/role_permission/et"
 );
 
 const headers = {
@@ -3804,10 +3402,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-role_permission--id-"
-               value="omnis"
+               value="et"
                data-component="url">
     <br>
-<p>The ID of the role permission. Example: <code>omnis</code></p>
+<p>The ID of the role permission. Example: <code>et</code></p>
             </div>
                     </form>
 
@@ -3824,14 +3422,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/role_permission/nostrum" \
+    "http://localhost:8000/api/role_permission/ex" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role_permission/nostrum"
+    "http://localhost:8000/api/role_permission/ex"
 );
 
 const headers = {
@@ -3928,10 +3526,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-role_permission--id-"
-               value="nostrum"
+               value="ex"
                data-component="url">
     <br>
-<p>The ID of the role permission. Example: <code>nostrum</code></p>
+<p>The ID of the role permission. Example: <code>ex</code></p>
             </div>
                     </form>
 
@@ -3948,14 +3546,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/role_permission/eligendi" \
+    "http://localhost:8000/api/role_permission/officiis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/role_permission/eligendi"
+    "http://localhost:8000/api/role_permission/officiis"
 );
 
 const headers = {
@@ -4048,10 +3646,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-role_permission--id-"
-               value="eligendi"
+               value="officiis"
                data-component="url">
     <br>
-<p>The ID of the role permission. Example: <code>eligendi</code></p>
+<p>The ID of the role permission. Example: <code>officiis</code></p>
             </div>
                     </form>
 
@@ -4068,14 +3666,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/user/dashboard" \
+    --get "http://localhost:8000/api/user/dashboard" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/user/dashboard"
+    "http://localhost:8000/api/user/dashboard"
 );
 
 const headers = {
@@ -4192,14 +3790,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/network" \
+    --get "http://localhost:8000/api/network" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/network"
+    "http://localhost:8000/api/network"
 );
 
 const headers = {
@@ -4316,14 +3914,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/network" \
+    "http://localhost:8000/api/network" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/network"
+    "http://localhost:8000/api/network"
 );
 
 const headers = {
@@ -4424,14 +4022,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/network/et" \
+    --get "http://localhost:8000/api/network/ipsa" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/network/et"
+    "http://localhost:8000/api/network/ipsa"
 );
 
 const headers = {
@@ -4540,10 +4138,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-network--id-"
-               value="et"
+               value="ipsa"
                data-component="url">
     <br>
-<p>The ID of the network. Example: <code>et</code></p>
+<p>The ID of the network. Example: <code>ipsa</code></p>
             </div>
                     </form>
 
@@ -4560,14 +4158,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/network/dolorem" \
+    "http://localhost:8000/api/network/consequuntur" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/network/dolorem"
+    "http://localhost:8000/api/network/consequuntur"
 );
 
 const headers = {
@@ -4664,10 +4262,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-network--id-"
-               value="dolorem"
+               value="consequuntur"
                data-component="url">
     <br>
-<p>The ID of the network. Example: <code>dolorem</code></p>
+<p>The ID of the network. Example: <code>consequuntur</code></p>
             </div>
                     </form>
 
@@ -4684,14 +4282,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/network/dolorum" \
+    "http://localhost:8000/api/network/dolore" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/network/dolorum"
+    "http://localhost:8000/api/network/dolore"
 );
 
 const headers = {
@@ -4784,10 +4382,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-network--id-"
-               value="dolorum"
+               value="dolore"
                data-component="url">
     <br>
-<p>The ID of the network. Example: <code>dolorum</code></p>
+<p>The ID of the network. Example: <code>dolore</code></p>
             </div>
                     </form>
 
@@ -4804,14 +4402,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/supplier" \
+    --get "http://localhost:8000/api/supplier" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/supplier"
+    "http://localhost:8000/api/supplier"
 );
 
 const headers = {
@@ -4928,14 +4526,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/supplier" \
+    "http://localhost:8000/api/supplier" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/supplier"
+    "http://localhost:8000/api/supplier"
 );
 
 const headers = {
@@ -5036,14 +4634,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/supplier/minus" \
+    --get "http://localhost:8000/api/supplier/natus" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/supplier/minus"
+    "http://localhost:8000/api/supplier/natus"
 );
 
 const headers = {
@@ -5152,10 +4750,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-supplier--id-"
-               value="minus"
+               value="natus"
                data-component="url">
     <br>
-<p>The ID of the supplier. Example: <code>minus</code></p>
+<p>The ID of the supplier. Example: <code>natus</code></p>
             </div>
                     </form>
 
@@ -5172,14 +4770,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/supplier/est" \
+    "http://localhost:8000/api/supplier/facilis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/supplier/est"
+    "http://localhost:8000/api/supplier/facilis"
 );
 
 const headers = {
@@ -5276,10 +4874,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-supplier--id-"
-               value="est"
+               value="facilis"
                data-component="url">
     <br>
-<p>The ID of the supplier. Example: <code>est</code></p>
+<p>The ID of the supplier. Example: <code>facilis</code></p>
             </div>
                     </form>
 
@@ -5296,14 +4894,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/supplier/dolorem" \
+    "http://localhost:8000/api/supplier/eius" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/supplier/dolorem"
+    "http://localhost:8000/api/supplier/eius"
 );
 
 const headers = {
@@ -5396,10 +4994,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-supplier--id-"
-               value="dolorem"
+               value="eius"
                data-component="url">
     <br>
-<p>The ID of the supplier. Example: <code>dolorem</code></p>
+<p>The ID of the supplier. Example: <code>eius</code></p>
             </div>
                     </form>
 
@@ -5416,14 +5014,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_type" \
+    --get "http://localhost:8000/api/device_type" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_type"
+    "http://localhost:8000/api/device_type"
 );
 
 const headers = {
@@ -5540,14 +5138,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/device_type" \
+    "http://localhost:8000/api/device_type" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_type"
+    "http://localhost:8000/api/device_type"
 );
 
 const headers = {
@@ -5648,14 +5246,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_type/quaerat" \
+    --get "http://localhost:8000/api/device_type/impedit" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_type/quaerat"
+    "http://localhost:8000/api/device_type/impedit"
 );
 
 const headers = {
@@ -5764,10 +5362,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-device_type--id-"
-               value="quaerat"
+               value="impedit"
                data-component="url">
     <br>
-<p>The ID of the device type. Example: <code>quaerat</code></p>
+<p>The ID of the device type. Example: <code>impedit</code></p>
             </div>
                     </form>
 
@@ -5784,14 +5382,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/device_type/omnis" \
+    "http://localhost:8000/api/device_type/unde" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_type/omnis"
+    "http://localhost:8000/api/device_type/unde"
 );
 
 const headers = {
@@ -5888,10 +5486,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-device_type--id-"
-               value="omnis"
+               value="unde"
                data-component="url">
     <br>
-<p>The ID of the device type. Example: <code>omnis</code></p>
+<p>The ID of the device type. Example: <code>unde</code></p>
             </div>
                     </form>
 
@@ -5908,14 +5506,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/device_type/et" \
+    "http://localhost:8000/api/device_type/voluptatem" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_type/et"
+    "http://localhost:8000/api/device_type/voluptatem"
 );
 
 const headers = {
@@ -6008,10 +5606,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-device_type--id-"
-               value="et"
+               value="voluptatem"
                data-component="url">
     <br>
-<p>The ID of the device type. Example: <code>et</code></p>
+<p>The ID of the device type. Example: <code>voluptatem</code></p>
             </div>
                     </form>
 
@@ -6028,14 +5626,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_category" \
+    --get "http://localhost:8000/api/device_category" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_category"
+    "http://localhost:8000/api/device_category"
 );
 
 const headers = {
@@ -6152,14 +5750,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/device_category" \
+    "http://localhost:8000/api/device_category" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_category"
+    "http://localhost:8000/api/device_category"
 );
 
 const headers = {
@@ -6260,14 +5858,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_category/provident" \
+    --get "http://localhost:8000/api/device_category/impedit" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_category/provident"
+    "http://localhost:8000/api/device_category/impedit"
 );
 
 const headers = {
@@ -6376,10 +5974,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-device_category--id-"
-               value="provident"
+               value="impedit"
                data-component="url">
     <br>
-<p>The ID of the device category. Example: <code>provident</code></p>
+<p>The ID of the device category. Example: <code>impedit</code></p>
             </div>
                     </form>
 
@@ -6396,14 +5994,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/device_category/non" \
+    "http://localhost:8000/api/device_category/maiores" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_category/non"
+    "http://localhost:8000/api/device_category/maiores"
 );
 
 const headers = {
@@ -6500,10 +6098,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-device_category--id-"
-               value="non"
+               value="maiores"
                data-component="url">
     <br>
-<p>The ID of the device category. Example: <code>non</code></p>
+<p>The ID of the device category. Example: <code>maiores</code></p>
             </div>
                     </form>
 
@@ -6520,14 +6118,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/device_category/in" \
+    "http://localhost:8000/api/device_category/pariatur" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_category/in"
+    "http://localhost:8000/api/device_category/pariatur"
 );
 
 const headers = {
@@ -6620,10 +6218,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-device_category--id-"
-               value="in"
+               value="pariatur"
                data-component="url">
     <br>
-<p>The ID of the device category. Example: <code>in</code></p>
+<p>The ID of the device category. Example: <code>pariatur</code></p>
             </div>
                     </form>
 
@@ -6640,14 +6238,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_model" \
+    --get "http://localhost:8000/api/device_model" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_model"
+    "http://localhost:8000/api/device_model"
 );
 
 const headers = {
@@ -6764,14 +6362,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/device_model" \
+    "http://localhost:8000/api/device_model" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_model"
+    "http://localhost:8000/api/device_model"
 );
 
 const headers = {
@@ -6872,14 +6470,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_model/aut" \
+    --get "http://localhost:8000/api/device_model/hic" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_model/aut"
+    "http://localhost:8000/api/device_model/hic"
 );
 
 const headers = {
@@ -6988,10 +6586,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-device_model--id-"
-               value="aut"
+               value="hic"
                data-component="url">
     <br>
-<p>The ID of the device model. Example: <code>aut</code></p>
+<p>The ID of the device model. Example: <code>hic</code></p>
             </div>
                     </form>
 
@@ -7008,14 +6606,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/device_model/omnis" \
+    "http://localhost:8000/api/device_model/nobis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_model/omnis"
+    "http://localhost:8000/api/device_model/nobis"
 );
 
 const headers = {
@@ -7112,10 +6710,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-device_model--id-"
-               value="omnis"
+               value="nobis"
                data-component="url">
     <br>
-<p>The ID of the device model. Example: <code>omnis</code></p>
+<p>The ID of the device model. Example: <code>nobis</code></p>
             </div>
                     </form>
 
@@ -7132,14 +6730,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/device_model/enim" \
+    "http://localhost:8000/api/device_model/maxime" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_model/enim"
+    "http://localhost:8000/api/device_model/maxime"
 );
 
 const headers = {
@@ -7232,10 +6830,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-device_model--id-"
-               value="enim"
+               value="maxime"
                data-component="url">
     <br>
-<p>The ID of the device model. Example: <code>enim</code></p>
+<p>The ID of the device model. Example: <code>maxime</code></p>
             </div>
                     </form>
 
@@ -7252,14 +6850,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_type" \
+    --get "http://localhost:8000/api/camera_type" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_type"
+    "http://localhost:8000/api/camera_type"
 );
 
 const headers = {
@@ -7376,14 +6974,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/camera_type" \
+    "http://localhost:8000/api/camera_type" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_type"
+    "http://localhost:8000/api/camera_type"
 );
 
 const headers = {
@@ -7484,14 +7082,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_type/illo" \
+    --get "http://localhost:8000/api/camera_type/maiores" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_type/illo"
+    "http://localhost:8000/api/camera_type/maiores"
 );
 
 const headers = {
@@ -7600,10 +7198,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-camera_type--id-"
-               value="illo"
+               value="maiores"
                data-component="url">
     <br>
-<p>The ID of the camera type. Example: <code>illo</code></p>
+<p>The ID of the camera type. Example: <code>maiores</code></p>
             </div>
                     </form>
 
@@ -7620,14 +7218,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/camera_type/nobis" \
+    "http://localhost:8000/api/camera_type/quia" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_type/nobis"
+    "http://localhost:8000/api/camera_type/quia"
 );
 
 const headers = {
@@ -7724,10 +7322,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-camera_type--id-"
-               value="nobis"
+               value="quia"
                data-component="url">
     <br>
-<p>The ID of the camera type. Example: <code>nobis</code></p>
+<p>The ID of the camera type. Example: <code>quia</code></p>
             </div>
                     </form>
 
@@ -7744,14 +7342,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/camera_type/nulla" \
+    "http://localhost:8000/api/camera_type/ut" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_type/nulla"
+    "http://localhost:8000/api/camera_type/ut"
 );
 
 const headers = {
@@ -7844,10 +7442,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-camera_type--id-"
-               value="nulla"
+               value="ut"
                data-component="url">
     <br>
-<p>The ID of the camera type. Example: <code>nulla</code></p>
+<p>The ID of the camera type. Example: <code>ut</code></p>
             </div>
                     </form>
 
@@ -7864,14 +7462,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_category" \
+    --get "http://localhost:8000/api/camera_category" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_category"
+    "http://localhost:8000/api/camera_category"
 );
 
 const headers = {
@@ -7988,14 +7586,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/camera_category" \
+    "http://localhost:8000/api/camera_category" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_category"
+    "http://localhost:8000/api/camera_category"
 );
 
 const headers = {
@@ -8096,14 +7694,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_category/et" \
+    --get "http://localhost:8000/api/camera_category/officiis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_category/et"
+    "http://localhost:8000/api/camera_category/officiis"
 );
 
 const headers = {
@@ -8212,10 +7810,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-camera_category--id-"
-               value="et"
+               value="officiis"
                data-component="url">
     <br>
-<p>The ID of the camera category. Example: <code>et</code></p>
+<p>The ID of the camera category. Example: <code>officiis</code></p>
             </div>
                     </form>
 
@@ -8232,14 +7830,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/camera_category/repellat" \
+    "http://localhost:8000/api/camera_category/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_category/repellat"
+    "http://localhost:8000/api/camera_category/et"
 );
 
 const headers = {
@@ -8336,10 +7934,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-camera_category--id-"
-               value="repellat"
+               value="et"
                data-component="url">
     <br>
-<p>The ID of the camera category. Example: <code>repellat</code></p>
+<p>The ID of the camera category. Example: <code>et</code></p>
             </div>
                     </form>
 
@@ -8356,14 +7954,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/camera_category/repellendus" \
+    "http://localhost:8000/api/camera_category/est" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_category/repellendus"
+    "http://localhost:8000/api/camera_category/est"
 );
 
 const headers = {
@@ -8456,10 +8054,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-camera_category--id-"
-               value="repellendus"
+               value="est"
                data-component="url">
     <br>
-<p>The ID of the camera category. Example: <code>repellendus</code></p>
+<p>The ID of the camera category. Example: <code>est</code></p>
             </div>
                     </form>
 
@@ -8476,14 +8074,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_model" \
+    --get "http://localhost:8000/api/camera_model" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_model"
+    "http://localhost:8000/api/camera_model"
 );
 
 const headers = {
@@ -8600,14 +8198,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/camera_model" \
+    "http://localhost:8000/api/camera_model" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_model"
+    "http://localhost:8000/api/camera_model"
 );
 
 const headers = {
@@ -8708,14 +8306,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_model/explicabo" \
+    --get "http://localhost:8000/api/camera_model/perspiciatis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_model/explicabo"
+    "http://localhost:8000/api/camera_model/perspiciatis"
 );
 
 const headers = {
@@ -8824,10 +8422,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-camera_model--id-"
-               value="explicabo"
+               value="perspiciatis"
                data-component="url">
     <br>
-<p>The ID of the camera model. Example: <code>explicabo</code></p>
+<p>The ID of the camera model. Example: <code>perspiciatis</code></p>
             </div>
                     </form>
 
@@ -8844,14 +8442,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/camera_model/praesentium" \
+    "http://localhost:8000/api/camera_model/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_model/praesentium"
+    "http://localhost:8000/api/camera_model/et"
 );
 
 const headers = {
@@ -8948,10 +8546,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-camera_model--id-"
-               value="praesentium"
+               value="et"
                data-component="url">
     <br>
-<p>The ID of the camera model. Example: <code>praesentium</code></p>
+<p>The ID of the camera model. Example: <code>et</code></p>
             </div>
                     </form>
 
@@ -8968,14 +8566,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/camera_model/unde" \
+    "http://localhost:8000/api/camera_model/quaerat" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_model/unde"
+    "http://localhost:8000/api/camera_model/quaerat"
 );
 
 const headers = {
@@ -9068,10 +8666,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-camera_model--id-"
-               value="unde"
+               value="quaerat"
                data-component="url">
     <br>
-<p>The ID of the camera model. Example: <code>unde</code></p>
+<p>The ID of the camera model. Example: <code>quaerat</code></p>
             </div>
                     </form>
 
@@ -9088,14 +8686,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/sim" \
+    --get "http://localhost:8000/api/sim" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/sim"
+    "http://localhost:8000/api/sim"
 );
 
 const headers = {
@@ -9212,19 +8810,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/sim" \
+    "http://localhost:8000/api/sim" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"sim_imei_no\": \"id\",
-    \"sim_mob_no\": \"quis\"
+    \"sim_imei_no\": \"incidunt\",
+    \"sim_mob_no\": \"eos\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/sim"
+    "http://localhost:8000/api/sim"
 );
 
 const headers = {
@@ -9233,8 +8831,8 @@ const headers = {
 };
 
 let body = {
-    "sim_imei_no": "id",
-    "sim_mob_no": "quis"
+    "sim_imei_no": "incidunt",
+    "sim_mob_no": "eos"
 };
 
 fetch(url, {
@@ -9323,10 +8921,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="sim_imei_no"                data-endpoint="POSTapi-sim"
-               value="id"
+               value="incidunt"
                data-component="body">
     <br>
-<p>Example: <code>id</code></p>
+<p>Example: <code>incidunt</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>sim_mob_no</code></b>&nbsp;&nbsp;
@@ -9334,10 +8932,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="sim_mob_no"                data-endpoint="POSTapi-sim"
-               value="quis"
+               value="eos"
                data-component="body">
     <br>
-<p>Example: <code>quis</code></p>
+<p>Example: <code>eos</code></p>
         </div>
         </form>
 
@@ -9354,14 +8952,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/sim/in" \
+    --get "http://localhost:8000/api/sim/est" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/sim/in"
+    "http://localhost:8000/api/sim/est"
 );
 
 const headers = {
@@ -9470,10 +9068,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-sim--id-"
-               value="in"
+               value="est"
                data-component="url">
     <br>
-<p>The ID of the sim. Example: <code>in</code></p>
+<p>The ID of the sim. Example: <code>est</code></p>
             </div>
                     </form>
 
@@ -9490,14 +9088,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/sim/quia" \
+    "http://localhost:8000/api/sim/explicabo" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/sim/quia"
+    "http://localhost:8000/api/sim/explicabo"
 );
 
 const headers = {
@@ -9594,10 +9192,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-sim--id-"
-               value="quia"
+               value="explicabo"
                data-component="url">
     <br>
-<p>The ID of the sim. Example: <code>quia</code></p>
+<p>The ID of the sim. Example: <code>explicabo</code></p>
             </div>
                     </form>
 
@@ -9614,14 +9212,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/sim/et" \
+    "http://localhost:8000/api/sim/velit" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/sim/et"
+    "http://localhost:8000/api/sim/velit"
 );
 
 const headers = {
@@ -9714,10 +9312,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-sim--id-"
-               value="et"
+               value="velit"
                data-component="url">
     <br>
-<p>The ID of the sim. Example: <code>et</code></p>
+<p>The ID of the sim. Example: <code>velit</code></p>
             </div>
                     </form>
 
@@ -9734,14 +9332,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/simsaveassign/praesentium" \
+    "http://localhost:8000/api/simsaveassign/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/simsaveassign/praesentium"
+    "http://localhost:8000/api/simsaveassign/et"
 );
 
 const headers = {
@@ -9834,10 +9432,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-simsaveassign--id-"
-               value="praesentium"
+               value="et"
                data-component="url">
     <br>
-<p>The ID of the simsaveassign. Example: <code>praesentium</code></p>
+<p>The ID of the simsaveassign. Example: <code>et</code></p>
             </div>
                     </form>
 
@@ -9854,14 +9452,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/simdeleteassign/iste" \
+    "http://localhost:8000/api/simdeleteassign/ut" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/simdeleteassign/iste"
+    "http://localhost:8000/api/simdeleteassign/ut"
 );
 
 const headers = {
@@ -9954,10 +9552,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-simdeleteassign--id-"
-               value="iste"
+               value="ut"
                data-component="url">
     <br>
-<p>The ID of the simdeleteassign. Example: <code>iste</code></p>
+<p>The ID of the simdeleteassign. Example: <code>ut</code></p>
             </div>
                     </form>
 
@@ -9974,14 +9572,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device" \
+    --get "http://localhost:8000/api/device" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device"
+    "http://localhost:8000/api/device"
 );
 
 const headers = {
@@ -10098,20 +9696,20 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/device" \
+    "http://localhost:8000/api/device" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"device_imei_no\": \"incidunt\",
-    \"ccid\": \"quia\",
-    \"uid\": \"ipsam\"
+    \"device_imei_no\": \"et\",
+    \"ccid\": \"optio\",
+    \"uid\": \"fugit\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device"
+    "http://localhost:8000/api/device"
 );
 
 const headers = {
@@ -10120,9 +9718,9 @@ const headers = {
 };
 
 let body = {
-    "device_imei_no": "incidunt",
-    "ccid": "quia",
-    "uid": "ipsam"
+    "device_imei_no": "et",
+    "ccid": "optio",
+    "uid": "fugit"
 };
 
 fetch(url, {
@@ -10211,10 +9809,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="device_imei_no"                data-endpoint="POSTapi-device"
-               value="incidunt"
+               value="et"
                data-component="body">
     <br>
-<p>Example: <code>incidunt</code></p>
+<p>Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>ccid</code></b>&nbsp;&nbsp;
@@ -10222,10 +9820,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="ccid"                data-endpoint="POSTapi-device"
-               value="quia"
+               value="optio"
                data-component="body">
     <br>
-<p>Example: <code>quia</code></p>
+<p>Example: <code>optio</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>uid</code></b>&nbsp;&nbsp;
@@ -10233,10 +9831,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="uid"                data-endpoint="POSTapi-device"
-               value="ipsam"
+               value="fugit"
                data-component="body">
     <br>
-<p>Example: <code>ipsam</code></p>
+<p>Example: <code>fugit</code></p>
         </div>
         </form>
 
@@ -10253,14 +9851,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device/laborum" \
+    --get "http://localhost:8000/api/device/aut" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device/laborum"
+    "http://localhost:8000/api/device/aut"
 );
 
 const headers = {
@@ -10369,10 +9967,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-device--id-"
-               value="laborum"
+               value="aut"
                data-component="url">
     <br>
-<p>The ID of the device. Example: <code>laborum</code></p>
+<p>The ID of the device. Example: <code>aut</code></p>
             </div>
                     </form>
 
@@ -10389,14 +9987,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/device/quam" \
+    "http://localhost:8000/api/device/veniam" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device/quam"
+    "http://localhost:8000/api/device/veniam"
 );
 
 const headers = {
@@ -10493,10 +10091,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-device--id-"
-               value="quam"
+               value="veniam"
                data-component="url">
     <br>
-<p>The ID of the device. Example: <code>quam</code></p>
+<p>The ID of the device. Example: <code>veniam</code></p>
             </div>
                     </form>
 
@@ -10513,14 +10111,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/device/in" \
+    "http://localhost:8000/api/device/aliquam" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device/in"
+    "http://localhost:8000/api/device/aliquam"
 );
 
 const headers = {
@@ -10613,10 +10211,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-device--id-"
-               value="in"
+               value="aliquam"
                data-component="url">
     <br>
-<p>The ID of the device. Example: <code>in</code></p>
+<p>The ID of the device. Example: <code>aliquam</code></p>
             </div>
                     </form>
 
@@ -10633,14 +10231,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/devicesaveassign/maxime" \
+    "http://localhost:8000/api/devicesaveassign/quo" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/devicesaveassign/maxime"
+    "http://localhost:8000/api/devicesaveassign/quo"
 );
 
 const headers = {
@@ -10733,10 +10331,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-devicesaveassign--id-"
-               value="maxime"
+               value="quo"
                data-component="url">
     <br>
-<p>The ID of the devicesaveassign. Example: <code>maxime</code></p>
+<p>The ID of the devicesaveassign. Example: <code>quo</code></p>
             </div>
                     </form>
 
@@ -10753,14 +10351,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/devicedeleteassign/nihil" \
+    "http://localhost:8000/api/devicedeleteassign/corporis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/devicedeleteassign/nihil"
+    "http://localhost:8000/api/devicedeleteassign/corporis"
 );
 
 const headers = {
@@ -10853,10 +10451,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-devicedeleteassign--id-"
-               value="nihil"
+               value="corporis"
                data-component="url">
     <br>
-<p>The ID of the devicedeleteassign. Example: <code>nihil</code></p>
+<p>The ID of the devicedeleteassign. Example: <code>corporis</code></p>
             </div>
                     </form>
 
@@ -10873,14 +10471,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera" \
+    --get "http://localhost:8000/api/camera" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera"
+    "http://localhost:8000/api/camera"
 );
 
 const headers = {
@@ -10997,19 +10595,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/camera" \
+    "http://localhost:8000/api/camera" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"serial_no\": \"aliquam\",
-    \"id_no\": \"qui\"
+    \"serial_no\": \"iusto\",
+    \"id_no\": \"aut\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera"
+    "http://localhost:8000/api/camera"
 );
 
 const headers = {
@@ -11018,8 +10616,8 @@ const headers = {
 };
 
 let body = {
-    "serial_no": "aliquam",
-    "id_no": "qui"
+    "serial_no": "iusto",
+    "id_no": "aut"
 };
 
 fetch(url, {
@@ -11108,10 +10706,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="serial_no"                data-endpoint="POSTapi-camera"
-               value="aliquam"
+               value="iusto"
                data-component="body">
     <br>
-<p>Example: <code>aliquam</code></p>
+<p>Example: <code>iusto</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>id_no</code></b>&nbsp;&nbsp;
@@ -11119,10 +10717,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id_no"                data-endpoint="POSTapi-camera"
-               value="qui"
+               value="aut"
                data-component="body">
     <br>
-<p>Example: <code>qui</code></p>
+<p>Example: <code>aut</code></p>
         </div>
         </form>
 
@@ -11139,14 +10737,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera/qui" \
+    --get "http://localhost:8000/api/camera/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera/qui"
+    "http://localhost:8000/api/camera/et"
 );
 
 const headers = {
@@ -11255,10 +10853,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-camera--id-"
-               value="qui"
+               value="et"
                data-component="url">
     <br>
-<p>The ID of the camera. Example: <code>qui</code></p>
+<p>The ID of the camera. Example: <code>et</code></p>
             </div>
                     </form>
 
@@ -11275,14 +10873,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/camera/atque" \
+    "http://localhost:8000/api/camera/sunt" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera/atque"
+    "http://localhost:8000/api/camera/sunt"
 );
 
 const headers = {
@@ -11379,10 +10977,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-camera--id-"
-               value="atque"
+               value="sunt"
                data-component="url">
     <br>
-<p>The ID of the camera. Example: <code>atque</code></p>
+<p>The ID of the camera. Example: <code>sunt</code></p>
             </div>
                     </form>
 
@@ -11399,14 +10997,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/camera/enim" \
+    "http://localhost:8000/api/camera/libero" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera/enim"
+    "http://localhost:8000/api/camera/libero"
 );
 
 const headers = {
@@ -11499,10 +11097,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-camera--id-"
-               value="enim"
+               value="libero"
                data-component="url">
     <br>
-<p>The ID of the camera. Example: <code>enim</code></p>
+<p>The ID of the camera. Example: <code>libero</code></p>
             </div>
                     </form>
 
@@ -11519,14 +11117,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/camerasaveassign/harum" \
+    "http://localhost:8000/api/camerasaveassign/dolorem" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camerasaveassign/harum"
+    "http://localhost:8000/api/camerasaveassign/dolorem"
 );
 
 const headers = {
@@ -11619,10 +11217,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-camerasaveassign--id-"
-               value="harum"
+               value="dolorem"
                data-component="url">
     <br>
-<p>The ID of the camerasaveassign. Example: <code>harum</code></p>
+<p>The ID of the camerasaveassign. Example: <code>dolorem</code></p>
             </div>
                     </form>
 
@@ -11639,14 +11237,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/cameradeleteassign/et" \
+    "http://localhost:8000/api/cameradeleteassign/quibusdam" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/cameradeleteassign/et"
+    "http://localhost:8000/api/cameradeleteassign/quibusdam"
 );
 
 const headers = {
@@ -11739,10 +11337,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-cameradeleteassign--id-"
-               value="et"
+               value="quibusdam"
                data-component="url">
     <br>
-<p>The ID of the cameradeleteassign. Example: <code>et</code></p>
+<p>The ID of the cameradeleteassign. Example: <code>quibusdam</code></p>
             </div>
                     </form>
 
@@ -11759,14 +11357,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_issue" \
+    --get "http://localhost:8000/api/camera_issue" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_issue"
+    "http://localhost:8000/api/camera_issue"
 );
 
 const headers = {
@@ -11883,14 +11481,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/camera_issue" \
+    "http://localhost:8000/api/camera_issue" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_issue"
+    "http://localhost:8000/api/camera_issue"
 );
 
 const headers = {
@@ -11991,14 +11589,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/camera_issue/consequatur" \
+    --get "http://localhost:8000/api/camera_issue/tenetur" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_issue/consequatur"
+    "http://localhost:8000/api/camera_issue/tenetur"
 );
 
 const headers = {
@@ -12107,10 +11705,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-camera_issue--id-"
-               value="consequatur"
+               value="tenetur"
                data-component="url">
     <br>
-<p>The ID of the camera issue. Example: <code>consequatur</code></p>
+<p>The ID of the camera issue. Example: <code>tenetur</code></p>
             </div>
                     </form>
 
@@ -12127,14 +11725,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/camera_issue/fugiat" \
+    "http://localhost:8000/api/camera_issue/magni" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_issue/fugiat"
+    "http://localhost:8000/api/camera_issue/magni"
 );
 
 const headers = {
@@ -12231,10 +11829,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-camera_issue--id-"
-               value="fugiat"
+               value="magni"
                data-component="url">
     <br>
-<p>The ID of the camera issue. Example: <code>fugiat</code></p>
+<p>The ID of the camera issue. Example: <code>magni</code></p>
             </div>
                     </form>
 
@@ -12251,14 +11849,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/camera_issue/dolorem" \
+    "http://localhost:8000/api/camera_issue/perspiciatis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_issue/dolorem"
+    "http://localhost:8000/api/camera_issue/perspiciatis"
 );
 
 const headers = {
@@ -12351,10 +11949,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-camera_issue--id-"
-               value="dolorem"
+               value="perspiciatis"
                data-component="url">
     <br>
-<p>The ID of the camera issue. Example: <code>dolorem</code></p>
+<p>The ID of the camera issue. Example: <code>perspiciatis</code></p>
             </div>
                     </form>
 
@@ -12371,14 +11969,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_issue" \
+    --get "http://localhost:8000/api/device_issue" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_issue"
+    "http://localhost:8000/api/device_issue"
 );
 
 const headers = {
@@ -12495,14 +12093,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/device_issue" \
+    "http://localhost:8000/api/device_issue" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_issue"
+    "http://localhost:8000/api/device_issue"
 );
 
 const headers = {
@@ -12603,14 +12201,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/device_issue/aut" \
+    --get "http://localhost:8000/api/device_issue/voluptatem" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_issue/aut"
+    "http://localhost:8000/api/device_issue/voluptatem"
 );
 
 const headers = {
@@ -12719,10 +12317,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="GETapi-device_issue--id-"
-               value="aut"
+               value="voluptatem"
                data-component="url">
     <br>
-<p>The ID of the device issue. Example: <code>aut</code></p>
+<p>The ID of the device issue. Example: <code>voluptatem</code></p>
             </div>
                     </form>
 
@@ -12739,14 +12337,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/device_issue/assumenda" \
+    "http://localhost:8000/api/device_issue/sed" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_issue/assumenda"
+    "http://localhost:8000/api/device_issue/sed"
 );
 
 const headers = {
@@ -12843,10 +12441,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="PUTapi-device_issue--id-"
-               value="assumenda"
+               value="sed"
                data-component="url">
     <br>
-<p>The ID of the device issue. Example: <code>assumenda</code></p>
+<p>The ID of the device issue. Example: <code>sed</code></p>
             </div>
                     </form>
 
@@ -12863,14 +12461,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/device_issue/accusamus" \
+    "http://localhost:8000/api/device_issue/a" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_issue/accusamus"
+    "http://localhost:8000/api/device_issue/a"
 );
 
 const headers = {
@@ -12963,10 +12561,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-device_issue--id-"
-               value="accusamus"
+               value="a"
                data-component="url">
     <br>
-<p>The ID of the device issue. Example: <code>accusamus</code></p>
+<p>The ID of the device issue. Example: <code>a</code></p>
             </div>
                     </form>
 
@@ -12983,14 +12581,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/client" \
+    --get "http://localhost:8000/api/client" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client"
+    "http://localhost:8000/api/client"
 );
 
 const headers = {
@@ -13016,7 +12614,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 59
+x-ratelimit-remaining: 49
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -13111,14 +12709,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/client" \
+    "http://localhost:8000/api/client" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client"
+    "http://localhost:8000/api/client"
 );
 
 const headers = {
@@ -13219,14 +12817,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/client/1" \
+    --get "http://localhost:8000/api/client/11" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client/1"
+    "http://localhost:8000/api/client/11"
 );
 
 const headers = {
@@ -13252,7 +12850,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 58
+x-ratelimit-remaining: 48
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -13339,10 +12937,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-client--id-"
-               value="1"
+               value="11"
                data-component="url">
     <br>
-<p>The ID of the client. Example: <code>1</code></p>
+<p>The ID of the client. Example: <code>11</code></p>
             </div>
                     </form>
 
@@ -13359,14 +12957,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/client/2" \
+    "http://localhost:8000/api/client/10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client/2"
+    "http://localhost:8000/api/client/10"
 );
 
 const headers = {
@@ -13463,10 +13061,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-client--id-"
-               value="2"
+               value="10"
                data-component="url">
     <br>
-<p>The ID of the client. Example: <code>2</code></p>
+<p>The ID of the client. Example: <code>10</code></p>
             </div>
                     </form>
 
@@ -13483,14 +13081,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/client/2" \
+    "http://localhost:8000/api/client/19" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/client/2"
+    "http://localhost:8000/api/client/19"
 );
 
 const headers = {
@@ -13583,10 +13181,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-client--id-"
-               value="2"
+               value="19"
                data-component="url">
     <br>
-<p>The ID of the client. Example: <code>2</code></p>
+<p>The ID of the client. Example: <code>19</code></p>
             </div>
                     </form>
 
@@ -13603,14 +13201,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/dealer" \
+    --get "http://localhost:8000/api/dealer" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/dealer"
+    "http://localhost:8000/api/dealer"
 );
 
 const headers = {
@@ -13636,7 +13234,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 57
+x-ratelimit-remaining: 47
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -13731,14 +13329,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/dealer" \
+    "http://localhost:8000/api/dealer" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/dealer"
+    "http://localhost:8000/api/dealer"
 );
 
 const headers = {
@@ -13839,14 +13437,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/dealer/11" \
+    --get "http://localhost:8000/api/dealer/5" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/dealer/11"
+    "http://localhost:8000/api/dealer/5"
 );
 
 const headers = {
@@ -13872,7 +13470,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 56
+x-ratelimit-remaining: 46
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -13959,10 +13557,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-dealer--id-"
-               value="11"
+               value="5"
                data-component="url">
     <br>
-<p>The ID of the dealer. Example: <code>11</code></p>
+<p>The ID of the dealer. Example: <code>5</code></p>
             </div>
                     </form>
 
@@ -13979,14 +13577,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/dealer/10" \
+    "http://localhost:8000/api/dealer/8" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/dealer/10"
+    "http://localhost:8000/api/dealer/8"
 );
 
 const headers = {
@@ -14083,10 +13681,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-dealer--id-"
-               value="10"
+               value="8"
                data-component="url">
     <br>
-<p>The ID of the dealer. Example: <code>10</code></p>
+<p>The ID of the dealer. Example: <code>8</code></p>
             </div>
                     </form>
 
@@ -14103,14 +13701,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/dealer/10" \
+    "http://localhost:8000/api/dealer/18" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/dealer/10"
+    "http://localhost:8000/api/dealer/18"
 );
 
 const headers = {
@@ -14203,10 +13801,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-dealer--id-"
-               value="10"
+               value="18"
                data-component="url">
     <br>
-<p>The ID of the dealer. Example: <code>10</code></p>
+<p>The ID of the dealer. Example: <code>18</code></p>
             </div>
                     </form>
 
@@ -14223,14 +13821,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/subdealer" \
+    --get "http://localhost:8000/api/subdealer" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/subdealer"
+    "http://localhost:8000/api/subdealer"
 );
 
 const headers = {
@@ -14256,7 +13854,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 55
+x-ratelimit-remaining: 45
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -14351,14 +13949,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/subdealer" \
+    "http://localhost:8000/api/subdealer" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/subdealer"
+    "http://localhost:8000/api/subdealer"
 );
 
 const headers = {
@@ -14459,14 +14057,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/subdealer/4" \
+    --get "http://localhost:8000/api/subdealer/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/subdealer/4"
+    "http://localhost:8000/api/subdealer/6"
 );
 
 const headers = {
@@ -14492,7 +14090,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 54
+x-ratelimit-remaining: 44
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -14579,10 +14177,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-subdealer--id-"
-               value="4"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the subdealer. Example: <code>4</code></p>
+<p>The ID of the subdealer. Example: <code>6</code></p>
             </div>
                     </form>
 
@@ -14599,14 +14197,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/subdealer/10" \
+    "http://localhost:8000/api/subdealer/14" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/subdealer/10"
+    "http://localhost:8000/api/subdealer/14"
 );
 
 const headers = {
@@ -14703,10 +14301,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-subdealer--id-"
-               value="10"
+               value="14"
                data-component="url">
     <br>
-<p>The ID of the subdealer. Example: <code>10</code></p>
+<p>The ID of the subdealer. Example: <code>14</code></p>
             </div>
                     </form>
 
@@ -14723,14 +14321,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/subdealer/17" \
+    "http://localhost:8000/api/subdealer/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/subdealer/17"
+    "http://localhost:8000/api/subdealer/6"
 );
 
 const headers = {
@@ -14823,10 +14421,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-subdealer--id-"
-               value="17"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the subdealer. Example: <code>17</code></p>
+<p>The ID of the subdealer. Example: <code>6</code></p>
             </div>
                     </form>
 
@@ -14843,14 +14441,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/vehicle" \
+    --get "http://localhost:8000/api/vehicle" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle"
+    "http://localhost:8000/api/vehicle"
 );
 
 const headers = {
@@ -14876,7 +14474,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 53
+x-ratelimit-remaining: 43
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -14971,14 +14569,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/vehicle" \
+    "http://localhost:8000/api/vehicle" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle"
+    "http://localhost:8000/api/vehicle"
 );
 
 const headers = {
@@ -15079,14 +14677,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/vehicle/16" \
+    --get "http://localhost:8000/api/vehicle/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle/16"
+    "http://localhost:8000/api/vehicle/1"
 );
 
 const headers = {
@@ -15112,7 +14710,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 52
+x-ratelimit-remaining: 42
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -15199,10 +14797,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-vehicle--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the vehicle. Example: <code>16</code></p>
+<p>The ID of the vehicle. Example: <code>1</code></p>
             </div>
                     </form>
 
@@ -15219,14 +14817,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/vehicle/17" \
+    "http://localhost:8000/api/vehicle/19" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle/17"
+    "http://localhost:8000/api/vehicle/19"
 );
 
 const headers = {
@@ -15323,10 +14921,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-vehicle--id-"
-               value="17"
+               value="19"
                data-component="url">
     <br>
-<p>The ID of the vehicle. Example: <code>17</code></p>
+<p>The ID of the vehicle. Example: <code>19</code></p>
             </div>
                     </form>
 
@@ -15343,14 +14941,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/vehicle/20" \
+    "http://localhost:8000/api/vehicle/12" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle/20"
+    "http://localhost:8000/api/vehicle/12"
 );
 
 const headers = {
@@ -15443,10 +15041,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-vehicle--id-"
-               value="20"
+               value="12"
                data-component="url">
     <br>
-<p>The ID of the vehicle. Example: <code>20</code></p>
+<p>The ID of the vehicle. Example: <code>12</code></p>
             </div>
                     </form>
 
@@ -15463,14 +15061,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/vehicle_type" \
+    --get "http://localhost:8000/api/vehicle_type" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle_type"
+    "http://localhost:8000/api/vehicle_type"
 );
 
 const headers = {
@@ -15496,7 +15094,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 51
+x-ratelimit-remaining: 41
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -15591,14 +15189,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/vehicle_type" \
+    "http://localhost:8000/api/vehicle_type" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle_type"
+    "http://localhost:8000/api/vehicle_type"
 );
 
 const headers = {
@@ -15699,14 +15297,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/vehicle_type/1" \
+    --get "http://localhost:8000/api/vehicle_type/19" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle_type/1"
+    "http://localhost:8000/api/vehicle_type/19"
 );
 
 const headers = {
@@ -15732,7 +15330,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 50
+x-ratelimit-remaining: 40
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -15819,10 +15417,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-vehicle_type--id-"
-               value="1"
+               value="19"
                data-component="url">
     <br>
-<p>The ID of the vehicle type. Example: <code>1</code></p>
+<p>The ID of the vehicle type. Example: <code>19</code></p>
             </div>
                     </form>
 
@@ -15839,14 +15437,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/vehicle_type/10" \
+    "http://localhost:8000/api/vehicle_type/15" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle_type/10"
+    "http://localhost:8000/api/vehicle_type/15"
 );
 
 const headers = {
@@ -15943,10 +15541,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-vehicle_type--id-"
-               value="10"
+               value="15"
                data-component="url">
     <br>
-<p>The ID of the vehicle type. Example: <code>10</code></p>
+<p>The ID of the vehicle type. Example: <code>15</code></p>
             </div>
                     </form>
 
@@ -15963,14 +15561,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/vehicle_type/13" \
+    "http://localhost:8000/api/vehicle_type/13" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/vehicle_type/13"
+    "http://localhost:8000/api/vehicle_type/13"
 );
 
 const headers = {
@@ -16083,14 +15681,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/sim_import" \
+    "http://localhost:8000/api/sim_import" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/sim_import"
+    "http://localhost:8000/api/sim_import"
 );
 
 const headers = {
@@ -16191,14 +15789,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/device_import" \
+    "http://localhost:8000/api/device_import" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/device_import"
+    "http://localhost:8000/api/device_import"
 );
 
 const headers = {
@@ -16299,14 +15897,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/camera_import" \
+    "http://localhost:8000/api/camera_import" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/camera_import"
+    "http://localhost:8000/api/camera_import"
 );
 
 const headers = {
