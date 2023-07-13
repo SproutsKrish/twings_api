@@ -26,11 +26,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: cary82@example.org
+                  example: obode@example.net
                 password:
                   type: string
                   description: ''
-                  example: excepturi
+                  example: ea
               required:
                 - email
                 - password
@@ -86,19 +86,19 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: aspernatur
+                  example: et
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: nayeli.walsh@example.org
+                  example: qjacobi@example.com
                 password:
                   type: string
                   description: ''
-                  example: qui
+                  example: quod
                 mobile_number:
                   type: string
                   description: ''
-                  example: enim
+                  example: consequatur
               required:
                 - name
                 - email
@@ -167,19 +167,19 @@ paths:
                 country_name:
                   type: string
                   description: ''
-                  example: similique
+                  example: illo
                 country_code:
                   type: string
                   description: ''
-                  example: et
+                  example: libero
                 timezone_name:
                   type: string
                   description: ''
-                  example: modi
+                  example: sit
                 timezone_minutes:
                   type: number
                   description: ''
-                  example: 31.21744
+                  example: 6150388.8
               required:
                 - country_name
                 - country_code
@@ -231,7 +231,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the country.'
-        example: cupiditate
+        example: exercitationem
         required: true
         schema:
           type: string
@@ -311,7 +311,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the role.'
-        example: deserunt
+        example: pariatur
         required: true
         schema:
           type: string
@@ -391,7 +391,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the permission.'
-        example: consequatur
+        example: eum
         required: true
         schema:
           type: string
@@ -471,7 +471,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the role permission.'
-        example: et
+        example: repudiandae
         required: true
         schema:
           type: string
@@ -573,7 +573,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the network.'
-        example: ipsa
+        example: accusamus
         required: true
         schema:
           type: string
@@ -653,7 +653,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the supplier.'
-        example: natus
+        example: veniam
         required: true
         schema:
           type: string
@@ -733,7 +733,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device type.'
-        example: impedit
+        example: provident
         required: true
         schema:
           type: string
@@ -813,7 +813,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device category.'
-        example: impedit
+        example: aut
         required: true
         schema:
           type: string
@@ -893,7 +893,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device model.'
-        example: hic
+        example: illo
         required: true
         schema:
           type: string
@@ -973,7 +973,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera type.'
-        example: maiores
+        example: sunt
         required: true
         schema:
           type: string
@@ -1053,7 +1053,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera category.'
-        example: officiis
+        example: rem
         required: true
         schema:
           type: string
@@ -1133,7 +1133,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera model.'
-        example: perspiciatis
+        example: magni
         required: true
         schema:
           type: string
@@ -1177,11 +1177,11 @@ paths:
                 sim_imei_no:
                   type: string
                   description: ''
-                  example: incidunt
+                  example: voluptatem
                 sim_mob_no:
                   type: string
                   description: ''
-                  example: eos
+                  example: impedit
               required:
                 - sim_imei_no
                 - sim_mob_no
@@ -1231,7 +1231,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the sim.'
-        example: est
+        example: amet
         required: true
         schema:
           type: string
@@ -1250,7 +1250,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the simsaveassign.'
-        example: et
+        example: asperiores
         required: true
         schema:
           type: string
@@ -1269,7 +1269,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the simdeleteassign.'
-        example: ut
+        example: minus
         required: true
         schema:
           type: string
@@ -1313,15 +1313,15 @@ paths:
                 device_imei_no:
                   type: string
                   description: ''
-                  example: et
+                  example: explicabo
                 ccid:
                   type: string
                   description: ''
-                  example: optio
+                  example: nobis
                 uid:
                   type: string
                   description: ''
-                  example: fugit
+                  example: et
               required:
                 - device_imei_no
                 - ccid
@@ -1372,7 +1372,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device.'
-        example: aut
+        example: suscipit
         required: true
         schema:
           type: string
@@ -1391,7 +1391,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the devicesaveassign.'
-        example: quo
+        example: sed
         required: true
         schema:
           type: string
@@ -1410,7 +1410,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the devicedeleteassign.'
-        example: corporis
+        example: ea
         required: true
         schema:
           type: string
@@ -1454,11 +1454,11 @@ paths:
                 serial_no:
                   type: string
                   description: ''
-                  example: iusto
+                  example: maxime
                 id_no:
                   type: string
                   description: ''
-                  example: aut
+                  example: deserunt
               required:
                 - serial_no
                 - id_no
@@ -1508,7 +1508,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera.'
-        example: et
+        example: doloribus
         required: true
         schema:
           type: string
@@ -1527,7 +1527,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camerasaveassign.'
-        example: dolorem
+        example: culpa
         required: true
         schema:
           type: string
@@ -1546,7 +1546,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the cameradeleteassign.'
-        example: quibusdam
+        example: eius
         required: true
         schema:
           type: string
@@ -1626,7 +1626,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the camera issue.'
-        example: tenetur
+        example: impedit
         required: true
         schema:
           type: string
@@ -1706,7 +1706,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the device issue.'
-        example: voluptatem
+        example: alias
         required: true
         schema:
           type: string
@@ -1802,7 +1802,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the client.'
-        example: 11
+        example: 17
         required: true
         schema:
           type: integer
@@ -1813,26 +1813,161 @@ paths:
       description: ''
       parameters: []
       responses:
-        404:
+        200:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  success: false
-                  message: 'No dealers found.'
-                  status_code: 404
+                  success: true
+                  message:
+                    -
+                      id: 1
+                      dealer_company: 'ABC Company'
+                      dealer_name: 'John Doe'
+                      dealer_email: johndoe@example.com
+                      dealer_mobile: '1234567890'
+                      dealer_address: '123 Main Street'
+                      dealer_logo: 'https://example.com/logo.png'
+                      dealer_limit: 100
+                      dealer_color: '#FF0000'
+                      dealer_subdomain: abc
+                      dealer_city: 'New York'
+                      dealer_state: NY
+                      dealer_pincode: 12345
+                      country_id: 1
+                      country_name: India
+                      timezone_name: India
+                      timezone_minutes: 30
+                      server_key: your_server_key
+                      status: 1
+                      created_at: '2023-07-13T13:33:20.000000Z'
+                      updated_at: '2023-07-13T13:33:20.000000Z'
+                      deleted_at: null
+                      created_by: null
+                      updated_by: null
+                      deleted_by: null
+                      ip_address: 192.168.0.1
+                  status_code: 200
                 properties:
                   success:
                     type: boolean
-                    example: false
+                    example: true
                   message:
-                    type: string
-                    example: 'No dealers found.'
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        dealer_company: 'ABC Company'
+                        dealer_name: 'John Doe'
+                        dealer_email: johndoe@example.com
+                        dealer_mobile: '1234567890'
+                        dealer_address: '123 Main Street'
+                        dealer_logo: 'https://example.com/logo.png'
+                        dealer_limit: 100
+                        dealer_color: '#FF0000'
+                        dealer_subdomain: abc
+                        dealer_city: 'New York'
+                        dealer_state: NY
+                        dealer_pincode: 12345
+                        country_id: 1
+                        country_name: India
+                        timezone_name: India
+                        timezone_minutes: 30
+                        server_key: your_server_key
+                        status: 1
+                        created_at: '2023-07-13T13:33:20.000000Z'
+                        updated_at: '2023-07-13T13:33:20.000000Z'
+                        deleted_at: null
+                        created_by: null
+                        updated_by: null
+                        deleted_by: null
+                        ip_address: 192.168.0.1
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        dealer_company:
+                          type: string
+                          example: 'ABC Company'
+                        dealer_name:
+                          type: string
+                          example: 'John Doe'
+                        dealer_email:
+                          type: string
+                          example: johndoe@example.com
+                        dealer_mobile:
+                          type: string
+                          example: '1234567890'
+                        dealer_address:
+                          type: string
+                          example: '123 Main Street'
+                        dealer_logo:
+                          type: string
+                          example: 'https://example.com/logo.png'
+                        dealer_limit:
+                          type: integer
+                          example: 100
+                        dealer_color:
+                          type: string
+                          example: '#FF0000'
+                        dealer_subdomain:
+                          type: string
+                          example: abc
+                        dealer_city:
+                          type: string
+                          example: 'New York'
+                        dealer_state:
+                          type: string
+                          example: NY
+                        dealer_pincode:
+                          type: integer
+                          example: 12345
+                        country_id:
+                          type: integer
+                          example: 1
+                        country_name:
+                          type: string
+                          example: India
+                        timezone_name:
+                          type: string
+                          example: India
+                        timezone_minutes:
+                          type: integer
+                          example: 30
+                        server_key:
+                          type: string
+                          example: your_server_key
+                        status:
+                          type: integer
+                          example: 1
+                        created_at:
+                          type: string
+                          example: '2023-07-13T13:33:20.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2023-07-13T13:33:20.000000Z'
+                        deleted_at:
+                          type: string
+                          example: null
+                        created_by:
+                          type: string
+                          example: null
+                        updated_by:
+                          type: string
+                          example: null
+                        deleted_by:
+                          type: string
+                          example: null
+                        ip_address:
+                          type: string
+                          example: 192.168.0.1
                   status_code:
                     type: integer
-                    example: 404
+                    example: 200
       tags:
         - Endpoints
       security: []
@@ -1852,26 +1987,130 @@ paths:
       description: ''
       parameters: []
       responses:
-        404:
+        200:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  success: false
-                  message: 'Dealer not found.'
-                  status_code: 404
+                  success: true
+                  message:
+                    id: 1
+                    dealer_company: 'ABC Company'
+                    dealer_name: 'John Doe'
+                    dealer_email: johndoe@example.com
+                    dealer_mobile: '1234567890'
+                    dealer_address: '123 Main Street'
+                    dealer_logo: 'https://example.com/logo.png'
+                    dealer_limit: 100
+                    dealer_color: '#FF0000'
+                    dealer_subdomain: abc
+                    dealer_city: 'New York'
+                    dealer_state: NY
+                    dealer_pincode: 12345
+                    country_id: 1
+                    country_name: India
+                    timezone_name: India
+                    timezone_minutes: 30
+                    server_key: your_server_key
+                    status: 1
+                    created_at: '2023-07-13T13:33:20.000000Z'
+                    updated_at: '2023-07-13T13:33:20.000000Z'
+                    deleted_at: null
+                    created_by: null
+                    updated_by: null
+                    deleted_by: null
+                    ip_address: 192.168.0.1
+                  status_code: 200
                 properties:
                   success:
                     type: boolean
-                    example: false
+                    example: true
                   message:
-                    type: string
-                    example: 'Dealer not found.'
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      dealer_company:
+                        type: string
+                        example: 'ABC Company'
+                      dealer_name:
+                        type: string
+                        example: 'John Doe'
+                      dealer_email:
+                        type: string
+                        example: johndoe@example.com
+                      dealer_mobile:
+                        type: string
+                        example: '1234567890'
+                      dealer_address:
+                        type: string
+                        example: '123 Main Street'
+                      dealer_logo:
+                        type: string
+                        example: 'https://example.com/logo.png'
+                      dealer_limit:
+                        type: integer
+                        example: 100
+                      dealer_color:
+                        type: string
+                        example: '#FF0000'
+                      dealer_subdomain:
+                        type: string
+                        example: abc
+                      dealer_city:
+                        type: string
+                        example: 'New York'
+                      dealer_state:
+                        type: string
+                        example: NY
+                      dealer_pincode:
+                        type: integer
+                        example: 12345
+                      country_id:
+                        type: integer
+                        example: 1
+                      country_name:
+                        type: string
+                        example: India
+                      timezone_name:
+                        type: string
+                        example: India
+                      timezone_minutes:
+                        type: integer
+                        example: 30
+                      server_key:
+                        type: string
+                        example: your_server_key
+                      status:
+                        type: integer
+                        example: 1
+                      created_at:
+                        type: string
+                        example: '2023-07-13T13:33:20.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2023-07-13T13:33:20.000000Z'
+                      deleted_at:
+                        type: string
+                        example: null
+                      created_by:
+                        type: string
+                        example: null
+                      updated_by:
+                        type: string
+                        example: null
+                      deleted_by:
+                        type: string
+                        example: null
+                      ip_address:
+                        type: string
+                        example: 192.168.0.1
                   status_code:
                     type: integer
-                    example: 404
+                    example: 200
       tags:
         - Endpoints
       security: []
@@ -1898,7 +2137,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the dealer.'
-        example: 5
+        example: 1
         required: true
         schema:
           type: integer
@@ -1994,7 +2233,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the subdealer.'
-        example: 6
+        example: 10
         required: true
         schema:
           type: integer
@@ -2090,7 +2329,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the vehicle.'
-        example: 1
+        example: 16
         required: true
         schema:
           type: integer
@@ -2186,7 +2425,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the vehicle type.'
-        example: 19
+        example: 8
         required: true
         schema:
           type: integer

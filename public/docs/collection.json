@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "59105566-159c-449d-aec1-6aff5e601c5d",
+        "_postman_id": "f1801ecd-66b4-43f9-8a00-10dd1d457135",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"cary82@example.org\",\"password\":\"excepturi\"}"
+                            "raw": "{\"email\":\"obode@example.net\",\"password\":\"ea\"}"
                         },
                         "description": "",
                         "auth": {
@@ -148,7 +148,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"aspernatur\",\"email\":\"nayeli.walsh@example.org\",\"password\":\"qui\",\"mobile_number\":\"enim\"}"
+                            "raw": "{\"name\":\"et\",\"email\":\"qjacobi@example.com\",\"password\":\"quod\",\"mobile_number\":\"consequatur\"}"
                         },
                         "description": "",
                         "auth": {
@@ -275,7 +275,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"country_name\":\"similique\",\"country_code\":\"et\",\"timezone_name\":\"modi\",\"timezone_minutes\":31.21744}"
+                            "raw": "{\"country_name\":\"illo\",\"country_code\":\"libero\",\"timezone_name\":\"sit\",\"timezone_minutes\":6150388.8}"
                         },
                         "description": "",
                         "auth": {
@@ -296,7 +296,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "cupiditate",
+                                    "value": "exercitationem",
                                     "description": "The ID of the country."
                                 }
                             ]
@@ -352,7 +352,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "sequi",
+                                    "value": "cum",
                                     "description": "The ID of the country."
                                 }
                             ]
@@ -388,7 +388,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "nam",
+                                    "value": "sit",
                                     "description": "The ID of the country."
                                 }
                             ]
@@ -500,7 +500,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "deserunt",
+                                    "value": "pariatur",
                                     "description": "The ID of the role."
                                 }
                             ]
@@ -556,7 +556,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ab",
+                                    "value": "architecto",
                                     "description": "The ID of the role."
                                 }
                             ]
@@ -592,7 +592,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ipsam",
+                                    "value": "in",
                                     "description": "The ID of the role."
                                 }
                             ]
@@ -704,7 +704,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "consequatur",
+                                    "value": "eum",
                                     "description": "The ID of the permission."
                                 }
                             ]
@@ -760,7 +760,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "officiis",
+                                    "value": "eveniet",
                                     "description": "The ID of the permission."
                                 }
                             ]
@@ -796,7 +796,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quas",
+                                    "value": "nihil",
                                     "description": "The ID of the permission."
                                 }
                             ]
@@ -908,7 +908,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "repudiandae",
                                     "description": "The ID of the role permission."
                                 }
                             ]
@@ -964,7 +964,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ex",
+                                    "value": "modi",
                                     "description": "The ID of the role permission."
                                 }
                             ]
@@ -1000,7 +1000,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "officiis",
+                                    "value": "eos",
                                     "description": "The ID of the role permission."
                                 }
                             ]
@@ -1160,7 +1160,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ipsa",
+                                    "value": "accusamus",
                                     "description": "The ID of the network."
                                 }
                             ]
@@ -1216,7 +1216,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "consequuntur",
+                                    "value": "nisi",
                                     "description": "The ID of the network."
                                 }
                             ]
@@ -1252,7 +1252,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "dolore",
+                                    "value": "nesciunt",
                                     "description": "The ID of the network."
                                 }
                             ]
@@ -1364,7 +1364,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "natus",
+                                    "value": "veniam",
                                     "description": "The ID of the supplier."
                                 }
                             ]
@@ -1420,7 +1420,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "facilis",
+                                    "value": "reprehenderit",
                                     "description": "The ID of the supplier."
                                 }
                             ]
@@ -1456,7 +1456,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "eius",
+                                    "value": "voluptatem",
                                     "description": "The ID of the supplier."
                                 }
                             ]
@@ -1568,7 +1568,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "impedit",
+                                    "value": "provident",
                                     "description": "The ID of the device type."
                                 }
                             ]
@@ -1624,7 +1624,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "unde",
+                                    "value": "dolor",
                                     "description": "The ID of the device type."
                                 }
                             ]
@@ -1660,7 +1660,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "voluptatem",
+                                    "value": "eum",
                                     "description": "The ID of the device type."
                                 }
                             ]
@@ -1772,7 +1772,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "impedit",
+                                    "value": "aut",
                                     "description": "The ID of the device category."
                                 }
                             ]
@@ -1828,7 +1828,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "maiores",
+                                    "value": "neque",
                                     "description": "The ID of the device category."
                                 }
                             ]
@@ -1864,7 +1864,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "pariatur",
+                                    "value": "voluptas",
                                     "description": "The ID of the device category."
                                 }
                             ]
@@ -1976,7 +1976,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "hic",
+                                    "value": "illo",
                                     "description": "The ID of the device model."
                                 }
                             ]
@@ -2032,7 +2032,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "nobis",
+                                    "value": "et",
                                     "description": "The ID of the device model."
                                 }
                             ]
@@ -2068,7 +2068,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "maxime",
+                                    "value": "sit",
                                     "description": "The ID of the device model."
                                 }
                             ]
@@ -2180,7 +2180,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "maiores",
+                                    "value": "sunt",
                                     "description": "The ID of the camera type."
                                 }
                             ]
@@ -2236,7 +2236,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quia",
+                                    "value": "consequatur",
                                     "description": "The ID of the camera type."
                                 }
                             ]
@@ -2272,7 +2272,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ut",
+                                    "value": "nemo",
                                     "description": "The ID of the camera type."
                                 }
                             ]
@@ -2384,7 +2384,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "officiis",
+                                    "value": "rem",
                                     "description": "The ID of the camera category."
                                 }
                             ]
@@ -2440,7 +2440,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "excepturi",
                                     "description": "The ID of the camera category."
                                 }
                             ]
@@ -2476,7 +2476,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "est",
+                                    "value": "voluptates",
                                     "description": "The ID of the camera category."
                                 }
                             ]
@@ -2588,7 +2588,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "perspiciatis",
+                                    "value": "magni",
                                     "description": "The ID of the camera model."
                                 }
                             ]
@@ -2644,7 +2644,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "doloribus",
                                     "description": "The ID of the camera model."
                                 }
                             ]
@@ -2680,7 +2680,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quaerat",
+                                    "value": "harum",
                                     "description": "The ID of the camera model."
                                 }
                             ]
@@ -2774,7 +2774,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"sim_imei_no\":\"incidunt\",\"sim_mob_no\":\"eos\"}"
+                            "raw": "{\"sim_imei_no\":\"voluptatem\",\"sim_mob_no\":\"impedit\"}"
                         },
                         "description": "",
                         "auth": {
@@ -2795,7 +2795,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "est",
+                                    "value": "amet",
                                     "description": "The ID of the sim."
                                 }
                             ]
@@ -2851,7 +2851,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "explicabo",
+                                    "value": "incidunt",
                                     "description": "The ID of the sim."
                                 }
                             ]
@@ -2887,7 +2887,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "velit",
+                                    "value": "quia",
                                     "description": "The ID of the sim."
                                 }
                             ]
@@ -2923,7 +2923,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "asperiores",
                                     "description": "The ID of the simsaveassign."
                                 }
                             ]
@@ -2959,7 +2959,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "ut",
+                                    "value": "minus",
                                     "description": "The ID of the simdeleteassign."
                                 }
                             ]
@@ -3053,7 +3053,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"device_imei_no\":\"et\",\"ccid\":\"optio\",\"uid\":\"fugit\"}"
+                            "raw": "{\"device_imei_no\":\"explicabo\",\"ccid\":\"nobis\",\"uid\":\"et\"}"
                         },
                         "description": "",
                         "auth": {
@@ -3074,7 +3074,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aut",
+                                    "value": "suscipit",
                                     "description": "The ID of the device."
                                 }
                             ]
@@ -3130,7 +3130,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "veniam",
+                                    "value": "fugit",
                                     "description": "The ID of the device."
                                 }
                             ]
@@ -3166,7 +3166,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aliquam",
+                                    "value": "molestiae",
                                     "description": "The ID of the device."
                                 }
                             ]
@@ -3202,7 +3202,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quo",
+                                    "value": "sed",
                                     "description": "The ID of the devicesaveassign."
                                 }
                             ]
@@ -3238,7 +3238,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "corporis",
+                                    "value": "ea",
                                     "description": "The ID of the devicedeleteassign."
                                 }
                             ]
@@ -3332,7 +3332,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"serial_no\":\"iusto\",\"id_no\":\"aut\"}"
+                            "raw": "{\"serial_no\":\"maxime\",\"id_no\":\"deserunt\"}"
                         },
                         "description": "",
                         "auth": {
@@ -3353,7 +3353,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "doloribus",
                                     "description": "The ID of the camera."
                                 }
                             ]
@@ -3409,7 +3409,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "sunt",
+                                    "value": "aliquam",
                                     "description": "The ID of the camera."
                                 }
                             ]
@@ -3445,7 +3445,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "libero",
+                                    "value": "porro",
                                     "description": "The ID of the camera."
                                 }
                             ]
@@ -3481,7 +3481,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "dolorem",
+                                    "value": "culpa",
                                     "description": "The ID of the camerasaveassign."
                                 }
                             ]
@@ -3517,7 +3517,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quibusdam",
+                                    "value": "eius",
                                     "description": "The ID of the cameradeleteassign."
                                 }
                             ]
@@ -3629,7 +3629,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "tenetur",
+                                    "value": "impedit",
                                     "description": "The ID of the camera issue."
                                 }
                             ]
@@ -3685,7 +3685,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "magni",
+                                    "value": "doloremque",
                                     "description": "The ID of the camera issue."
                                 }
                             ]
@@ -3721,7 +3721,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "perspiciatis",
+                                    "value": "quam",
                                     "description": "The ID of the camera issue."
                                 }
                             ]
@@ -3833,7 +3833,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "voluptatem",
+                                    "value": "alias",
                                     "description": "The ID of the device issue."
                                 }
                             ]
@@ -3889,7 +3889,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "sed",
+                                    "value": "temporibus",
                                     "description": "The ID of the device issue."
                                 }
                             ]
@@ -3925,7 +3925,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "a",
+                                    "value": "dolorem",
                                     "description": "The ID of the device issue."
                                 }
                             ]
@@ -3992,7 +3992,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "49"
+                                    "value": "59"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4045,7 +4045,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "11",
+                                    "value": "17",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -4084,7 +4084,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "48"
+                                    "value": "58"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4109,7 +4109,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "10",
+                                    "value": "4",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -4145,7 +4145,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "12",
                                     "description": "The ID of the client."
                                 }
                             ]
@@ -4212,15 +4212,15 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "47"
+                                    "value": "57"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\"success\":false,\"message\":\"No dealers found.\",\"status_code\":404}",
+                            "code": 200,
+                            "body": "{\"success\":true,\"message\":[{\"id\":1,\"dealer_company\":\"ABC Company\",\"dealer_name\":\"John Doe\",\"dealer_email\":\"johndoe@example.com\",\"dealer_mobile\":\"1234567890\",\"dealer_address\":\"123 Main Street\",\"dealer_logo\":\"https:\\\/\\\/example.com\\\/logo.png\",\"dealer_limit\":100,\"dealer_color\":\"#FF0000\",\"dealer_subdomain\":\"abc\",\"dealer_city\":\"New York\",\"dealer_state\":\"NY\",\"dealer_pincode\":12345,\"country_id\":1,\"country_name\":\"India\",\"timezone_name\":\"India\",\"timezone_minutes\":30,\"server_key\":\"your_server_key\",\"status\":1,\"created_at\":\"2023-07-13T13:33:20.000000Z\",\"updated_at\":\"2023-07-13T13:33:20.000000Z\",\"deleted_at\":null,\"created_by\":null,\"updated_by\":null,\"deleted_by\":null,\"ip_address\":\"192.168.0.1\"}],\"status_code\":200}",
                             "name": ""
                         }
                     ]
@@ -4265,7 +4265,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "5",
+                                    "value": "1",
                                     "description": "The ID of the dealer."
                                 }
                             ]
@@ -4304,15 +4304,15 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "46"
+                                    "value": "56"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\"success\":false,\"message\":\"Dealer not found.\",\"status_code\":404}",
+                            "code": 200,
+                            "body": "{\"success\":true,\"message\":{\"id\":1,\"dealer_company\":\"ABC Company\",\"dealer_name\":\"John Doe\",\"dealer_email\":\"johndoe@example.com\",\"dealer_mobile\":\"1234567890\",\"dealer_address\":\"123 Main Street\",\"dealer_logo\":\"https:\\\/\\\/example.com\\\/logo.png\",\"dealer_limit\":100,\"dealer_color\":\"#FF0000\",\"dealer_subdomain\":\"abc\",\"dealer_city\":\"New York\",\"dealer_state\":\"NY\",\"dealer_pincode\":12345,\"country_id\":1,\"country_name\":\"India\",\"timezone_name\":\"India\",\"timezone_minutes\":30,\"server_key\":\"your_server_key\",\"status\":1,\"created_at\":\"2023-07-13T13:33:20.000000Z\",\"updated_at\":\"2023-07-13T13:33:20.000000Z\",\"deleted_at\":null,\"created_by\":null,\"updated_by\":null,\"deleted_by\":null,\"ip_address\":\"192.168.0.1\"},\"status_code\":200}",
                             "name": ""
                         }
                     ]
@@ -4329,7 +4329,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "8",
+                                    "value": "1",
                                     "description": "The ID of the dealer."
                                 }
                             ]
@@ -4365,7 +4365,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "18",
+                                    "value": "1",
                                     "description": "The ID of the dealer."
                                 }
                             ]
@@ -4432,7 +4432,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "45"
+                                    "value": "55"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4485,7 +4485,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "10",
                                     "description": "The ID of the subdealer."
                                 }
                             ]
@@ -4524,7 +4524,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "44"
+                                    "value": "54"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4549,7 +4549,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "14",
+                                    "value": "7",
                                     "description": "The ID of the subdealer."
                                 }
                             ]
@@ -4585,7 +4585,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "5",
                                     "description": "The ID of the subdealer."
                                 }
                             ]
@@ -4652,7 +4652,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "43"
+                                    "value": "53"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4705,7 +4705,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "16",
                                     "description": "The ID of the vehicle."
                                 }
                             ]
@@ -4744,7 +4744,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "42"
+                                    "value": "52"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4769,7 +4769,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "6",
                                     "description": "The ID of the vehicle."
                                 }
                             ]
@@ -4805,7 +4805,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "12",
+                                    "value": "10",
                                     "description": "The ID of the vehicle."
                                 }
                             ]
@@ -4872,7 +4872,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "41"
+                                    "value": "51"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4925,7 +4925,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "19",
+                                    "value": "8",
                                     "description": "The ID of the vehicle type."
                                 }
                             ]
@@ -4964,7 +4964,7 @@
                                 },
                                 {
                                     "key": "x-ratelimit-remaining",
-                                    "value": "40"
+                                    "value": "50"
                                 },
                                 {
                                     "key": "access-control-allow-origin",
@@ -4989,7 +4989,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "15",
+                                    "value": "6",
                                     "description": "The ID of the vehicle type."
                                 }
                             ]
@@ -5025,7 +5025,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "13",
+                                    "value": "5",
                                     "description": "The ID of the vehicle type."
                                 }
                             ]
