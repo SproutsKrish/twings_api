@@ -48,7 +48,8 @@ class LoginController extends Controller
                 // Authentication successful
                 // Generate an API token for the user if necessary
                 $token = $user->createToken('API Token')->plainTextToken;
-                return response()->json(['token' => $token], 200);
+                // return response()->json(['token' => $token], 200);
+                return Helper::sendSuccess($token);
             } else {
                 Helper::sendError('Email Or Password is wrong !!!');
             }
