@@ -36,13 +36,9 @@ use App\Http\Controllers\user\{
     SubdealerController
 };
 
-use App\Http\Controllers\ImportController;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Resources\UserResource;
-
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,22 +51,22 @@ use Illuminate\Support\Facades\Gate;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return new UserResource($request->user());
-// });
-
 Route::post('login', [LoginController::class, 'login']);
-// Route::post('logout', [LoginController::class, 'logout']);
-
-Route::post('/logout', 'App\Http\Controllers\Api\LoginController@logout')->name('logout');
-Route::get('/user', 'App\Http\Controllers\Api\UserController@getUserInfo')->middleware('auth:api');
-
-
-Route::post('register', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('register', [UserController::class, 'register']);
+    Route::get('user', [UserController::class, 'getUserInfo'])->middleware('auth:api');
+
+    Route::middleware(['role:User'])->group(function () {
+        Route::get('user/dashboard', [UserDashboardController::class, 'index']);
+    });
+
     Route::middleware(['role:Admin'])->group(function () {
+
         Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
+
         //Country
         Route::resource('country', CountryController::class);
         //Role
@@ -79,13 +75,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::resource('permission', PermissionController::class);
         //RolePermission
         Route::resource('role_permission', RolePermissionController::class);
-    });
-
-    Route::middleware(['role:User'])->group(function () {
-        Route::get('user/dashboard', [UserDashboardController::class, 'index']);
-    });
-
-    Route::middleware(['role:Admin'])->group(function () {
 
         //Network Provider
         Route::resource('network', NetworkProviderController::class);
@@ -133,6 +122,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::resource('device_issue', DeviceIssueController::class);
     });
 });
+
+
+
+
+
 
 //Client
 Route::resource('client', ClientController::class);
