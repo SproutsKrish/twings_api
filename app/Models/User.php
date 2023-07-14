@@ -22,15 +22,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'mobile_number',
-        'alternate_mobile_number',
-        'address',
-        'licences',
+        'secondary_password',
+
+        'client_id',
+        'dealer_id',
+        'subdealer_id',
+        'role_id',
+
         'country_id',
         'country_name',
         'timezone_name',
+        'timezone_offset',
         'timezone_minutes',
+
+        'status',
+        'deleted_at',
         'created_by',
+        'updated_by',
+        'deleted_by',
         'ip_address',
     ];
 

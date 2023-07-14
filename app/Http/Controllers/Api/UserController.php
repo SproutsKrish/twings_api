@@ -24,14 +24,13 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'mobile_number' => $request->mobile_number,
-            'alternate_mobile_number' => $request->alternate_mobile_number,
+            'secondary_password' => bcrypt('twingszxc'),
+            'role_id' => $request->role_id,
+            'country_id' => $request->country_id,
             'country_name' => $request->country_name,
             'timezone_name' => $request->timezone_name,
+            'timezone_offset' => $request->timezone_offset,
             'timezone_minutes' => $request->timezone_minutes,
-            'address' => $request->address,
-            'licences' => $request->licences,
-            'country_id' => $request->country_id,
             'created_by' => $request->created_by,
             'ip_address' => request()->ip()
         ]);
@@ -55,19 +54,8 @@ class UserController extends Controller
         ]);
     }
 
-
-    // public function getUser(Request $request)
-    // {
-    //     $user = Auth::guard('api')->user();
-
-    //     // Perform additional logic if needed
-
-    //     return response()->json($user);
-    // }
-
     public function getUserInfo(Request $request)
     {
-
         try {
             $user = auth()->user();
             if (!$user) {
