@@ -40,12 +40,7 @@ class UserResource extends JsonResource
     public function loginRequest()
     {
         return [
-            'user_id' => $this->id,
-            'role_id' => $this->roles->pluck('id')->first(),
             'token' => $this->createToken("Token")->plainTextToken,
-            'roles' => $this->roles->pluck('name'),
-            'roles.permissions' => $this->getPermissionsViaRoles()->pluck(['name']) ?? [],
-            'permissions' => $this->permissions->pluck('name') ?? [],
         ];
     }
 
