@@ -13,24 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dealers', function (Blueprint $table) {
+        Schema::create('vehicle_owners', function (Blueprint $table) {
             $table->id();
-            $table->string('dealer_company')->nullable();
-            $table->string('dealer_name')->nullable();
-            $table->string('dealer_email')->nullable();
-            $table->bigInteger('dealer_mobile')->nullable();
-            $table->longText('dealer_address')->nullable();
-            $table->string('dealer_logo')->nullable();
-            $table->integer('dealer_limit')->nullable();
-            $table->string('dealer_city')->nullable();
-            $table->string('dealer_state')->nullable();
-            $table->integer('dealer_pincode')->nullable();
+            $table->string('vehicle_owner_company')->nullable();
+            $table->string('vehicle_owner_name')->nullable();
+            $table->string('vehicle_owner_email')->nullable();
+            $table->bigInteger('vehicle_owner_mobile')->nullable();
+            $table->longText('vehicle_owner_address')->nullable();
+            $table->string('vehicle_owner_logo')->nullable();
+            $table->integer('vehicle_owner_limit')->nullable();
+            $table->string('vehicle_owner_city')->nullable();
+            $table->string('vehicle_owner_state')->nullable();
+            $table->integer('vehicle_owner_pincode')->nullable();
             $table->bigInteger('country_id')->nullable();
             $table->string('country_name')->nullable();
             $table->string('timezone_name')->nullable();
             $table->string('timezone_offset')->nullable();
             $table->integer('timezone_minutes')->nullable();
-            $table->longText('server_key')->nullable();
+            $table->bigInteger('client_id')->nullable();
+            $table->bigInteger('dealer_id')->nullable();
+            $table->bigInteger('subdealer_id')->nullable();
             $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();
             $table->dateTime('deleted_at')->nullable();
@@ -48,6 +50,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dealers');
+        Schema::dropIfExists('vehicle_owners');
     }
 };

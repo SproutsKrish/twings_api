@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\{
     LoginController,
-    UserController,
     AdminDashboardController,
     UserDashboardController,
     CountryController,
@@ -28,17 +27,18 @@ use App\Http\Controllers\Stock\{
     VehicleController,
     VehicleTypeController
 };
-
-
 use App\Http\Controllers\user\{
+    UserController,
     ClientController,
     DealerController,
-    SubdealerController
+    SubdealerController,
+    VehicleOwnerController
 };
 
-
+use App\Http\Controllers\Vehicle\VehicleDocumentController;
+use App\Http\Controllers\Vehicle\VehicleServiceController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Response;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +55,11 @@ Route::post('login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::post('user/store', [UserController::class, 'store']);
+    Route::get('user/show', [UserController::class, 'show']);
+    Route::put('user/update', [UserController::class, 'update']);
+    Route::get('user', [UserController::class, 'index']);
     Route::post('logout', [LoginController::class, 'logout']);
-    Route::post('register', [UserController::class, 'register']);
-    Route::get('user', [UserController::class, 'getUserInfo'])->middleware('auth:api');
 
     Route::middleware(['role:User'])->group(function () {
         Route::get('user/dashboard', [UserDashboardController::class, 'index']);
@@ -137,11 +139,20 @@ Route::resource('dealer', DealerController::class);
 //SubDealer
 Route::resource('subdealer', SubdealerController::class);
 
+//VehicleOwner
+Route::resource('vehicle_owner', VehicleOwnerController::class);
+
 //Vehicle
 Route::resource('vehicle', VehicleController::class);
 
 //Vehicle Type
 Route::resource('vehicle_type', VehicleTypeController::class);
+
+//
+Route::resource('vehicle_document', VehicleDocumentController::class);
+Route::resource('vehicle_service', VehicleServiceController::class);
+
+
 
 
 Route::post('/sim_import', 'App\Http\Controllers\ImportController@sim_import')->name('sim_import');

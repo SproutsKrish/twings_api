@@ -50,7 +50,6 @@ class SubdealerController extends Controller
             $subdealer = Subdealer::findOrFail($id);
 
             $subdealer->fill($request->only([
-                'dealer_id',
                 'subdealer_company',
                 'subdealer_name',
                 'subdealer_email',
@@ -58,15 +57,16 @@ class SubdealerController extends Controller
                 'subdealer_address',
                 'subdealer_logo',
                 'subdealer_limit',
-                'subdealer_color',
-                'subdealer_subdomain',
                 'subdealer_city',
                 'subdealer_state',
                 'subdealer_pincode',
                 'country_id',
                 'country_name',
                 'timezone_name',
+                'timezone_offset',
                 'timezone_minutes',
+                'server_key',
+                'dealer_id',
                 'status',
                 'updated_by',
                 'ip_address'

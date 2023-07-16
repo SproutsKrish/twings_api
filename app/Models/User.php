@@ -23,20 +23,16 @@ class User extends Authenticatable
         'email',
         'password',
         'secondary_password',
-
-        'client_id',
-        'dealer_id',
-        'subdealer_id',
         'role_id',
-
         'country_id',
         'country_name',
         'timezone_name',
         'timezone_offset',
         'timezone_minutes',
-
+        'client_id',
+        'dealer_id',
+        'subdealer_id',
         'status',
-        'deleted_at',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -50,6 +46,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'secondary_password',
         'remember_token',
     ];
 

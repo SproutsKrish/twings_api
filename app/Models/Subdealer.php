@@ -10,7 +10,6 @@ class Subdealer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dealer_id',
         'subdealer_company',
         'subdealer_name',
         'subdealer_email',
@@ -18,16 +17,18 @@ class Subdealer extends Model
         'subdealer_address',
         'subdealer_logo',
         'subdealer_limit',
-        'subdealer_color',
-        'subdealer_subdomain',
         'subdealer_city',
         'subdealer_state',
         'subdealer_pincode',
         'country_id',
         'country_name',
         'timezone_name',
+        'timezone_offset',
         'timezone_minutes',
+        'server_key',
+        'dealer_id',
         'status',
+        'deleted_at',
         'created_by',
         'updated_by',
         'deleted_by',
