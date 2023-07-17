@@ -9,6 +9,11 @@ use App\Http\Controllers\Api\{
     PermissionController,
     RolePermissionController
 };
+use App\Http\Controllers\Configuration\AcConfigurationController;
+use App\Http\Controllers\Configuration\AccConfigurationController;
+use App\Http\Controllers\Configuration\DeviceConfigurationController;
+use App\Http\Controllers\Configuration\FuelConfigurationController;
+use App\Http\Controllers\Configuration\RpmConfigurationController;
 
 use App\Http\Controllers\Stock\{
     SimController,
@@ -27,6 +32,7 @@ use App\Http\Controllers\Stock\{
     VehicleController,
     VehicleTypeController
 };
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\user\{
     UserController,
     ClientController,
@@ -37,6 +43,8 @@ use App\Http\Controllers\user\{
 
 use App\Http\Controllers\Vehicle\VehicleDocumentController;
 use App\Http\Controllers\Vehicle\VehicleServiceController;
+use App\Models\FuelConfiguration;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -152,7 +160,13 @@ Route::resource('vehicle_type', VehicleTypeController::class);
 Route::resource('vehicle_document', VehicleDocumentController::class);
 Route::resource('vehicle_service', VehicleServiceController::class);
 
+Route::resource('ac_config', AcConfigurationController::class);
+Route::resource('acc_config', AccConfigurationController::class);
+Route::resource('device_config', DeviceConfigurationController::class);
+Route::resource('fuel_config', FuelConfigurationController::class);
+Route::resource('rpm_config', RpmConfigurationController::class);
 
+Route::post('get-userdata', [StudentController::class, 'studentdata']);
 
 
 Route::post('/sim_import', 'App\Http\Controllers\ImportController@sim_import')->name('sim_import');
