@@ -14,7 +14,9 @@ use App\Http\Controllers\Configuration\AccConfigurationController;
 use App\Http\Controllers\Configuration\DeviceConfigurationController;
 use App\Http\Controllers\Configuration\FuelConfigurationController;
 use App\Http\Controllers\Configuration\RpmConfigurationController;
-
+use App\Http\Controllers\Settings\LicenseController;
+use App\Http\Controllers\Settings\PointController;
+use App\Http\Controllers\Settings\PointTypeController;
 use App\Http\Controllers\Stock\{
     SimController,
     DeviceController,
@@ -165,6 +167,10 @@ Route::resource('acc_config', AccConfigurationController::class);
 Route::resource('device_config', DeviceConfigurationController::class);
 Route::resource('fuel_config', FuelConfigurationController::class);
 Route::resource('rpm_config', RpmConfigurationController::class);
+
+Route::resource('point_type', PointTypeController::class);
+Route::resource('point', PointController::class);
+Route::resource('license', LicenseController::class);
 
 Route::post('get-userdata', [StudentController::class, 'studentdata']);
 
