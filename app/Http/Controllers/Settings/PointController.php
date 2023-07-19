@@ -25,9 +25,68 @@ class PointController extends Controller
 
     public function store(Request $request)
     {
-        $point = new Point($request->all());
-        if ($point->save()) {
-            return Helper::sendSuccess("Points inserted Successfully !");
+        $admin_id = $request->input('created_by');
+        $dealer_id = $request->input('dealer_id');
+        $subdealer_id = $request->input('subdealer_id');
+
+        //admin new point
+        if ($admin_id == '1' && $dealer_id == null && $subdealer_id == null) {
+
+            $result = Point::where('subdealer_id', null)
+                ->where('dealer_id', null)
+                ->where('created_by', $admin_id)
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($result)) {
+                $result->total_point = $result->total_point + $request->input('total_point');
+                $result->balance_point = $result->balance_point + $request->input('balance_point');
+                $result->save();
+                return Helper::sendSuccess("Recharge Point Added Successfully");
+            } else {
+                $point = new Point($request->all());
+                $point->save();
+                return Helper::sendSuccess("New Point Added Successfully");
+            }
+        }
+        //admin to dealer
+        else  if ($admin_id == '1' && $dealer_id != null && $subdealer_id == null) {
+
+            $result = Point::where('balance_point', '>=', $request->input('total_point'))
+                ->where('dealer_id', null)
+                ->where('subdealer_id', null)
+                ->where('created_by', $admin_id)
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($result)) {
+                $result->balance_point = $result->balance_point - $request->input('total_point');
+                $result->save();
+                $point = new Point($request->all());
+                $point->save();
+                return Helper::sendSuccess("Recharge Point Added Successfully");
+            } else {
+                return Helper::sendSuccess("Requested Point Not Available");
+            }
+        }
+        //dealer to sub-dealer
+        else  if ($dealer_id != null && $subdealer_id != null) {
+
+            $result = Point::where('balance_point', '>=', $request->input('total_point'))
+                ->where('subdealer_id', null)
+                ->where('dealer_id', $dealer_id)
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($result)) {
+                $result->balance_point = $result->balance_point - $request->input('total_point');
+                $result->save();
+                $point = new Point($request->all());
+                $point->save();
+                return Helper::sendSuccess("Recharge Point Added Successfully");
+            } else {
+                return Helper::sendSuccess("Requested Point Not Available");
+            }
         } else {
             return Helper::sendError('Failed to update points.', [], 500);
         }

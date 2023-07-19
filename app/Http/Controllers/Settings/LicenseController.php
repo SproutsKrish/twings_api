@@ -9,6 +9,7 @@ use App\Http\Helpers\Helper;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\License;
+use App\Models\Point;
 
 class LicenseController extends Controller
 {
@@ -25,9 +26,66 @@ class LicenseController extends Controller
 
     public function store(Request $request)
     {
-        $license = new License($request->all());
-        if ($license->save()) {
-            return Helper::sendSuccess("License inserted Successfully !");
+        $client_id = $request->input('client_id');
+        $dealer_id = $request->input('dealer_id');
+        $subdealer_id = $request->input('subdealer_id');
+
+        //admin license to client
+        if ($client_id != null && $dealer_id == null && $subdealer_id == null) {
+
+            $result = Point::where('balance_point', '>=', 1)
+                ->where('dealer_id', null)
+                ->where('subdealer_id', null)
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($result)) {
+                $result->balance_point = $result->balance_point - 1;
+                $result->save();
+                $point = new License($request->all());
+                $point->save();
+                return Helper::sendSuccess("License Created Successfully");
+            } else {
+                return Helper::sendSuccess("License Created Failed");
+            }
+        }
+        //dealer license to client
+        else if ($client_id != null && $dealer_id != null && $subdealer_id == null) {
+
+            $result = Point::where('balance_point', '>=', 1)
+                ->where('dealer_id', $dealer_id)
+                ->where('subdealer_id', null)
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($result)) {
+                $result->balance_point = $result->balance_point - 1;
+                $result->save();
+                $point = new License($request->all());
+                $point->save();
+                return Helper::sendSuccess("License Created Successfully");
+            } else {
+                return Helper::sendSuccess("License Created Failed");
+            }
+        }
+        //subdealer license to client
+        else if ($client_id != null && $dealer_id != null && $subdealer_id != null) {
+
+            $result = Point::where('balance_point', '>=', 1)
+                ->where('dealer_id', $dealer_id)
+                ->where('subdealer_id', $subdealer_id)
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($result)) {
+                $result->balance_point = $result->balance_point - 1;
+                $result->save();
+                $point = new License($request->all());
+                $point->save();
+                return Helper::sendSuccess("License Created Successfully");
+            } else {
+                return Helper::sendSuccess("License Created Failed");
+            }
         } else {
             return Helper::sendError('Failed to insert license.', [], 500);
         }
