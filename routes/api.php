@@ -45,8 +45,6 @@ use App\Http\Controllers\user\{
 
 use App\Http\Controllers\Vehicle\VehicleDocumentController;
 use App\Http\Controllers\Vehicle\VehicleServiceController;
-use App\Models\FuelConfiguration;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,11 +63,15 @@ Route::post('login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::post('logout', [LoginController::class, 'logout']);
+
+    Route::get('user', [UserController::class, 'index']);
     Route::post('user/store', [UserController::class, 'store']);
     Route::get('user/show', [UserController::class, 'show']);
     Route::put('user/update', [UserController::class, 'update']);
-    Route::get('user', [UserController::class, 'index']);
-    Route::post('logout', [LoginController::class, 'logout']);
+    Route::get('user/showdet', [UserController::class, 'showdet']);
+    Route::get('user/delete', [UserController::class, 'delete']);
+
 
     Route::middleware(['role:User'])->group(function () {
         Route::get('user/dashboard', [UserDashboardController::class, 'index']);

@@ -46,11 +46,10 @@ class UserController extends Controller
         ]);
 
         //assign role
-        $user_role = Role::where('name', 'user')->first();
+        $user_role = Role::where('id', $request->role_id,)->first();
         if ($user_role) {
             $user->assignRole($user_role);
         }
-
         return Helper::sendSuccess("Inserted Successfully");
     }
 
@@ -126,5 +125,27 @@ class UserController extends Controller
         } catch (ModelNotFoundException $exception) {
             return Helper::sendError('User not found.', [], 404);
         }
+    }
+
+    public function showdet(Request $request)
+    {
+        $user = $request->user();
+
+        // Load the permissions relationship with the 'name' attribute
+        $user->load('permissions:name');
+
+        // Modify the collection to exclude the pivot data
+        $user->permissions->map(function ($permission) {
+            unset($permission->pivot);
+            return $permission;
+        });
+
+        // Return user data with permissions names
+        return response()->json($user);
+    }
+
+    public function delete()
+    {
+        return "OK";
     }
 }
