@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -18,34 +18,43 @@ class UserSeeder extends Seeder
     public function run()
     {
         //Creating Permissions
-        $user_list = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.list']);
-        $user_view = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.view']);
-        $user_create = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.create']);
-        $user_update = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.update']);
-        $user_delete = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users.delete']);
+        $user_index = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users-index']);
+        $user_store = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users-store']);
+        $user_show = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users-show']);
+        $user_update = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users-update']);
+        $user_showdet = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users-showdet']);
+        $user_delete = Permission::create(['module_id' => '1', 'page_id' => '1', 'name' => 'users-delete']);
+
+
 
         //Creating Role
         $super_admin_role = Role::create(['name' => 'Super Admin']);
         $admin_role = Role::create(['name' => 'Admin']);
+        $distributor_role = Role::create(['name' => 'Distributor']);
+        $dealer = Role::create(['name' => 'Dealer']);
+        $subdealer = Role::create(['name' => 'SubDealer']);
+        $client = Role::create(['name' => 'Client']);
+        $vehicle_owner = Role::create(['name' => 'Vehicle Owner']);
         $user_role = Role::create(['name' => 'User']);
+
 
         //Give PermissionToRole
         $super_admin_role->givePermissionTo([
-            $user_list,
-            $user_view,
-            $user_create,
+            $user_index,
+            $user_store,
+            $user_show,
             $user_update,
-            $user_delete
+            $user_showdet
         ]);
 
         $admin_role->givePermissionTo([
-            $user_list,
-            $user_view,
-            $user_create
+            $user_index,
+            $user_store,
+            $user_show
         ]);
 
         $user_role->givePermissionTo([
-            $user_list
+            $user_index
         ]);
 
         //Admin User
@@ -61,11 +70,11 @@ class UserSeeder extends Seeder
 
         //Give PermissionToAdminUser Based On Role
         $superadmin->givePermissionTo([
-            $user_list,
-            $user_view,
-            $user_create,
+            $user_index,
+            $user_store,
+            $user_show,
             $user_update,
-            $user_delete
+            $user_showdet,
         ]);
 
         //Admin As Admin
@@ -74,15 +83,14 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
             'secondary_password' => bcrypt('twingszxc')
-
         ]);
 
         $admin->assignRole($admin_role);
 
         $admin->givePermissionTo([
-            $user_list,
-            $user_view,
-            $user_create
+            $user_index,
+            $user_store,
+            $user_show
         ]);
 
         //User As User
@@ -96,7 +104,7 @@ class UserSeeder extends Seeder
         $user->assignRole($user_role);
 
         $user->givePermissionTo([
-            $user_list
+            $user_index
         ]);
     }
 }

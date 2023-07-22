@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\{
     LoginController,
-    UserController,
     AdminDashboardController,
     UserDashboardController,
     CountryController,
@@ -10,7 +9,14 @@ use App\Http\Controllers\Api\{
     PermissionController,
     RolePermissionController
 };
-
+use App\Http\Controllers\Configuration\AcConfigurationController;
+use App\Http\Controllers\Configuration\AccConfigurationController;
+use App\Http\Controllers\Configuration\DeviceConfigurationController;
+use App\Http\Controllers\Configuration\FuelConfigurationController;
+use App\Http\Controllers\Configuration\RpmConfigurationController;
+use App\Http\Controllers\Settings\LicenseController;
+use App\Http\Controllers\Settings\PointController;
+use App\Http\Controllers\Settings\PointTypeController;
 use App\Http\Controllers\Stock\{
     SimController,
     DeviceController,
@@ -28,21 +34,19 @@ use App\Http\Controllers\Stock\{
     VehicleController,
     VehicleTypeController
 };
-
-
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\user\{
+    UserController,
     ClientController,
     DealerController,
-    SubdealerController
+    SubdealerController,
+    VehicleOwnerController
 };
 
-use App\Http\Controllers\ImportController;
-
-use Illuminate\Http\Request;
+use App\Http\Controllers\Vehicle\VehicleDocumentController;
+use App\Http\Controllers\Vehicle\VehicleServiceController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Resources\UserResource;
 
-use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,22 +59,28 @@ use Illuminate\Support\Facades\Gate;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return new UserResource($request->user());
-// });
-
 Route::post('login', [LoginController::class, 'login']);
-// Route::post('logout', [LoginController::class, 'logout']);
-
-Route::post('/logout', 'App\Http\Controllers\Api\LoginController@logout')->name('logout');
-Route::get('/user', 'App\Http\Controllers\Api\UserController@getUserInfo')->middleware('auth:api');
-
-
-Route::post('register', [UserController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('logout', [LoginController::class, 'logout']);
+
+    Route::get('user', [UserController::class, 'index']);
+    Route::post('user/store', [UserController::class, 'store']);
+    Route::get('user/show', [UserController::class, 'show']);
+    Route::put('user/update', [UserController::class, 'update']);
+    Route::get('user/showdet', [UserController::class, 'showdet']);
+    Route::get('user/delete', [UserController::class, 'delete']);
+
+
+    Route::middleware(['role:User'])->group(function () {
+        Route::get('user/dashboard', [UserDashboardController::class, 'index']);
+    });
+
     Route::middleware(['role:Admin'])->group(function () {
+
         Route::get('admin/dashboard', [AdminDashboardController::class, 'index']);
+
         //Country
         Route::resource('country', CountryController::class);
         //Role
@@ -79,13 +89,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::resource('permission', PermissionController::class);
         //RolePermission
         Route::resource('role_permission', RolePermissionController::class);
-    });
-
-    Route::middleware(['role:User'])->group(function () {
-        Route::get('user/dashboard', [UserDashboardController::class, 'index']);
-    });
-
-    Route::middleware(['role:Admin'])->group(function () {
 
         //Network Provider
         Route::resource('network', NetworkProviderController::class);
@@ -134,6 +137,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
+
+
+
+
+
 //Client
 Route::resource('client', ClientController::class);
 
@@ -143,11 +151,30 @@ Route::resource('dealer', DealerController::class);
 //SubDealer
 Route::resource('subdealer', SubdealerController::class);
 
+//VehicleOwner
+Route::resource('vehicle_owner', VehicleOwnerController::class);
+
 //Vehicle
 Route::resource('vehicle', VehicleController::class);
 
 //Vehicle Type
 Route::resource('vehicle_type', VehicleTypeController::class);
+
+//
+Route::resource('vehicle_document', VehicleDocumentController::class);
+Route::resource('vehicle_service', VehicleServiceController::class);
+
+Route::resource('ac_config', AcConfigurationController::class);
+Route::resource('acc_config', AccConfigurationController::class);
+Route::resource('device_config', DeviceConfigurationController::class);
+Route::resource('fuel_config', FuelConfigurationController::class);
+Route::resource('rpm_config', RpmConfigurationController::class);
+
+Route::resource('point_type', PointTypeController::class);
+Route::resource('point', PointController::class);
+Route::resource('license', LicenseController::class);
+
+Route::post('get-userdata', [StudentController::class, 'studentdata']);
 
 
 Route::post('/sim_import', 'App\Http\Controllers\ImportController@sim_import')->name('sim_import');
