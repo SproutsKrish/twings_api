@@ -52,7 +52,8 @@ class UserSeeder extends Seeder
         $superadmin = User::create([
             'name' => 'Super Admin',
             'email' => 'superadmin@admin.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'secondary_password' => bcrypt('twingszxc')
         ]);
 
         //Super Admin as Super Admin
@@ -71,7 +72,9 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'secondary_password' => bcrypt('twingszxc')
+
         ]);
 
         $admin->assignRole($admin_role);
@@ -86,7 +89,8 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'User',
             'email' => 'user@user.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'secondary_password' => bcrypt('twingszxc')
         ]);
 
         $user->assignRole($user_role);
